@@ -1,4 +1,11 @@
-import { BuildingIcon, HouseIcon, ParkingCircleIcon } from "lucide-react";
+import {
+  BuildingIcon,
+  HandshakeIcon,
+  HouseIcon,
+  ParkingCircleIcon,
+  RadarIcon,
+  UmbrellaIcon,
+} from "lucide-react";
 
 import {
   Breadcrumb,
@@ -27,6 +34,7 @@ export default async function Page({ params }: Readonly<Props>) {
   const getParkingSpace = () => {
     return {
       identifier: "Vaga 13A",
+      guidance: "Terceira vaga coberta a direita",
       available: true,
       building: {
         name: "Condomínio Lago da Constança",
@@ -35,6 +43,8 @@ export default async function Page({ params }: Readonly<Props>) {
         name: "Luis Guerreiro",
         apartment: "501",
       },
+      isRentable: true,
+      isCovered: true,
     };
   };
 
@@ -56,17 +66,54 @@ export default async function Page({ params }: Readonly<Props>) {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="p-6 bg-card shadow rounded text-sm space-y-6">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 text-lg">
+        <div className="flex justify-between items-center text-xl">
+          <div className="flex items-center gap-2">
             <ParkingCircleIcon className="w-[1em] h-[1em]" />
             <h2 className="font-medium">{_parkingSpace.identifier}</h2>
           </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <BuildingIcon className="w-[1em] h-[1em]" />
-            <span className="block">{_parkingSpace.building.name}</span>
+          <Badge>
+            {_parkingSpace.available ? "Disponível" : "Indisponível"}
+          </Badge>
+        </div>
+        <hr />
+        <div className="text-muted-foreground space-y-2">
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <BuildingIcon className="w-[1em] h-[1em]" />
+              <span className="block">Local</span>
+            </div>
+            <div>
+              <strong>{_parkingSpace.building.name}</strong>
+            </div>
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <RadarIcon className="w-[1em] h-[1em]" />
+              <span className="block">Orientação</span>
+            </div>
+            <div>
+              <strong>{_parkingSpace.guidance}</strong>
+            </div>
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <UmbrellaIcon className="w-[1em] h-[1em]" />
+              <span className="block">Coberta?</span>
+            </div>
+            <div>
+              <strong>{_parkingSpace.isCovered ? "Sim" : "Não"}</strong>
+            </div>
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <HandshakeIcon className="w-[1em] h-[1em]" />
+              <span className="block">Aceita alugar?</span>
+            </div>
+            <div>
+              <strong>{_parkingSpace.isRentable ? "Sim" : "Não"}</strong>
+            </div>
           </div>
         </div>
-        <Badge>{_parkingSpace.available ? "Disponível" : "Indisponível"}</Badge>
         <hr />
         <div className="flex items-center gap-2">
           <Avatar>
@@ -74,7 +121,7 @@ export default async function Page({ params }: Readonly<Props>) {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-0.5 text-xs">
-            <span>{_parkingSpace.owner.name}</span>
+            <strong>{_parkingSpace.owner.name}</strong>
             <div className="flex items-center gap-1">
               <HouseIcon className="text-primary w-[1em] h-[1em]" />
               <span>{_parkingSpace.owner.apartment}</span>

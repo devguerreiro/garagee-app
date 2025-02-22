@@ -18,7 +18,9 @@ export default function Garage() {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-0.5 text-xs">
-            <span>Luis Guerreiro</span>
+            <strong className="max-w-40 overflow-hidden text-ellipsis text-nowrap">
+              Luis Guerreiro
+            </strong>
             <div className="flex items-center gap-1">
               <HouseIcon className="text-primary w-[1em] h-[1em]" />
               <span>501</span>
@@ -34,7 +36,9 @@ export default function Garage() {
       <div className="text-sm flex justify-between items-center">
         <div className="flex items-center gap-1.5">
           <BuildingIcon className="text-primary w-[1em] h-[1em]" />
-          <span>Lago da constança</span>
+          <span className="max-w-40 overflow-hidden text-ellipsis text-nowrap">
+            Condomínio Lago da constança
+          </span>
         </div>
         <Badge>Disponível</Badge>
       </div>
