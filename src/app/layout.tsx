@@ -12,8 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Garagee",
-  description:
-    "Um aplicativo para reservar garagens disponíveis em condomínios",
+  description: "Um aplicativo para reservar vagas disponíveis em condomínios",
 };
 
 export default function RootLayout({
@@ -23,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased relative`}>
         {children}
         <Footer />
       </body>

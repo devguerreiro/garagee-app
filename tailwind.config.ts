@@ -62,6 +62,11 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      screens: {
+        "3xs": "320px",
+        "2xs": "375px",
+        xs: "425px"
+      }
     },
   },
   plugins: [animate],
