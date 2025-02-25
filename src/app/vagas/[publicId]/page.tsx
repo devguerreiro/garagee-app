@@ -23,7 +23,7 @@ export default async function Page({ params }: Readonly<Props>) {
   const parkingSpace = await getParkingSpaceDetail(publicId);
 
   return (
-    <div className="container py-8 space-y-8">
+    <div className="container py-8 space-y-8 h-screen">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
