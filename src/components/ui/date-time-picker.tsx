@@ -298,9 +298,9 @@ function Calendar({
       className={cn("p-3", className)}
       classNames={{
         months: "flex flex-col justify-center",
-        month: "flex flex-col items-center space-y-4",
+        month: "flex flex-col items-center space-y-2 sm:space-y-4",
         month_caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
+        caption_label: "text-xs sm:text-sm font-medium",
         nav: "space-x-1 flex items-center ",
         button_previous: cn(
           buttonVariants({ variant: "outline" }),
@@ -315,12 +315,12 @@ function Calendar({
         month_grid: "w-full border-collapse space-y-1",
         weekdays: cn("flex", props.showWeekNumber && "justify-end"),
         weekday:
-          "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
-        week: "flex w-full mt-2",
-        day: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-primary/50 [&:has([aria-selected])]:bg-primary first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20 rounded-1",
+          "text-muted-foreground rounded-md w-8 sm:w-9 font-normal text-xs sm:text-[0.8rem]",
+        week: "flex w-full mt-1 sm:mt-2",
+        day: "h-8 sm:h-9 w-8 sm:w-9 text-center text-xs sm:text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-primary/50 [&:has([aria-selected])]:bg-primary first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20 rounded-1",
         day_button: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-l-md rounded-r-md"
+          "h-8 sm:h-9 w-8 sm:w-9 p-0 font-normal aria-selected:opacity-100 rounded-l-md rounded-r-md text-xs sm:text-sm"
         ),
         range_end: "day-range-end",
         selected:
@@ -351,7 +351,7 @@ function Calendar({
                   props.onMonthChange?.(newDate);
                 }}
               >
-                <SelectTrigger className="w-fit gap-1 border-none p-2 focus:bg-primary focus:text-white">
+                <SelectTrigger className="w-fit gap-1 border-none p-2 focus:bg-primary focus:text-white text-xs sm:text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -359,6 +359,7 @@ function Calendar({
                     <SelectItem
                       key={month.value}
                       value={month.value.toString()}
+                      className="text-xs sm:text-sm"
                     >
                       {month.label}
                     </SelectItem>
@@ -373,7 +374,7 @@ function Calendar({
                   props.onMonthChange?.(newDate);
                 }}
               >
-                <SelectTrigger className="w-fit gap-1 border-none p-2 focus:bg-primary focus:text-white">
+                <SelectTrigger className="w-fit gap-1 border-none p-2 focus:bg-primary focus:text-white text-xs sm:text-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -620,7 +621,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
     return (
       <div className="flex items-center justify-center gap-2">
         <label htmlFor="datetime-picker-hour-input" className="cursor-pointer">
-          <Clock className="mr-2 h-4 w-4" />
+          <Clock className="mr-2 h-[14px] sm:h-4 w-[14px] sm:w-4" />
         </label>
         <TimePickerInput
           picker={hourCycle === 24 ? "hours" : "12hours"}
@@ -630,6 +631,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
           ref={hourRef}
           period={period}
           onRightFocus={() => minuteRef?.current?.focus()}
+          className="h-8 sm:h-9 text-sm sm:text-base"
         />
         {(granularity === "minute" || granularity === "second") && (
           <>
@@ -641,6 +643,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               ref={minuteRef}
               onLeftFocus={() => hourRef?.current?.focus()}
               onRightFocus={() => secondRef?.current?.focus()}
+              className="h-8 sm:h-9 text-sm sm:text-base"
             />
           </>
         )}
@@ -654,6 +657,7 @@ const TimePicker = React.forwardRef<TimePickerRef, TimePickerProps>(
               ref={secondRef}
               onLeftFocus={() => minuteRef?.current?.focus()}
               onRightFocus={() => periodRef?.current?.focus()}
+              className="h-8 sm:h-9 text-sm sm:text-base"
             />
           </>
         )}

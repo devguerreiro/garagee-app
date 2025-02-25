@@ -26,7 +26,7 @@ export default function BorrowDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="!mt-10 w-full">Pedir emprestado</DialogTrigger>
-      <DialogContent className="overflow-y-scroll">
+      <DialogContent>
         <DialogHeader className="hidden">
           <DialogTitle>Solicitação da vaga</DialogTitle>
           <DialogDescription>

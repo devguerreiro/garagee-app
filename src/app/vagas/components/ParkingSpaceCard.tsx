@@ -44,7 +44,7 @@ export default function ParkingSpaceCard({ parkingSpace }: Readonly<Props>) {
       </div>
       <hr />
       <div className="text-sm flex justify-between items-center">
-        <div className="flex items-center gap-1.5 max-w-32 2xs:max-w-44 xs:max-w-56">
+        <div className="flex items-center gap-1.5 max-w-56">
           <BuildingIcon className="text-primary w-[1em] h-[1em]" />
           <span className="overflow-hidden text-ellipsis text-nowrap">
             {parkingSpace.building.name}

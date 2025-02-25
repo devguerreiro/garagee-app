@@ -49,6 +49,7 @@ export default function BorrowForm({ onCancel }: Readonly<Props>) {
                 <FormLabel>A partir de</FormLabel>
                 <FormControl>
                   <DateTimePicker
+                    yearRange={0}
                     hourCycle={24}
                     value={field.value}
                     onChange={field.onChange}
@@ -72,6 +73,7 @@ export default function BorrowForm({ onCancel }: Readonly<Props>) {
                 <FormLabel>Até</FormLabel>
                 <FormControl>
                   <DateTimePicker
+                    yearRange={0}
                     hourCycle={24}
                     value={field.value}
                     onChange={field.onChange}
