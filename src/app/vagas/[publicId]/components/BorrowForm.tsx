@@ -39,7 +39,7 @@ export default function BorrowForm({ onCancel }: Readonly<Props>) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
         <div className="space-y-4">
           <FormField
             control={form.control}
@@ -53,7 +53,7 @@ export default function BorrowForm({ onCancel }: Readonly<Props>) {
                     value={field.value}
                     onChange={field.onChange}
                     granularity="minute"
-                    placeholder="Selecione uma data e horário fjsnjfds"
+                    placeholder="Selecione uma data e horário"
                     startMonth={new Date()}
                     disabled={{
                       before: new Date(),

@@ -297,20 +297,19 @@ function Calendar({
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
-        months:
-          "flex flex-col sm:flex-row space-y-4  sm:space-y-0 justify-center",
+        months: "flex flex-col justify-center",
         month: "flex flex-col items-center space-y-4",
         month_caption: "flex justify-center pt-1 relative items-center",
         caption_label: "text-sm font-medium",
         nav: "space-x-1 flex items-center ",
         button_previous: cn(
           buttonVariants({ variant: "outline" }),
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-5 top-5",
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-4 top-4",
           disableLeftNavigation() && "pointer-events-none"
         ),
         button_next: cn(
           buttonVariants({ variant: "outline" }),
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-5 top-5",
+          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-4 top-4",
           disableRightNavigation() && "pointer-events-none"
         ),
         month_grid: "w-full border-collapse space-y-1",
@@ -352,7 +351,7 @@ function Calendar({
                   props.onMonthChange?.(newDate);
                 }}
               >
-                <SelectTrigger className="w-fit gap-1 border-none p-0 focus:bg-primary focus:text-white">
+                <SelectTrigger className="w-fit gap-1 border-none p-2 focus:bg-primary focus:text-white">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -374,7 +373,7 @@ function Calendar({
                   props.onMonthChange?.(newDate);
                 }}
               >
-                <SelectTrigger className="w-fit gap-1 border-none p-0 focus:bg-primary focus:text-white">
+                <SelectTrigger className="w-fit gap-1 border-none p-2 focus:bg-primary focus:text-white">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -842,17 +841,21 @@ const DateTimePicker = React.forwardRef<
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {displayDate ? (
-              format(
-                displayDate,
-                hourCycle === 24
-                  ? initHourFormat.hour24
-                  : initHourFormat.hour12,
-                {
-                  locale: loc,
-                }
-              )
+              <span className="overflow-hidden text-ellipsis text-nowrap">
+                {format(
+                  displayDate,
+                  hourCycle === 24
+                    ? initHourFormat.hour24
+                    : initHourFormat.hour12,
+                  {
+                    locale: loc,
+                  }
+                )}
+              </span>
             ) : (
-              <span className="overflow-hidden text-ellipsis text-nowrap">{placeholder}</span>
+              <span className="overflow-hidden text-ellipsis text-nowrap">
+                {placeholder}
+              </span>
             )}
           </Button>
         </PopoverTrigger>
