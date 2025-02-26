@@ -15,10 +15,21 @@ import {
 } from "@/components/ui/form";
 import { DateTimePicker } from "@/components/ui/date-time-picker";
 
-const formSchema = z.object({
-  from: z.date(),
-  to: z.date(),
-});
+import { isPastDate, isSameDate } from "@/utils";
+
+const formSchema = z
+  .object({
+    from: z
+      .date()
+      .refine(isPastDate, { message: "A data não pode ser no passado" }),
+    to: z
+      .date()
+      .refine(isPastDate, { message: "A data não pode ser no passado" }),
+  })
+  .refine((values) => !isSameDate(values.from, values.to), {
+    message: "As datas não podem ser iguais",
+    path: ["to"],
+  });
 
 type Props = {
   onCancel: () => void;
