@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/form";
 import { DateTimePicker } from "@/components/ui/date-time-picker";
 
+import { toast } from "sonner";
+
 import { isPastDate, isSameDate } from "@/utils";
 
 const formSchema = z
@@ -33,9 +35,10 @@ const formSchema = z
 
 type Props = {
   onCancel: () => void;
+  onSubmit: () => void;
 };
 
-export default function BorrowForm({ onCancel }: Readonly<Props>) {
+export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,13 +47,15 @@ export default function BorrowForm({ onCancel }: Readonly<Props>) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function handleSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    toast.success("Vaga solicitada com sucesso!");
+    onSubmit();
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-12">
         <div className="space-y-4">
           <FormField
             control={form.control}

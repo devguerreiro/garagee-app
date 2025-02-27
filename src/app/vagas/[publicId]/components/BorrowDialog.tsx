@@ -23,6 +23,8 @@ import BorrowForm from "./BorrowForm";
 export default function BorrowDialog() {
   const [open, setOpen] = useState(false);
 
+  const close = () => setOpen(false);
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="!mt-10 w-full">Pedir emprestado</DialogTrigger>
@@ -41,7 +43,7 @@ export default function BorrowDialog() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <BorrowForm onCancel={() => setOpen(false)} />
+            <BorrowForm onCancel={close} onSubmit={close} />
           </CardContent>
         </Card>
       </DialogContent>
