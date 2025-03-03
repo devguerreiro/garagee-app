@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { BuildingIcon, HouseIcon, ParkingCircleIcon } from "lucide-react";
 
-import { ParkingSpaceListDTO } from "@/dtos";
+import { ParkingSpaceListDTO } from "@/app/dtos";
 
 import { getAbbreviationName } from "@/utils";
 
@@ -16,7 +16,7 @@ type Props = {
 export default function ParkingSpaceCard({ parkingSpace }: Readonly<Props>) {
   return (
     <Link
-      href="/vagas/11ef06e4-11d7-40a2-8ac6-0281ad7cf3db"
+      href={`/vagas/${parkingSpace.publicId}`}
       className="block px-6 py-4 bg-card rounded-lg shadow space-y-4"
     >
       <div className="flex justify-between">
@@ -44,7 +44,7 @@ export default function ParkingSpaceCard({ parkingSpace }: Readonly<Props>) {
       </div>
       <hr />
       <div className="text-sm flex justify-between items-center">
-        <div className="flex items-center gap-1.5 max-w-56">
+        <div className="flex items-center gap-1.5 max-w-48">
           <BuildingIcon className="text-primary w-[1em] h-[1em]" />
           <span className="overflow-hidden text-ellipsis text-nowrap">
             {parkingSpace.building.name}

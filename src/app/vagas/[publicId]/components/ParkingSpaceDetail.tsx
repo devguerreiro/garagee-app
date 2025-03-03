@@ -6,7 +6,7 @@ import {
   UmbrellaIcon,
 } from "lucide-react";
 
-import { ParkingSpaceDetailDTO } from "@/dtos";
+import { ParkingSpaceDetailDTO } from "@/app/dtos";
 
 import { getAbbreviationName } from "@/utils";
 

@@ -1,4 +1,4 @@
-import { getParkingSpaceDetail } from "@/actions";
+import { getParkingSpaceDetail } from "@/app/actions";
 
 import {
   Breadcrumb,

@@ -1,4 +1,4 @@
-import { getParkingSpaceList } from "@/actions";
+import { getParkingSpaceList } from "@/app/actions";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
