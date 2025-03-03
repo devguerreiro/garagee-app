@@ -14,8 +14,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import formSchema, { FormSchema } from "./schema";
 import { DateInput, TimeInput } from "@/components/ui/input";
+
+import dayjs from "@/lib/dayjs";
+
+import formSchema, { FormSchema } from "./schema";
+import { useRef } from "react";
 
 type Props = {
   onCancel: () => void;
@@ -33,10 +37,19 @@ export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
     },
   });
 
+  const now = useRef(dayjs());
+
   function handleSubmit(values: FormSchema) {
     console.log(values);
     toast.success("Vaga solicitada com sucesso!");
     onSubmit();
+  }
+
+  function disableDate(date: Date | undefined) {
+    if (date !== undefined) {
+      return dayjs(date).isBefore(now.current, "date");
+    }
+    return false;
   }
 
   return (
@@ -49,7 +62,12 @@ export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
             render={({ field }) => (
               <FormItem className="col-span-7">
                 <FormLabel>A partir de</FormLabel>
-                <DateInput value={field.value} onChange={field.onChange} />
+                <DateInput
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disableDate}
+                  fromDate={now.current.toDate()}
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -77,7 +95,12 @@ export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
             render={({ field }) => (
               <FormItem className="col-span-7">
                 <FormLabel>Até</FormLabel>
-                <DateInput value={field.value} onChange={field.onChange} />
+                <DateInput
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disableDate}
+                  fromDate={now.current.toDate()}
+                />
                 <FormMessage />
               </FormItem>
             )}

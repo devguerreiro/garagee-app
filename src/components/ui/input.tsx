@@ -14,7 +14,7 @@ import { FormControl } from "./form";
 import { Button } from "./button";
 import { CalendarIcon } from "lucide-react";
 import { brazilianDate } from "@/utils";
-import { Calendar } from "./calendar";
+import { Calendar, CalendarProps } from "./calendar";
 import {
   Select,
   SelectContent,
@@ -61,9 +61,9 @@ InputMask.displayName = "InputMask";
 type DateInputProps = {
   value: Date | undefined;
   onChange: (value: Date | undefined) => void;
-};
+} & CalendarProps;
 
-const DateInput = ({ value, onChange }: DateInputProps) => {
+const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -88,10 +88,10 @@ const DateInput = ({ value, onChange }: DateInputProps) => {
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
+          {...props}
           mode="single"
           selected={value}
           onSelect={onChange}
-          initialFocus
         />
       </PopoverContent>
     </Popover>
