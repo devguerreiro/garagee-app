@@ -1,5 +1,3 @@
-import dayjs from "@/lib/dayjs";
-
 export function getAbbreviationName(name: string): string {
   const words = name.split(" ");
   const wordsLength = words.length;
@@ -13,14 +11,4 @@ export function getAbbreviationName(name: string): string {
       .toUpperCase()}`;
     return initials;
   }
-}
-
-export function isPastDate(date: Date): boolean {
-  return dayjs().tz().isBefore(date);
-}
-
-export function isSameDate(a: Date, b: Date): boolean {
-  console.log(dayjs(a).isSame(b));
-
-  return dayjs(a).isSame(b);
 }

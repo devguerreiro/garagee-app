@@ -1,8 +1,13 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import BaseInputMask from "@mona-health/react-input-mask";
+import { Props as BaseInputMaskProps } from "react-input-mask";
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
+import { cn } from "@/lib/utils";
+
+type InputProps = React.ComponentProps<"input">;
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
       <input
@@ -14,9 +19,25 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
         ref={ref}
         {...props}
       />
-    )
+    );
   }
-)
-Input.displayName = "Input"
+);
+Input.displayName = "Input";
 
-export { Input }
+interface InputMaskProps extends InputProps {
+  maskProps: BaseInputMaskProps;
+}
+
+const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>(
+  ({ maskProps, ...props }, ref) => {
+    return (
+      <BaseInputMask {...maskProps} {...props} ref={ref}>
+        <Input />
+      </BaseInputMask>
+    );
+  }
+);
+
+InputMask.displayName = "InputMask";
+
+export { Input, InputMask };
