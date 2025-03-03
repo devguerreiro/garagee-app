@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export function getAbbreviationName(name: string): string {
   const words = name.split(" ");
   const wordsLength = words.length;
@@ -11,4 +13,8 @@ export function getAbbreviationName(name: string): string {
       .toUpperCase()}`;
     return initials;
   }
+}
+
+export function brazilianDate(date: Date): string {
+  return dayjs(date).format("L");
 }
