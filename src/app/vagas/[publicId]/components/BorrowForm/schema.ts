@@ -5,9 +5,9 @@ import dayjs from "@/lib/dayjs";
 const formSchema = z
   .object({
     from_date: z.date(),
-    from_hour: z.coerce.number().min(0).max(23),
+    from_hour: z.coerce.number(),
     to_date: z.date(),
-    to_hour: z.coerce.number().min(0).max(23),
+    to_hour: z.coerce.number(),
   })
   .superRefine((val, ctx) => {
     const now = dayjs();

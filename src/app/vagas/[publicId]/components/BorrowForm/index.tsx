@@ -27,20 +27,20 @@ type Props = {
 };
 
 export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
+  const now = useRef(dayjs());
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       from_date: undefined,
-      from_hour: -1,
+      from_hour: 0,
       to_date: undefined,
-      to_hour: -1,
+      to_hour: 0,
     },
   });
 
   const fromDate = form.watch("from_date");
   const toDate = form.watch("to_date");
-
-  const now = useRef(dayjs());
 
   function handleSubmit(values: FormSchema) {
     console.log(values);
