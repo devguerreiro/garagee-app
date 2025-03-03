@@ -98,13 +98,21 @@ const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
   );
 };
 
-type TimeInputProps = {
+type HourInputProps = {
   value: number | undefined;
-  onChange: (value: string) => void;
   disabled: boolean;
+  onChange: (value: string) => void;
+  showHour?: (hour: number) => boolean;
 };
 
-const TimeInput = ({ value, onChange, disabled }: TimeInputProps) => {
+const HourInput = ({ value, onChange, disabled, showHour }: HourInputProps) => {
+  const hours: Array<number> = Array(24)
+    .fill(0)
+    .map((_, index) => index);
+
+  const availableHours =
+    showHour !== undefined ? hours.filter(showHour) : hours;
+
   return (
     <Select onValueChange={onChange} defaultValue={value?.toString()}>
       <FormControl>
@@ -113,17 +121,15 @@ const TimeInput = ({ value, onChange, disabled }: TimeInputProps) => {
         </SelectTrigger>
       </FormControl>
       <SelectContent>
-        {Array(24)
-          .fill(0)
-          .map((_, index) => (
-            <SelectItem
-              key={index}
-              value={index.toString()}
-            >{`${index}:00`}</SelectItem>
-          ))}
+        {availableHours.map((hour) => (
+          <SelectItem
+            key={hour}
+            value={hour.toString()}
+          >{`${hour}:00`}</SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
 };
 
-export { Input, InputMask, DateInput, TimeInput };
+export { Input, InputMask, DateInput, HourInput };

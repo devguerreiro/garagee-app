@@ -35,7 +35,7 @@ export default function BorrowDialog() {
             Informe o período que você gostaria de utilizá-la
           </DialogDescription>
         </DialogHeader>
-        <Card className="mt-4 overflow-hidden">
+        <Card className="overflow-hidden">
           <CardHeader>
             <CardTitle>Solicitação da vaga</CardTitle>
             <CardDescription>

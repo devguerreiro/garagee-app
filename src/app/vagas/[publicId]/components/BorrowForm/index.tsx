@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { DateInput, TimeInput } from "@/components/ui/input";
+import { DateInput, HourInput } from "@/components/ui/input";
 
 import dayjs from "@/lib/dayjs";
 
@@ -31,11 +31,14 @@ export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       from_date: undefined,
-      from_time: 0,
+      from_hour: -1,
       to_date: undefined,
-      to_time: 0,
+      to_hour: -1,
     },
   });
+
+  const fromDate = form.watch("from_date");
+  const toDate = form.watch("to_date");
 
   const now = useRef(dayjs());
 
@@ -50,6 +53,24 @@ export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
       return dayjs(date).isBefore(now.current, "date");
     }
     return false;
+  }
+
+  function showFromHour(hour: number) {
+    if (fromDate !== undefined) {
+      if (dayjs(fromDate).isSame(now.current, "date")) {
+        return hour > now.current.get("hour");
+      }
+    }
+    return true;
+  }
+
+  function showToHour(hour: number) {
+    if (toDate !== undefined) {
+      if (dayjs(toDate).isSame(now.current, "date")) {
+        return hour > now.current.get("hour") + 1;
+      }
+    }
+    return true;
   }
 
   return (
@@ -74,14 +95,15 @@ export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
           />
           <FormField
             control={form.control}
-            name="from_time"
+            name="from_hour"
             render={({ field, formState }) => (
               <FormItem className="col-span-5">
                 <FormLabel>Das</FormLabel>
-                <TimeInput
+                <HourInput
                   value={field.value}
                   onChange={field.onChange}
                   disabled={!formState.dirtyFields.from_date}
+                  showHour={showFromHour}
                 />
                 <FormMessage />
               </FormItem>
@@ -107,14 +129,15 @@ export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
           />
           <FormField
             control={form.control}
-            name="to_time"
+            name="to_hour"
             render={({ field, formState }) => (
               <FormItem className="col-span-5">
                 <FormLabel>Às</FormLabel>
-                <TimeInput
+                <HourInput
                   value={field.value}
                   onChange={field.onChange}
-                  disabled={!formState.dirtyFields.from_date}
+                  disabled={!formState.dirtyFields.to_date}
+                  showHour={showToHour}
                 />
                 <FormMessage />
               </FormItem>

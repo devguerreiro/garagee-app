@@ -5,14 +5,14 @@ import dayjs from "@/lib/dayjs";
 const formSchema = z
   .object({
     from_date: z.date(),
-    from_time: z.coerce.number().min(0).max(23),
+    from_hour: z.coerce.number().min(0).max(23),
     to_date: z.date(),
-    to_time: z.coerce.number().min(0).max(23),
+    to_hour: z.coerce.number().min(0).max(23),
   })
   .superRefine((val, ctx) => {
     const now = dayjs();
-    const fromDateTime = dayjs(val.from_date).set("hour", val.from_time);
-    const toDateTime = dayjs(val.to_date).set("hour", val.to_time);
+    const fromDateTime = dayjs(val.from_date).set("hour", val.from_hour);
+    const toDateTime = dayjs(val.to_date).set("hour", val.to_hour);
 
     if (fromDateTime.isBefore(now, "date")) {
       ctx.addIssue({
@@ -25,7 +25,7 @@ const formSchema = z
     if (fromDateTime.isBefore(now, "minute")) {
       ctx.addIssue({
         code: "invalid_date",
-        path: ["from_time"],
+        path: ["from_hour"],
         message: "A hora de início não pode ser no passado",
       });
     }
@@ -44,7 +44,7 @@ const formSchema = z
     ) {
       ctx.addIssue({
         code: "invalid_date",
-        path: ["to_time"],
+        path: ["to_hour"],
         message: "A hora de fim não pode anteceder a hora de início",
       });
     }
@@ -52,7 +52,7 @@ const formSchema = z
     if (toDateTime.isSame(fromDateTime, "hour")) {
       ctx.addIssue({
         code: "invalid_date",
-        path: ["to_time"],
+        path: ["to_hour"],
         message: "A hora de fim não pode ser igual à hora de início",
       });
     }
