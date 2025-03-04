@@ -1,11 +1,11 @@
-import { getReservationList } from "@/app/actions";
+import { getBookingList } from "@/app/actions";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import ReservationCard from "./components/ReservationCard";
+import BookingCard from "./components/BookingCard";
 
 export default async function Page() {
-  const reservations = await getReservationList();
+  const bookings = await getBookingList();
 
   return (
     <div className="px-4 py-8 space-y-4">
@@ -18,35 +18,23 @@ export default async function Page() {
           <TabsTrigger value="refused">Recusadas</TabsTrigger>
         </TabsList>
         <TabsContent value="all" className="space-y-6">
-          {reservations.map((reservation) => (
-            <ReservationCard
-              key={reservation.publicId}
-              reservation={reservation}
-            />
+          {bookings.map((booking) => (
+            <BookingCard key={booking.publicId} booking={booking} />
           ))}
         </TabsContent>
         <TabsContent value="approved">
-          {reservations.map((reservation) => (
-            <ReservationCard
-              key={reservation.publicId}
-              reservation={reservation}
-            />
+          {bookings.map((booking) => (
+            <BookingCard key={booking.publicId} booking={booking} />
           ))}
         </TabsContent>
         <TabsContent value="pending">
-          {reservations.map((reservation) => (
-            <ReservationCard
-              key={reservation.publicId}
-              reservation={reservation}
-            />
+          {bookings.map((booking) => (
+            <BookingCard key={booking.publicId} booking={booking} />
           ))}
         </TabsContent>
         <TabsContent value="refused">
-          {reservations.map((reservation) => (
-            <ReservationCard
-              key={reservation.publicId}
-              reservation={reservation}
-            />
+          {bookings.map((booking) => (
+            <BookingCard key={booking.publicId} booking={booking} />
           ))}
         </TabsContent>
       </Tabs>

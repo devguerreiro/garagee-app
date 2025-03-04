@@ -1,10 +1,12 @@
 "use server";
 
+import dayjs from "dayjs";
+
 import {
   ParkingSpaceListDTO,
   ParkingSpaceDetailDTO,
-  ReservationListDTO,
-  ReservationStatusDTO,
+  BookingListDTO,
+  BookingStatusDTO,
 } from "./dtos";
 
 export async function getParkingSpaceList() {
@@ -43,8 +45,8 @@ export async function getParkingSpaceDetail(publicId: string) {
   });
 }
 
-export async function getReservationList() {
-  const reservations: Array<ReservationListDTO> = Array(4)
+export async function getBookingList() {
+  const bookings: Array<BookingListDTO> = Array(4)
     .fill(null)
     .map(() => ({
       publicId: "bf456c82-e1a5-4091-b4d9-afad27f5c2d6",
@@ -60,8 +62,13 @@ export async function getReservationList() {
           apartment: "501",
         },
       },
-      status: ReservationStatusDTO.APPROVED,
+      from_date: dayjs().toDate(),
+      from_hour: 12,
+      to_date: dayjs().toDate(),
+      to_hour: 16,
+      status: BookingStatusDTO.APPROVED,
+      bookedAt: dayjs().toDate(),
     }));
 
-  return Promise.resolve(reservations);
+  return Promise.resolve(bookings);
 }

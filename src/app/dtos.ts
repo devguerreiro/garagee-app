@@ -26,12 +26,17 @@ export interface ParkingSpaceDetailDTO {
   isCovered: boolean;
 }
 
-export enum ReservationStatusDTO {
-  APPROVED,
+export enum BookingStatusDTO {
+  APPROVED = "Aprovada",
 }
 
-export interface ReservationListDTO {
+export interface BookingListDTO {
   publicId: string;
   parkingSpace: ParkingSpaceListDTO;
-  status: ReservationStatusDTO;
+  from_date: Date;
+  from_hour: number;
+  to_date: Date;
+  to_hour: number;
+  status: BookingStatusDTO;
+  bookedAt: Date;
 }
