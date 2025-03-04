@@ -28,6 +28,8 @@ export interface ParkingSpaceDetailDTO {
 
 export enum BookingStatusDTO {
   APPROVED = "Aprovada",
+  REFUSED = "Reprovada",
+  PENDING = "Pendente",
 }
 
 export interface BookingListDTO {

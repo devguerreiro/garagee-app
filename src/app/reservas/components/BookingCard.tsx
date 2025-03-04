@@ -1,12 +1,17 @@
 import Link from "next/link";
 
-import { BuildingIcon, HouseIcon, ParkingCircleIcon } from "lucide-react";
+import {
+  BuildingIcon,
+  CalendarClockIcon,
+  ParkingCircleIcon,
+} from "lucide-react";
 
-import { BookingListDTO } from "@/app/dtos";
+import { BookingListDTO, BookingStatusDTO } from "@/app/dtos";
 
-import { getAbbreviationName } from "@/utils";
+import { brazilianDateTime } from "@/utils";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import dayjs from "@/lib/dayjs";
+
 import { Badge } from "@/components/ui/badge";
 
 type Props = {
@@ -16,43 +21,72 @@ type Props = {
 export default function BookingCard({ booking }: Readonly<Props>) {
   const { parkingSpace } = booking;
 
+  const fromDateTime = dayjs(booking.from_date)
+    .set("hour", booking.from_hour)
+    .set("minute", 0);
+  const toDateTime = dayjs(booking.to_date)
+    .set("hour", booking.to_hour)
+    .set("minute", 0);
+
+  function getBadgeVariant() {
+    switch (booking.status) {
+      case BookingStatusDTO.APPROVED:
+        return "success";
+      case BookingStatusDTO.REFUSED:
+        return "destructive";
+      case BookingStatusDTO.PENDING:
+        return "warning";
+      default:
+        return "default";
+    }
+  }
+
   return (
     <Link
       href={`/reservas/${booking.publicId}`}
-      className="block px-6 py-4 bg-card rounded-lg shadow space-y-4"
+      className="px-6 py-4 bg-card rounded-lg shadow flex gap-2 relative"
     >
-      <div className="flex justify-between">
-        <div className="flex items-center gap-2">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>
-              {getAbbreviationName(parkingSpace.owner.name)}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col gap-0.5 text-xs">
-            <strong className="max-w-40 overflow-hidden text-ellipsis text-nowrap">
-              {parkingSpace.owner.name}
-            </strong>
-            <div className="flex items-center gap-1">
-              <HouseIcon className="text-primary w-[1em] h-[1em]" />
-              <span>{parkingSpace.owner.apartment}</span>
+      <Badge
+        className="p-2 absolute -top-2 -right-2"
+        variant={getBadgeVariant()}
+      >
+        {booking.status}
+      </Badge>
+      <div className="flex gap-4 text-xs text-muted-foreground">
+        <div className="space-y-4">
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <BuildingIcon className="w-[1em] h-[1em]" />
+              <span className="block">Local</span>
+            </div>
+            <div>
+              <strong>{parkingSpace.building.name}</strong>
+            </div>
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <CalendarClockIcon className="w-[1em] h-[1em]" />
+              <span className="block">Início</span>
+            </div>
+            <div>
+              <strong>{brazilianDateTime(fromDateTime.toDate())}</strong>
+            </div>
+          </div>
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <CalendarClockIcon className="w-[1em] h-[1em]" />
+              <span className="block">Fim</span>
+            </div>
+            <div>
+              <strong>{brazilianDateTime(toDateTime.toDate())}</strong>
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center">
+        <hr className="h-full border-0 border-l border-border border-dashed" />
+        <div className="flex flex-col justify-center items-center text-xl text-primary">
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
-          <span className="font-medium">{parkingSpace.identifier}</span>
+          <h2 className="text-center font-medium">{parkingSpace.identifier}</h2>
         </div>
-      </div>
-      <hr />
-      <div className="text-sm flex justify-between items-center">
-        <div className="flex items-center gap-1.5 max-w-48">
-          <BuildingIcon className="text-primary w-[1em] h-[1em]" />
-          <span className="overflow-hidden text-ellipsis text-nowrap">
-            {parkingSpace.building.name}
-          </span>
-        </div>
-        <Badge>{booking.status}</Badge>
       </div>
     </Link>
   );

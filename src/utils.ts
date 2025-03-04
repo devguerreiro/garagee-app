@@ -18,3 +18,7 @@ export function getAbbreviationName(name: string): string {
 export function brazilianDate(date: Date): string {
   return dayjs(date).format("L");
 }
+
+export function brazilianDateTime(date: Date): string {
+  return dayjs(date).format("L LT");
+}

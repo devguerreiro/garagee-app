@@ -37,7 +37,7 @@ export default function ParkingSpaceCard({ parkingSpace }: Readonly<Props>) {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col justify-center items-center">
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
           <span className="font-medium">{parkingSpace.identifier}</span>
         </div>
