@@ -7,6 +7,7 @@ import {
   ParkingSpaceDetailDTO,
   BookingListDTO,
   BookingStatusDTO,
+  BookingDetailDTO,
 } from "./dtos";
 
 export async function getParkingSpaceList() {
@@ -71,4 +72,30 @@ export async function getBookingList() {
     }));
 
   return Promise.resolve(bookings);
+}
+
+export async function getBookingDetail(publicId: string) {
+  return Promise.resolve<BookingDetailDTO>({
+    publicId,
+    parkingSpace: {
+      publicId: "11ef06e4-11d7-40a2-8ac6-0281ad7cf3db",
+      identifier: "Vaga 13A",
+      guidance: "Terceira vaga coberta a direita",
+      available: true,
+      building: {
+        name: "Condomínio Lago da Constança",
+      },
+      owner: {
+        name: "Luis Guerreiro",
+        apartment: "501",
+      },
+      isCovered: true,
+    },
+    from_date: dayjs().toDate(),
+    from_hour: 12,
+    to_date: dayjs().toDate(),
+    to_hour: 16,
+    status: BookingStatusDTO.APPROVED,
+    bookedAt: dayjs().toDate(),
+  });
 }

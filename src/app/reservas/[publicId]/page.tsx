@@ -1,4 +1,4 @@
-import { getParkingSpaceDetail } from "@/app/actions";
+import { getBookingDetail } from "@/app/actions";
 
 import {
   Breadcrumb,
@@ -9,7 +9,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import ParkingSpaceDetail from "./components/ParkingSpaceDetail";
+import BookingDetail from "./components/BookingDetail";
 
 type Props = {
   params: Promise<{
@@ -20,22 +20,22 @@ type Props = {
 export default async function Page({ params }: Readonly<Props>) {
   const { publicId } = await params;
 
-  const parkingSpace = await getParkingSpaceDetail(publicId);
+  const booking = await getBookingDetail(publicId);
 
   return (
-    <div className="container py-8 space-y-8 min-h-screen">
+    <div className="container py-8 space-y-8">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/vagas">Vagas</BreadcrumbLink>
+            <BreadcrumbLink href="/reservas">Reservas</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>{parkingSpace.identifier}</BreadcrumbPage>
+            <BreadcrumbPage>{booking.parkingSpace.identifier}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <ParkingSpaceDetail parkingSpace={parkingSpace} />
+      <BookingDetail booking={booking} />
     </div>
   );
 }
