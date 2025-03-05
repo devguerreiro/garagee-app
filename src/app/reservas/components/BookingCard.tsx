@@ -6,11 +6,9 @@ import {
   ParkingCircleIcon,
 } from "lucide-react";
 
-import { BookingListDTO, BookingStatusDTO } from "@/app/dtos";
+import { BookingListDTO } from "@/app/dtos";
 
-import { brazilianDateTime } from "@/utils";
-
-import dayjs from "@/lib/dayjs";
+import { createBookingDateTime, getBookingStatusBadgeVariant } from "@/utils";
 
 import { Badge } from "@/components/ui/badge";
 
@@ -21,26 +19,6 @@ type Props = {
 export default function BookingCard({ booking }: Readonly<Props>) {
   const { parkingSpace } = booking;
 
-  const fromDateTime = dayjs(booking.from_date)
-    .set("hour", booking.from_hour)
-    .set("minute", 0);
-  const toDateTime = dayjs(booking.to_date)
-    .set("hour", booking.to_hour)
-    .set("minute", 0);
-
-  function getBadgeVariant() {
-    switch (booking.status) {
-      case BookingStatusDTO.APPROVED:
-        return "success";
-      case BookingStatusDTO.REFUSED:
-        return "destructive";
-      case BookingStatusDTO.PENDING:
-        return "warning";
-      default:
-        return "default";
-    }
-  }
-
   return (
     <Link
       href={`/reservas/${booking.publicId}`}
@@ -48,7 +26,7 @@ export default function BookingCard({ booking }: Readonly<Props>) {
     >
       <Badge
         className="p-2 absolute -top-2 -right-2"
-        variant={getBadgeVariant()}
+        variant={getBookingStatusBadgeVariant(booking.status)}
       >
         {booking.status}
       </Badge>
@@ -69,7 +47,9 @@ export default function BookingCard({ booking }: Readonly<Props>) {
               <span className="block">Início</span>
             </div>
             <div>
-              <strong>{brazilianDateTime(fromDateTime.toDate())}</strong>
+              <strong>
+                {createBookingDateTime(booking.from_date, booking.from_hour)}
+              </strong>
             </div>
           </div>
           <div className="space-y-0.5">
@@ -78,7 +58,9 @@ export default function BookingCard({ booking }: Readonly<Props>) {
               <span className="block">Fim</span>
             </div>
             <div>
-              <strong>{brazilianDateTime(toDateTime.toDate())}</strong>
+              <strong>
+                {createBookingDateTime(booking.to_date, booking.to_hour)}
+              </strong>
             </div>
           </div>
         </div>

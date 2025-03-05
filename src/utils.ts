@@ -1,4 +1,6 @@
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
+
+import { BookingStatusDTO } from "./app/dtos";
 
 export function getAbbreviationName(name: string): string {
   const words = name.split(" ");
@@ -21,4 +23,23 @@ export function brazilianDate(date: Date): string {
 
 export function brazilianDateTime(date: Date): string {
   return dayjs(date).format("L LT");
+}
+
+export function getBookingStatusBadgeVariant(status: BookingStatusDTO) {
+  switch (status) {
+    case BookingStatusDTO.APPROVED:
+      return "success";
+    case BookingStatusDTO.REFUSED:
+      return "destructive";
+    case BookingStatusDTO.PENDING:
+      return "warning";
+    default:
+      return "default";
+  }
+}
+
+export function createBookingDateTime(date: Date, hour: number) {
+  const datetime = dayjs(date).set("hour", hour).set("minute", 0);
+  console.log(datetime.toDate());
+  return brazilianDateTime(datetime.toDate());
 }

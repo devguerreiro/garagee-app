@@ -1,6 +1,6 @@
 "use server";
 
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
 
 import {
   ParkingSpaceListDTO,
