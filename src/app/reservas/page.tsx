@@ -10,6 +10,7 @@ export default async function Page() {
   return (
     <div className="px-4 py-8 space-y-4">
       <h1 className="text-lg font-semibold">Reservas</h1>
+      <hr />
       <Tabs defaultValue="all" className="space-y-8">
         <TabsList>
           <TabsTrigger value="all">Todas</TabsTrigger>

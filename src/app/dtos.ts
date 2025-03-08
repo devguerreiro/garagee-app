@@ -7,7 +7,6 @@ export enum BookingStatusDTO {
 export interface ParkingSpaceListDTO {
   publicId: string;
   identifier: string;
-  available: boolean;
   building: {
     name: string;
   };
@@ -21,7 +20,6 @@ export interface ParkingSpaceDetailDTO {
   publicId: string;
   identifier: string;
   guidance: string;
-  available: boolean;
   building: {
     name: string;
   };

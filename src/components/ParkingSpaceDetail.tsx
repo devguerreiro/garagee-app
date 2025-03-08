@@ -1,5 +1,6 @@
 import {
   BuildingIcon,
+  EllipsisVerticalIcon,
   HouseIcon,
   ParkingCircleIcon,
   RadarIcon,
@@ -10,10 +11,14 @@ import { ParkingSpaceDetailDTO } from "@/app/dtos";
 
 import { getAbbreviationName } from "@/utils";
 
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import BorrowDialog from "./BorrowDialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type Props = {
   parkingSpace: ParkingSpaceDetailDTO;
@@ -22,12 +27,23 @@ type Props = {
 export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
   return (
     <div className="p-6 bg-card shadow rounded text-sm space-y-6">
-      <div className="flex justify-between items-center text-xl">
+      <div className="text-xl flex justify-between items-center">
         <div className="flex items-center gap-2">
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
           <h2 className="font-medium">{parkingSpace.identifier}</h2>
         </div>
-        <Badge>{parkingSpace.available ? "Disponível" : "Indisponível"}</Badge>
+        <DropdownMenu>
+          <DropdownMenuTrigger aria-label="opções" className="focus-visible:outline-primary">
+            <EllipsisVerticalIcon className="text-muted-foreground w-[1em] h-[1em]" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="mr-2">
+            <DropdownMenuItem>Editar vaga</DropdownMenuItem>
+            <DropdownMenuItem>Fechar vaga</DropdownMenuItem>
+            <DropdownMenuItem className="text-destructive font-medium hover:bg-destructive hover:text-white">
+              Excluir vaga
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <hr />
       <div className="text-muted-foreground space-y-4">
@@ -75,7 +91,6 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
           </div>
         </div>
       </div>
-      <BorrowDialog />
     </div>
   );
 }

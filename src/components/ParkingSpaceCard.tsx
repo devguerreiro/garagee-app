@@ -7,16 +7,19 @@ import { ParkingSpaceListDTO } from "@/app/dtos";
 import { getAbbreviationName } from "@/utils";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 
 type Props = {
+  href: string;
   parkingSpace: ParkingSpaceListDTO;
 };
 
-export default function ParkingSpaceCard({ parkingSpace }: Readonly<Props>) {
+export default function ParkingSpaceCard({
+  href,
+  parkingSpace,
+}: Readonly<Props>) {
   return (
     <Link
-      href={`/vagas/${parkingSpace.publicId}`}
+      href={href}
       className="block px-6 py-4 bg-card rounded-lg shadow space-y-4"
     >
       <div className="flex justify-between">
@@ -44,13 +47,12 @@ export default function ParkingSpaceCard({ parkingSpace }: Readonly<Props>) {
       </div>
       <hr />
       <div className="text-sm flex justify-between items-center">
-        <div className="flex items-center gap-1.5 max-w-48">
+        <div className="w-full flex items-center gap-1.5">
           <BuildingIcon className="text-primary w-[1em] h-[1em]" />
           <span className="overflow-hidden text-ellipsis text-nowrap">
             {parkingSpace.building.name}
           </span>
         </div>
-        <Badge>{parkingSpace.available ? "Disponível" : "Indisponível"}</Badge>
       </div>
     </Link>
   );

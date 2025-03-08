@@ -11,8 +11,6 @@ import {
 
 import ParkingSpaceDetail from "@/components/ParkingSpaceDetail";
 
-import BorrowDialog from "./components/BorrowDialog";
-
 type Props = {
   params: Promise<{
     publicId: string;
@@ -29,7 +27,7 @@ export default async function Page({ params }: Readonly<Props>) {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/vagas">Vagas</BreadcrumbLink>
+            <BreadcrumbLink href="/minhas-vagas">Minhas vagas</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -38,7 +36,6 @@ export default async function Page({ params }: Readonly<Props>) {
         </BreadcrumbList>
       </Breadcrumb>
       <ParkingSpaceDetail parkingSpace={parkingSpace} />
-      <BorrowDialog />
     </div>
   );
 }

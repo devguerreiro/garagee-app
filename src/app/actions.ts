@@ -16,7 +16,6 @@ export async function getParkingSpaceList() {
     .map(() => ({
       publicId: "11ef06e4-11d7-40a2-8ac6-0281ad7cf3db",
       identifier: "Vaga 13A",
-      available: true,
       building: {
         name: "Condomínio Lago da Constança",
       },
@@ -34,7 +33,6 @@ export async function getParkingSpaceDetail(publicId: string) {
     publicId,
     identifier: "Vaga 13A",
     guidance: "Terceira vaga coberta a direita",
-    available: true,
     building: {
       name: "Condomínio Lago da Constança",
     },
@@ -54,7 +52,6 @@ export async function getBookingList() {
       parkingSpace: {
         publicId: "11ef06e4-11d7-40a2-8ac6-0281ad7cf3db",
         identifier: "Vaga 13A",
-        available: true,
         building: {
           name: "Condomínio Lago da Constança",
         },
@@ -81,7 +78,6 @@ export async function getBookingDetail(publicId: string) {
       publicId: "11ef06e4-11d7-40a2-8ac6-0281ad7cf3db",
       identifier: "Vaga 13A",
       guidance: "Terceira vaga coberta a direita",
-      available: true,
       building: {
         name: "Condomínio Lago da Constança",
       },
