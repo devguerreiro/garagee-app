@@ -88,4 +88,10 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  label.required::after {
+    content: "*";
+    color: hsl(var(--destructive));
+    margin-left: 4px;
+  }
 }

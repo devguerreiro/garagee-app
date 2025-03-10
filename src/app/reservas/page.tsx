@@ -23,17 +23,17 @@ export default async function Page() {
             <BookingCard key={booking.publicId} booking={booking} />
           ))}
         </TabsContent>
-        <TabsContent value="approved">
+        <TabsContent value="approved" className="space-y-6">
           {bookings.map((booking) => (
             <BookingCard key={booking.publicId} booking={booking} />
           ))}
         </TabsContent>
-        <TabsContent value="pending">
+        <TabsContent value="pending" className="space-y-6">
           {bookings.map((booking) => (
             <BookingCard key={booking.publicId} booking={booking} />
           ))}
         </TabsContent>
-        <TabsContent value="refused">
+        <TabsContent value="refused" className="space-y-6">
           {bookings.map((booking) => (
             <BookingCard key={booking.publicId} booking={booking} />
           ))}
