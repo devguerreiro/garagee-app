@@ -40,6 +40,5 @@ export function getBookingStatusBadgeVariant(status: BookingStatusDTO) {
 
 export function createBookingDateTime(date: Date, hour: number) {
   const datetime = dayjs(date).set("hour", hour).set("minute", 0);
-  console.log(datetime.toDate());
   return brazilianDateTime(datetime.toDate());
 }
