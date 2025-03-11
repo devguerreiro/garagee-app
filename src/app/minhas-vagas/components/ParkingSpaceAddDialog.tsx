@@ -43,7 +43,7 @@ const schema = z.object({
 
 type Schema = z.infer<typeof schema>;
 
-export default function AddParkingSpaceDialog() {
+export default function ParkingSpaceAddDialog() {
   const form = useForm<Schema>({
     resolver: zodResolver(schema),
     defaultValues: {

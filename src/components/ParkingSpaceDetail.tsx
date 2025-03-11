@@ -20,6 +20,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import ParkingSpaceEditDialog from "./ParkingSpaceEditDialog";
+
 type Props = {
   parkingSpace: ParkingSpaceDetailDTO;
 };
@@ -33,11 +35,16 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
           <h2 className="font-medium">{parkingSpace.identifier}</h2>
         </div>
         <DropdownMenu>
-          <DropdownMenuTrigger aria-label="opções" className="focus-visible:outline-primary">
+          <DropdownMenuTrigger
+            aria-label="opções"
+            className="focus-visible:outline-primary"
+          >
             <EllipsisVerticalIcon className="text-muted-foreground w-[1em] h-[1em]" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mr-2">
-            <DropdownMenuItem>Editar vaga</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <ParkingSpaceEditDialog parkingSpace={parkingSpace} />
+            </DropdownMenuItem>
             <DropdownMenuItem>Fechar vaga</DropdownMenuItem>
             <DropdownMenuItem className="text-destructive font-medium hover:bg-destructive hover:text-white">
               Excluir vaga
