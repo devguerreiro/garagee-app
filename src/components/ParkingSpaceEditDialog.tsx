@@ -71,7 +71,7 @@ export default function ParkingSpaceEditDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="w-full justify-start bg-inherit shadow-none text-inherit font-normal px-2 h-8">
+      <DialogTrigger className="h-8 px-2 py-1 flex bg-card shadow-none text-inherit font-normal">
         Editar vaga
       </DialogTrigger>
       <DialogContent>

@@ -16,11 +16,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 import ParkingSpaceEditDialog from "./ParkingSpaceEditDialog";
+import ParkingSpaceCloseAlertDialog from "./ParkingSpaceCloseAlertDialog";
+import ParkingSpaceDeleteAlertDialog from "./ParkingSpaceDeleteAlertDialog";
 
 type Props = {
   parkingSpace: ParkingSpaceDetailDTO;
@@ -42,13 +43,9 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
             <EllipsisVerticalIcon className="text-muted-foreground w-[1em] h-[1em]" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mr-2">
-            <DropdownMenuItem asChild>
-              <ParkingSpaceEditDialog parkingSpace={parkingSpace} />
-            </DropdownMenuItem>
-            <DropdownMenuItem>Fechar vaga</DropdownMenuItem>
-            <DropdownMenuItem className="text-destructive font-medium hover:bg-destructive hover:text-white">
-              Excluir vaga
-            </DropdownMenuItem>
+            <ParkingSpaceEditDialog parkingSpace={parkingSpace} />
+            <ParkingSpaceCloseAlertDialog parkingSpace={parkingSpace} />
+            <ParkingSpaceDeleteAlertDialog parkingSpace={parkingSpace} />
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
