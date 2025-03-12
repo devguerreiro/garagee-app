@@ -29,18 +29,18 @@ export default function ParkingSpaceDeleteAlertDialog({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="h-8 flex px-2 py-1 text-sm font-medium text-destructive">
+      <AlertDialogTrigger className="w-full h-8 px-2 py-1 flex justify-start items-center bg-card shadow-none text-destructive font-medium hover:bg-destructive hover:text-white">
         Excluir vaga
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertDialogHeader className="text-start">
-          <AlertDialogTitle>
-            Exclusão da vaga &quot;<strong>{parkingSpace.identifier}</strong>
-            &quot;
-          </AlertDialogTitle>
-          <AlertDialogDescription>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Confirme sua escolha</AlertDialogTitle>
+          <AlertDialogDescription className="text-pretty">
             Você realmente deseja excluir a vaga &quot;
-            <strong>{parkingSpace.identifier}</strong>&quot;?
+            <strong className="text-destructive">
+              {parkingSpace.identifier}
+            </strong>
+            &quot;?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

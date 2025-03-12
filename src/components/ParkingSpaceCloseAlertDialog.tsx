@@ -29,19 +29,19 @@ export default function ParkingSpaceCloseAlertDialog({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="h-8 flex px-2 py-1 text-sm font-normal">
-        Fechar vaga
+      <AlertDialogTrigger className="w-full h-8 px-2 py-1 flex justify-start items-center bg-card shadow-none text-inherit font-normal">
+        Bloquear vaga
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertDialogHeader className="text-start">
-          <AlertDialogTitle>
-            Fechamento da vaga &quot;<strong>{parkingSpace.identifier}</strong>
-            &quot;
-          </AlertDialogTitle>
-          <AlertDialogDescription>
-            Você realmente deseja fechar a vaga &quot;
-            <strong>{parkingSpace.identifier}</strong>&quot; para futuros
-            empréstimos?
+        <AlertDialogHeader>
+          <AlertDialogTitle>Confirme sua escolha</AlertDialogTitle>
+          <AlertDialogDescription className="text-pretty">
+            Você realmente deseja bloquear a possibilidade de futuros
+            empréstimos da vaga &quot;
+            <strong className="text-destructive">
+              {parkingSpace.identifier}
+            </strong>
+            &quot;?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
