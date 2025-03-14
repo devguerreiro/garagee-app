@@ -16,6 +16,13 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50),
@@ -65,12 +72,21 @@ export default function LocationForm(props: Readonly<Props>) {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="required">Condomínio/Prédio</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Digite o nome do seu condomínio/prédio"
-                />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o seu condomínio/prédio" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Edifício Lago da Constança">
+                    Edifício Lago da Constança
+                  </SelectItem>
+                  <SelectItem value="Residencial Ilha do Arvoredo">
+                    Residencial Ilha do Arvoredo
+                  </SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
