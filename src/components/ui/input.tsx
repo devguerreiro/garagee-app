@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/popover";
 import { FormControl, useFormField } from "./form";
 import { Button } from "./button";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { brazilianDate } from "@/utils";
 import { Calendar, CalendarProps } from "./calendar";
 import {
@@ -33,7 +33,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={cn(
-          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-base",
+          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-base",
           invalid && "border-destructive focus-visible:ring-destructive",
           className
         )}
@@ -58,8 +58,27 @@ const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>(
     );
   }
 );
-
 InputMask.displayName = "InputMask";
+
+const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
+  (props, ref) => {
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    return (
+      <div className="relative">
+        <Input {...props} ref={ref} type={showPassword ? "text" : "password"} />
+        <button
+          type="button"
+          className="absolute top-0 bottom-0 right-3 my-auto"
+          onClick={() => setShowPassword((show) => !show)}
+        >
+          {showPassword ? <EyeIcon size={20} /> : <EyeOffIcon size={20} />}
+        </button>
+      </div>
+    );
+  }
+);
+InputPassword.displayName = "InputPassword";
 
 type DateInputProps = {
   value: Date | undefined;
@@ -135,4 +154,4 @@ const HourInput = ({ value, onChange, disabled, showHour }: HourInputProps) => {
   );
 };
 
-export { Input, InputMask, DateInput, HourInput };
+export { Input, InputMask, InputPassword, DateInput, HourInput };

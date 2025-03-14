@@ -5,8 +5,6 @@ import "./globals.css";
 
 import { Toaster } from "@/components/ui/sonner";
 
-import Footer from "@/components/Footer";
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -26,7 +24,6 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={`${inter.variable} antialiased relative`}>
         {children}
-        <Footer />
         <Toaster position="top-right" richColors />
       </body>
     </html>
