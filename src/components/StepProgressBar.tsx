@@ -17,11 +17,11 @@ export type Step = {
 type Props = Readonly<{
   steps: Array<Step>;
   renderStep?: (step: React.ReactElement) => React.ReactElement;
-  ConclusionStep?: React.ComponentType;
+  FinalStep?: React.ComponentType;
 }>;
 
 const StepProgressBar = React.forwardRef<HTMLDivElement, Props>(
-  ({ steps, renderStep, ConclusionStep }, ref) => {
+  ({ steps, renderStep, FinalStep }, ref) => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const [animationDirection, setAnimationDirection] = useState<
@@ -71,10 +71,7 @@ const StepProgressBar = React.forwardRef<HTMLDivElement, Props>(
           <Slide motionKey={Step.title} direction={animationDirection}>
             <Step.Component
               onNextStep={() => {
-                if (
-                  currentStep + 1 < steps.length ||
-                  ConclusionStep !== undefined
-                ) {
+                if (currentStep + 1 < steps.length || FinalStep !== undefined) {
                   setCurrentStep((prev) => prev + 1);
                   setAnimationDirection("left");
                 } else {
@@ -84,10 +81,10 @@ const StepProgressBar = React.forwardRef<HTMLDivElement, Props>(
             />
           </Slide>
         );
-      } else if (ConclusionStep) {
+      } else if (FinalStep) {
         return (
           <Slide motionKey="finalStep" direction={animationDirection}>
-            <ConclusionStep />
+            <FinalStep />
           </Slide>
         );
       }
