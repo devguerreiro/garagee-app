@@ -13,20 +13,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-import { Input } from "@/components/ui/input";
+import { Input, InputSearchable } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50),
-  building: z.string().min(8).max(50),
+  building: z.string().min(1, "Selecione um condomínio/prédio"),
   apartament: z.string().min(3).max(15),
 });
 
@@ -50,6 +42,14 @@ export default function LocationForm(props: Readonly<Props>) {
     props.onNextStep();
   }
 
+  async function onSearchBuilding(query: string) {
+    console.log(query);
+    return [
+      { label: "Edifício Lago da Constança", value: "123" },
+      { label: "Residencial Ilha do Arvoredo", value: "321" },
+    ];
+  }
+
   return (
     <BaseForm {...form}>
       <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-4">
@@ -70,23 +70,15 @@ export default function LocationForm(props: Readonly<Props>) {
           control={form.control}
           name="building"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="flex flex-col">
               <FormLabel className="required">Condomínio/Prédio</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o seu condomínio/prédio" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Edifício Lago da Constança">
-                    Edifício Lago da Constança
-                  </SelectItem>
-                  <SelectItem value="Residencial Ilha do Arvoredo">
-                    Residencial Ilha do Arvoredo
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <FormControl>
+                <InputSearchable
+                  {...field}
+                  placeholder="Busque seu condomínio/prédio"
+                  onSearch={onSearchBuilding}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

@@ -3,17 +3,23 @@ import * as React from "react";
 import BaseInputMask from "@mona-health/react-input-mask";
 import { Props as BaseInputMaskProps } from "react-input-mask";
 
+import {
+  CalendarIcon,
+  CheckIcon,
+  EyeIcon,
+  EyeOffIcon,
+  SearchIcon,
+} from "lucide-react";
+
+import debounce from "debounce";
+
 import { cn } from "@/lib/utils";
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { brazilianDate } from "@/utils";
+
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { FormControl, useFormField } from "./form";
 import { Button } from "./button";
-import { CalendarIcon, EyeIcon, EyeOffIcon } from "lucide-react";
-import { brazilianDate } from "@/utils";
 import { Calendar, CalendarProps } from "./calendar";
 import {
   Select,
@@ -79,6 +85,82 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 InputPassword.displayName = "InputPassword";
+
+type InputSearchableProps = {
+  onSearch: (query: string) => Promise<Array<{ label: string; value: string }>>;
+} & InputProps;
+
+const InputSearchable = React.forwardRef<
+  HTMLInputElement,
+  InputSearchableProps
+>(({ onSearch, onChange, value, ...props }, ref) => {
+  const [internalValue, setInternalValue] = React.useState("");
+
+  const [options, setOptions] = React.useState<
+    Array<{ label: string; value: string }>
+  >([]);
+
+  const debouncedOnSearch = React.useMemo(
+    () =>
+      debounce((value: string) => {
+        onSearch(value).then(setOptions);
+      }, 500),
+    []
+  );
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <div className="relative">
+          <Input
+            {...props}
+            ref={ref}
+            className="pl-8"
+            value={internalValue}
+            onChange={(e) => {
+              const target = e.target as HTMLInputElement;
+              debouncedOnSearch(target.value);
+              setInternalValue(target.value);
+            }}
+          />
+          <SearchIcon className="absolute top-0 bottom-0 my-auto left-3 w-[14px] h-[14px] text-muted-foreground" />
+        </div>
+      </PopoverTrigger>
+      <PopoverContent
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="p-0 text-sm"
+      >
+        {options.length === 0 ? (
+          <div className="px-2 py-4 text-center">
+            <span>Nenhum resultado encontrado</span>
+          </div>
+        ) : (
+          options.map((option) => (
+            <button
+              key={option.value}
+              value={option.value}
+              className={cn(
+                "w-full flex justify-between items-center p-2 rounded",
+                value === option.value && "bg-primary text-white"
+              )}
+              onClick={() => {
+                // @ts-expect-error react hook form accepts string on change
+                if (onChange) onChange(option.value);
+                setInternalValue(option.label);
+              }}
+            >
+              <span>{option.label}</span>
+              {value === option.value && (
+                <CheckIcon className="w-[1em] h-[1em]" />
+              )}
+            </button>
+          ))
+        )}
+      </PopoverContent>
+    </Popover>
+  );
+});
+InputSearchable.displayName = "InputSearchable";
 
 type DateInputProps = {
   value: Date | undefined;
@@ -154,4 +236,11 @@ const HourInput = ({ value, onChange, disabled, showHour }: HourInputProps) => {
   );
 };
 
-export { Input, InputMask, InputPassword, DateInput, HourInput };
+export {
+  Input,
+  InputMask,
+  InputPassword,
+  InputSearchable,
+  DateInput,
+  HourInput,
+};
