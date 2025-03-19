@@ -3,7 +3,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { Loader2 } from "lucide-react";
+
 import { z } from "@/lib/zod";
+
+import { createUser } from "@/app/actions";
 
 import {
   Form as BaseForm,
@@ -13,7 +17,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Input, InputPassword } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -21,8 +24,8 @@ import useRegisterState from "@/states/register";
 
 const formSchema = z
   .object({
-    username: z.string().min(3).max(30),
-    password: z.string().min(8).max(30),
+    username: z.string().min(3).max(20),
+    password: z.string().min(8).max(50),
     passwordConfirmation: z.string(),
   })
   .refine((values) => values.password === values.passwordConfirmation, {
@@ -37,20 +40,31 @@ type Props = {
 };
 
 export default function AccountForm(props: Readonly<Props>) {
-  const { accountData, setAccountData } = useRegisterState();
+  const { locationData, setIsCompleted } = useRegisterState();
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: accountData ?? {
+    defaultValues: {
       username: "",
       password: "",
       passwordConfirmation: "",
     },
   });
 
-  function handleSubmit(values: FormSchema) {
-    setAccountData(values);
-    props.onNextStep();
+  async function handleSubmit(values: FormSchema) {
+    if (locationData) {
+      const response = await createUser({
+        ...locationData,
+        username: values.username,
+        password: values.password,
+      });
+      if (response.errors === null) {
+        setIsCompleted(true);
+      } else {
+        setIsCompleted(false);
+      }
+      props.onNextStep();
+    }
   }
 
   return (
@@ -95,8 +109,13 @@ export default function AccountForm(props: Readonly<Props>) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full !mt-10">
-          Continuar
+        <Button
+          type="submit"
+          className="w-full !mt-10"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
+          Finalizar
         </Button>
       </form>
     </BaseForm>

@@ -20,8 +20,8 @@ import useRegisterState from "@/states/register";
 
 const formSchema = z.object({
   name: z.string().min(3).max(50),
-  building: z.string().min(1, "Selecione um condomínio/prédio"),
-  apartament: z.string().min(3).max(15),
+  building: z.string().uuid("Selecione um condomínio/prédio"),
+  apartment: z.string().min(3).max(15),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -31,14 +31,15 @@ type Props = {
 };
 
 export default function LocationForm(props: Readonly<Props>) {
-  const { locationData, setLocationData } = useRegisterState();
+  const { locationData, setLocationData, buildingOptions, setBuildingOptions } =
+    useRegisterState();
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: locationData ?? {
       name: "",
       building: "",
-      apartament: "",
+      apartment: "",
     },
   });
 
@@ -49,10 +50,18 @@ export default function LocationForm(props: Readonly<Props>) {
 
   async function onSearchBuilding(query: string) {
     console.log(query);
-    return [
-      { label: "Edifício Lago da Constança", value: "123" },
-      { label: "Residencial Ilha do Arvoredo", value: "321" },
+    const options = [
+      {
+        label: "Edifício Lago da Constança",
+        value: "3bd187d8-0aa8-4b1a-b502-1319d2c207a4",
+      },
+      {
+        label: "Residencial Ilha do Arvoredo",
+        value: "335afa1e-b8de-44ae-87c3-3230d193a76a",
+      },
     ];
+    setBuildingOptions(options);
+    return options;
   }
 
   return (
@@ -82,6 +91,7 @@ export default function LocationForm(props: Readonly<Props>) {
                   {...field}
                   placeholder="Busque seu condomínio/prédio"
                   onSearch={onSearchBuilding}
+                  options={buildingOptions}
                 />
               </FormControl>
               <FormMessage />
@@ -90,7 +100,7 @@ export default function LocationForm(props: Readonly<Props>) {
         />
         <FormField
           control={form.control}
-          name="apartament"
+          name="apartment"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="required">Apartamento</FormLabel>

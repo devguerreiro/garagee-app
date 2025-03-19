@@ -86,30 +86,33 @@ const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
 );
 InputPassword.displayName = "InputPassword";
 
+type InputSearchableOption = { label: string; value: string };
+
 type InputSearchableProps = {
-  onSearch: (query: string) => Promise<Array<{ label: string; value: string }>>;
+  onSearch: (query: string) => Promise<Array<InputSearchableOption>>;
+  options: Array<InputSearchableOption>;
 } & InputProps;
 
 const InputSearchable = React.forwardRef<
   HTMLInputElement,
   InputSearchableProps
->(({ onSearch, onChange, value, ...props }, ref) => {
-  const [internalValue, setInternalValue] = React.useState("");
+>(({ onSearch, options, onChange, value, ...props }, ref) => {
+  const valueLabel = options.find((option) => option.value === value)?.label;
 
-  const [options, setOptions] = React.useState<
-    Array<{ label: string; value: string }>
-  >([]);
+  const [internalValue, setInternalValue] = React.useState(valueLabel ?? "");
+
+  const [showOptions, setShowOptions] = React.useState(false);
 
   const debouncedOnSearch = React.useMemo(
     () =>
       debounce((value: string) => {
-        onSearch(value).then(setOptions);
+        onSearch(value);
       }, 500),
-    []
+    [onSearch]
   );
 
   return (
-    <Popover>
+    <Popover open={showOptions} onOpenChange={setShowOptions}>
       <PopoverTrigger asChild>
         <div className="relative">
           <Input
@@ -147,6 +150,7 @@ const InputSearchable = React.forwardRef<
                 // @ts-expect-error react hook form accepts string on change
                 if (onChange) onChange(option.value);
                 setInternalValue(option.label);
+                setShowOptions(false);
               }}
             >
               <span>{option.label}</span>

@@ -4,24 +4,23 @@ type State = {
   locationData: {
     name: string;
     building: string;
-    apartament: string;
+    apartment: string;
   } | null;
-  accountData: {
-    username: string;
-    password: string;
-    passwordConfirmation: string;
-  } | null;
+  buildingOptions: Array<{ label: string; value: string }>;
+  isCompleted: boolean;
 };
 
 type Action = {
   setLocationData: (data: State["locationData"]) => void;
-  setAccountData: (data: State["accountData"]) => void;
+  setBuildingOptions: (data: State["buildingOptions"]) => void;
+  setIsCompleted: (data: State["isCompleted"]) => void;
   reset: () => void;
 };
 
 const initialState: State = {
   locationData: null,
-  accountData: null,
+  buildingOptions: [],
+  isCompleted: false,
 };
 
 export default create<State & Action>((set) => ({
@@ -29,8 +28,11 @@ export default create<State & Action>((set) => ({
   setLocationData: (locationData: State["locationData"]) => {
     set({ locationData });
   },
-  setAccountData: (accountData: State["accountData"]) => {
-    set({ accountData });
+  setBuildingOptions: (buildingOptions: State["buildingOptions"]) => {
+    set({ buildingOptions });
+  },
+  setIsCompleted: (isCompleted: State["isCompleted"]) => {
+    set({ isCompleted });
   },
   reset: () => {
     set(initialState);

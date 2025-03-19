@@ -1,6 +1,7 @@
 "use server";
 
 import dayjs from "@/lib/dayjs";
+import fetchWrapper from "@/lib/fetch";
 
 import {
   ParkingSpaceListDTO,
@@ -8,6 +9,7 @@ import {
   BookingListDTO,
   BookingStatusDTO,
   BookingDetailDTO,
+  CreateUserDTO,
 } from "./dtos";
 
 export async function getParkingSpaceList() {
@@ -93,5 +95,12 @@ export async function getBookingDetail(publicId: string) {
     to_hour: 16,
     status: BookingStatusDTO.APPROVED,
     bookedAt: dayjs().toDate(),
+  });
+}
+
+export async function createUser(data: CreateUserDTO) {
+  return await fetchWrapper<null>("register", {
+    method: "POST",
+    body: JSON.stringify(data),
   });
 }

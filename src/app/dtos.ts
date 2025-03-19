@@ -51,3 +51,11 @@ export interface BookingDetailDTO {
   status: BookingStatusDTO;
   bookedAt: Date;
 }
+
+export interface CreateUserDTO {
+  name: string;
+  building: string;
+  apartment: string;
+  username: string;
+  password: string;
+}
