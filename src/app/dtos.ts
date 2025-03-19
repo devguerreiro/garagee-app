@@ -63,9 +63,9 @@ export interface CreateUserDTO {
 export interface BuildingListDTO {
   public_id: string;
   name: string;
-  cep: number;
-  address: string;
-  complement: string;
-  city: string;
-  state: string;
+  cnpj: string;
+}
+
+export interface LoginDTO {
+  access_token: string;
 }

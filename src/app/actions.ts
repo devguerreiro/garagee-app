@@ -11,6 +11,7 @@ import {
   BookingDetailDTO,
   CreateUserDTO,
   BuildingListDTO,
+  LoginDTO,
 } from "./dtos";
 
 export async function getParkingSpaceList() {
@@ -114,4 +115,11 @@ export async function getBuildingsByName(name: string) {
       method: "GET",
     }
   );
+}
+
+export async function signIn(username: string, password: string) {
+  return await fetchWrapper<LoginDTO>("auth/login", {
+    method: "POST",
+    body: JSON.stringify({ username, password }),
+  });
 }

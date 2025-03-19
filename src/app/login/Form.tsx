@@ -1,9 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+
+import { setCookie } from "cookies-next/client";
+
+import { Loader2 } from "lucide-react";
+
+import { toast } from "sonner";
 
 import { z } from "@/lib/zod";
 
@@ -19,6 +26,8 @@ import {
 import { Input, InputPassword } from "@/components/ui/input";
 
 import { Button } from "@/components/ui/button";
+
+import { signIn } from "@/app/actions";
 
 const formSchema = z.object({
   username: z.string().min(3).max(30),
@@ -36,7 +45,19 @@ export default function Form() {
     },
   });
 
-  function handleLogin() {}
+  async function handleLogin(values: FormSchema) {
+    const response = await signIn(values.username, values.password);
+    if (response.data) {
+      setCookie("token", response.data.access_token, {
+        secure: true,
+        sameSite: "strict",
+        path: "/",
+      });
+      redirect("/");
+    } else {
+      toast.error("Usuário e/ou senha inválido(s)");
+    }
+  }
 
   return (
     <BaseForm {...form}>
@@ -67,7 +88,12 @@ export default function Form() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full !mt-10">
+        <Button
+          type="submit"
+          className="w-full !mt-10"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting && <Loader2 className="animate-spin" />}
           Acessar plataforma
         </Button>
         <Link
