@@ -17,6 +17,8 @@ import {
 import { Input, InputPassword } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import useRegisterState from "@/states/register";
+
 const formSchema = z
   .object({
     username: z.string().min(3).max(30),
@@ -35,22 +37,25 @@ type Props = {
 };
 
 export default function AccountForm(props: Readonly<Props>) {
+  const { accountData, setAccountData } = useRegisterState();
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: accountData ?? {
       username: "",
       password: "",
       passwordConfirmation: "",
     },
   });
 
-  function handleLogin() {
+  function handleSubmit(values: FormSchema) {
+    setAccountData(values);
     props.onNextStep();
   }
 
   return (
     <BaseForm {...form}>
-      <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="username"

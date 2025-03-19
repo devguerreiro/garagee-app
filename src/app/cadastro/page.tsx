@@ -6,11 +6,13 @@ import StepProgressBar from "@/components/StepProgressBar";
 
 const LocationForm = dynamic(() => import("./LocationForm"));
 const AccountForm = dynamic(() => import("./AccountForm"));
+const FinalStep = dynamic(() => import("./FinalStep"));
 
 export default function Page() {
   return (
     <div className="pt-20 flex justify-center items-center">
       <StepProgressBar
+        FinalStep={FinalStep}
         steps={[
           {
             title: "Localização",

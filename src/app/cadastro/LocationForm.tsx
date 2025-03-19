@@ -16,6 +16,8 @@ import {
 import { Input, InputSearchable } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import useRegisterState from "@/states/register";
+
 const formSchema = z.object({
   name: z.string().min(3).max(50),
   building: z.string().min(1, "Selecione um condomínio/prédio"),
@@ -29,16 +31,19 @@ type Props = {
 };
 
 export default function LocationForm(props: Readonly<Props>) {
+  const { locationData, setLocationData } = useRegisterState();
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: locationData ?? {
       name: "",
       building: "",
       apartament: "",
     },
   });
 
-  function handleLogin() {
+  function handleSubmit(values: FormSchema) {
+    setLocationData(values);
     props.onNextStep();
   }
 
@@ -52,7 +57,7 @@ export default function LocationForm(props: Readonly<Props>) {
 
   return (
     <BaseForm {...form}>
-      <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
