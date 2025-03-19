@@ -59,3 +59,13 @@ export interface CreateUserDTO {
   username: string;
   password: string;
 }
+
+export interface BuildingListDTO {
+  public_id: string;
+  name: string;
+  cep: number;
+  address: string;
+  complement: string;
+  city: string;
+  state: string;
+}

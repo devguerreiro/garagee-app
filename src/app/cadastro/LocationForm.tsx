@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 
 import useRegisterState from "@/states/register";
 
+import { getBuildingsByName } from "@/app/actions";
+
 const formSchema = z.object({
   name: z.string().min(3).max(50),
   building: z.string().uuid("Selecione um condomínio/prédio"),
@@ -49,17 +51,21 @@ export default function LocationForm(props: Readonly<Props>) {
   }
 
   async function onSearchBuilding(query: string) {
-    console.log(query);
-    const options = [
-      {
-        label: "Edifício Lago da Constança",
-        value: "3bd187d8-0aa8-4b1a-b502-1319d2c207a4",
-      },
-      {
-        label: "Residencial Ilha do Arvoredo",
-        value: "335afa1e-b8de-44ae-87c3-3230d193a76a",
-      },
-    ];
+    let options: Array<{ label: string; value: string }> = [];
+    form.resetField("building");
+    if (query.length >= 3) {
+      const response = await getBuildingsByName(query);
+      if (!response.errors && response.data) {
+        options = response.data.map((building) => ({
+          label: building.name,
+          value: building.public_id,
+        }));
+      }
+    } else {
+      form.setError("building", {
+        message: "Digite ao menos 3 caracteres para buscar",
+      });
+    }
     setBuildingOptions(options);
     return options;
   }
