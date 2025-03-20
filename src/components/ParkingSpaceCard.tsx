@@ -2,15 +2,15 @@ import Link from "next/link";
 
 import { BuildingIcon, HouseIcon, ParkingCircleIcon } from "lucide-react";
 
-import { ParkingSpaceListDTO } from "@/app/dtos";
+import { ParkingSpacesListDTO } from "@/app/dtos";
 
 import { getAbbreviationName } from "@/utils";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 type Props = {
   href: string;
-  parkingSpace: ParkingSpaceListDTO;
+  parkingSpace: ParkingSpacesListDTO;
 };
 
 export default function ParkingSpaceCard({
@@ -25,8 +25,8 @@ export default function ParkingSpaceCard({
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>
+            {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
+            <AvatarFallback className="bg-secondary text-white">
               {getAbbreviationName(parkingSpace.owner.name)}
             </AvatarFallback>
           </Avatar>
@@ -50,7 +50,7 @@ export default function ParkingSpaceCard({
         <div className="w-full flex items-center gap-1.5">
           <BuildingIcon className="text-primary w-[1em] h-[1em]" />
           <span className="overflow-hidden text-ellipsis text-nowrap">
-            {parkingSpace.building.name}
+            {parkingSpace.owner.building.name}
           </span>
         </div>
       </div>

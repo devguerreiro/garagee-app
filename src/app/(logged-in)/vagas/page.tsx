@@ -1,11 +1,15 @@
-import { getParkingSpaceList } from "@/app/actions";
+import { getParkingSpaces } from "@/app/actions";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import ParkingSpaceCard from "@/components/ParkingSpaceCard";
 
 export default async function Page() {
-  const parkingSpaces = await getParkingSpaceList();
+  const response = await getParkingSpaces();
+
+  if (!response.data) return;
+
+  const parkingSpaces = response.data;
 
   return (
     <div className="px-4 py-8 space-y-4">
@@ -19,8 +23,8 @@ export default async function Page() {
         <TabsContent value="covered" className="space-y-6">
           {parkingSpaces.map((parkingSpace) => (
             <ParkingSpaceCard
-              href={`/vagas/${parkingSpace.publicId}`}
-              key={parkingSpace.publicId}
+              href={`/vagas/${parkingSpace.public_id}`}
+              key={parkingSpace.public_id}
               parkingSpace={parkingSpace}
             />
           ))}
@@ -28,8 +32,8 @@ export default async function Page() {
         <TabsContent value="uncovered" className="space-y-6">
           {parkingSpaces.map((parkingSpace) => (
             <ParkingSpaceCard
-              href={`/vagas/${parkingSpace.publicId}`}
-              key={parkingSpace.publicId}
+              href={`/vagas/${parkingSpace.public_id}`}
+              key={parkingSpace.public_id}
               parkingSpace={parkingSpace}
             />
           ))}

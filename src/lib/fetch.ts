@@ -42,7 +42,7 @@ export default async function fetchWrapper<T>(
   if (url !== "auth/login/" || !headers.has("Authorization")) {
     const token = (await cookies()).get("token");
     if (token) {
-      headers.set("Authorization", `Token ${token.value}`);
+      headers.set("Authorization", `Bearer ${token.value}`);
     }
   }
 
