@@ -8,7 +8,7 @@ export default async function Page() {
   const parkingSpaces = await getParkingSpaceList();
 
   return (
-    <div className="px-4 py-8 space-y-4 min-h-screen">
+    <div className="px-4 py-8 space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-semibold">Minhas vagas</h1>
         <ParkingSpaceAddDialog />

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,6 +37,8 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>;
 
 export default function Form() {
+  const searchParams = useSearchParams();
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,7 +55,7 @@ export default function Form() {
         sameSite: "strict",
         path: "/",
       });
-      redirect("/");
+      redirect(searchParams.get("redirect") ?? "/");
     } else {
       toast.error("Usuário e/ou senha inválido(s)");
     }

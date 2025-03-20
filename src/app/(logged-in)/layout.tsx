@@ -7,7 +7,7 @@ export default function LoggedInLayout({
 }: Readonly<PropsWithChildren>) {
   return (
     <>
-      {children}
+      <div className="min-h-screen">{children}</div>
       <Footer />
     </>
   );
