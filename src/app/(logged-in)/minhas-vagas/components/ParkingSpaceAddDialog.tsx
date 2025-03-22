@@ -34,10 +34,11 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { Button } from "@/components/ui/button";
+import { createParkingSpace } from "@/app/actions";
 
 const schema = z.object({
-  identifier: z.string().min(3),
-  guidance: z.string().min(10),
+  identifier: z.string().min(1).max(5),
+  guidance: z.string().min(15).max(100),
   isCovered: z.boolean(),
 });
 
@@ -55,10 +56,15 @@ export default function ParkingSpaceAddDialog() {
 
   const [open, setOpen] = useState(false);
 
-  function handleSubmit(values: Schema) {
-    console.log({ values });
-    toast.success("Vaga adicionada com sucesso!");
-    setOpen(false);
+  async function handleSubmit(values: Schema) {
+    const response = await createParkingSpace({
+      ...values,
+      is_covered: values.isCovered,
+    });
+    if (response.errors === null) {
+      toast.success("Vaga adicionada com sucesso!");
+      setOpen(false);
+    }
   }
 
   return (

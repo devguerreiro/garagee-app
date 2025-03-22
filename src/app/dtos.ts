@@ -64,3 +64,9 @@ export interface UpdateParkingSpaceDTO {
   guidance: string;
   is_covered: boolean;
 }
+
+export interface CreateParkingSpaceDTO {
+  identifier: string;
+  guidance: string;
+  is_covered: boolean;
+}

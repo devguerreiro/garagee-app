@@ -11,6 +11,7 @@ import {
   ParkingSpacesDTO,
   ParkingSpaceDetailDTO,
   UpdateParkingSpaceDTO,
+  CreateParkingSpaceDTO,
 } from "./dtos";
 
 export async function createUser(data: CreateUserDTO) {
@@ -98,4 +99,15 @@ export async function getMyParkingSpaces() {
   return await fetchWrapper<Array<ParkingSpacesDTO>>("parking-space/my", {
     method: "GET",
   });
+}
+
+export async function createParkingSpace(data: CreateParkingSpaceDTO) {
+  const response = await fetchWrapper<ParkingSpaceDetailDTO>("parking-space", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  if (response.errors === null) {
+    revalidatePath("/minhas-vagas", "page");
+  }
+  return response;
 }
