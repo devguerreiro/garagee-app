@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { toast } from "sonner";
 
 import { ParkingSpaceDetailDTO } from "@/app/dtos";
@@ -15,6 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteParkingSpace } from "@/app/actions";
 
 type Props = {
   parkingSpace: ParkingSpaceDetailDTO;
@@ -23,8 +26,14 @@ type Props = {
 export default function ParkingSpaceDeleteAlertDialog({
   parkingSpace,
 }: Readonly<Props>) {
-  function handleAction() {
-    toast.success("Vaga excluída com sucesso!");
+  const { back } = useRouter();
+
+  async function handleAction() {
+    const response = await deleteParkingSpace(parkingSpace.public_id);
+    if (response.errors === null) {
+      toast.success("Vaga excluída com sucesso!");
+      back();
+    }
   }
 
   return (
@@ -36,11 +45,12 @@ export default function ParkingSpaceDeleteAlertDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Confirme sua escolha</AlertDialogTitle>
           <AlertDialogDescription className="text-pretty">
-            Você realmente deseja excluir a vaga &quot;
-            <strong className="text-destructive">
-              {parkingSpace.identifier}
-            </strong>
-            &quot;?
+            Você realmente deseja{" "}
+            <strong className="text-destructive">excluir</strong> a vaga{" "}
+            <strong className="text-secondary">
+              &quot;{parkingSpace.identifier}&quot;
+            </strong>{" "}
+            ?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

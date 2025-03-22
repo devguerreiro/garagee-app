@@ -86,3 +86,10 @@ export async function unblockParkingSpace(publicId: string) {
   }
   return response;
 }
+
+export async function deleteParkingSpace(publicId: string) {
+  const url = `parking-space/${publicId}`;
+  return await fetchWrapper<null>(url, {
+    method: "DELETE",
+  });
+}
