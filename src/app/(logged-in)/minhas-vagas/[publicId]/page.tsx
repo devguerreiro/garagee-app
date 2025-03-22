@@ -20,7 +20,11 @@ type Props = {
 export default async function Page({ params }: Readonly<Props>) {
   const { publicId } = await params;
 
-  const parkingSpace = await getParkingSpaceDetail(publicId);
+  const response = await getParkingSpaceDetail(publicId);
+
+  if (!response.data) return;
+
+  const parkingSpace = response.data;
 
   return (
     <div className="container py-8 space-y-8">

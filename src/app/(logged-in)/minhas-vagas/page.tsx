@@ -1,11 +1,15 @@
-import { getParkingSpaceList } from "@/app/actions";
+import { getMyParkingSpaces } from "@/app/actions";
 
 import ParkingSpaceCard from "@/components/ParkingSpaceCard";
 
 import ParkingSpaceAddDialog from "./components/ParkingSpaceAddDialog";
 
 export default async function Page() {
-  const parkingSpaces = await getParkingSpaceList();
+  const response = await getMyParkingSpaces();
+
+  if (!response.data) return;
+
+  const parkingSpaces = response.data;
 
   return (
     <div className="px-4 py-8 space-y-4">
@@ -17,8 +21,8 @@ export default async function Page() {
       <div className="space-y-6">
         {parkingSpaces.map((parkingSpace) => (
           <ParkingSpaceCard
-            href={`/minhas-vagas/${parkingSpace.publicId}`}
-            key={parkingSpace.publicId}
+            href={`/minhas-vagas/${parkingSpace.public_id}`}
+            key={parkingSpace.public_id}
             parkingSpace={parkingSpace}
           />
         ))}

@@ -93,3 +93,9 @@ export async function deleteParkingSpace(publicId: string) {
     method: "DELETE",
   });
 }
+
+export async function getMyParkingSpaces() {
+  return await fetchWrapper<Array<ParkingSpacesDTO>>("parking-space/my", {
+    method: "GET",
+  });
+}
