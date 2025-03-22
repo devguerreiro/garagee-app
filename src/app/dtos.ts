@@ -4,6 +4,12 @@ export enum BookingStatusDTO {
   PENDING = "Pendente",
 }
 
+export interface TokenDTO {
+  sub: string;
+  iat: number;
+  exp: number;
+}
+
 export interface CreateUserDTO {
   name: string;
   building: string;

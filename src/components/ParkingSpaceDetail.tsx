@@ -1,6 +1,5 @@
 import {
   BuildingIcon,
-  EllipsisVerticalIcon,
   HouseIcon,
   ParkingCircleIcon,
   RadarIcon,
@@ -13,15 +12,7 @@ import { getAbbreviationName, getShortName } from "@/utils";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import ParkingSpaceEditDialog from "./ParkingSpaceEditDialog";
-import ParkingSpaceBlockUnblockAlertDialog from "./ParkingSpaceBlockUnblockAlertDialog";
-import ParkingSpaceDeleteAlertDialog from "./ParkingSpaceDeleteAlertDialog";
+import ParkingSpaceDetailOptions from "./ParkingSpaceDetailOptions";
 
 type Props = {
   parkingSpace: ParkingSpaceDetailDTO;
@@ -35,19 +26,7 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
           <h2 className="font-medium">{parkingSpace.identifier}</h2>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            aria-label="opções"
-            className="focus-visible:outline-primary"
-          >
-            <EllipsisVerticalIcon className="text-muted-foreground w-[1em] h-[1em]" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="mr-2">
-            <ParkingSpaceEditDialog parkingSpace={parkingSpace} />
-            <ParkingSpaceBlockUnblockAlertDialog parkingSpace={parkingSpace} />
-            <ParkingSpaceDeleteAlertDialog parkingSpace={parkingSpace} />
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ParkingSpaceDetailOptions parkingSpace={parkingSpace} />
       </div>
       <hr />
       <div className="text-muted-foreground space-y-4">

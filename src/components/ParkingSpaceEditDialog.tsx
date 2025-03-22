@@ -73,8 +73,8 @@ export default function ParkingSpaceEditDialog({
     });
     if (response.errors === null) {
       toast.success("Vaga atualizada com sucesso!");
-      setOpen(false);
     }
+    setOpen(false);
   }
 
   return (
