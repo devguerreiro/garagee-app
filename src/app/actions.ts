@@ -64,3 +64,25 @@ export async function updateParkingSpace(
   }
   return response;
 }
+
+export async function blockParkingSpace(publicId: string) {
+  const url = `parking-space/${publicId}/block`;
+  const response = await fetchWrapper<null>(url, {
+    method: "PATCH",
+  });
+  if (response.errors === null) {
+    revalidatePath("/vagas/[publicId]", "page");
+  }
+  return response;
+}
+
+export async function unblockParkingSpace(publicId: string) {
+  const url = `parking-space/${publicId}/unblock`;
+  const response = await fetchWrapper<null>(url, {
+    method: "PATCH",
+  });
+  if (response.errors === null) {
+    revalidatePath("/vagas/[publicId]", "page");
+  }
+  return response;
+}

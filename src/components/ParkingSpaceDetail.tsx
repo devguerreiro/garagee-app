@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import ParkingSpaceEditDialog from "./ParkingSpaceEditDialog";
-import ParkingSpaceCloseAlertDialog from "./ParkingSpaceCloseAlertDialog";
+import ParkingSpaceBlockUnblockAlertDialog from "./ParkingSpaceBlockUnblockAlertDialog";
 import ParkingSpaceDeleteAlertDialog from "./ParkingSpaceDeleteAlertDialog";
 
 type Props = {
@@ -44,7 +44,7 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mr-2">
             <ParkingSpaceEditDialog parkingSpace={parkingSpace} />
-            <ParkingSpaceCloseAlertDialog parkingSpace={parkingSpace} />
+            <ParkingSpaceBlockUnblockAlertDialog parkingSpace={parkingSpace} />
             <ParkingSpaceDeleteAlertDialog parkingSpace={parkingSpace} />
           </DropdownMenuContent>
         </DropdownMenu>

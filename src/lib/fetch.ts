@@ -51,8 +51,13 @@ export default async function fetchWrapper<T>(
     headers,
   });
   if (response.ok) {
-    const data = (await response.json()) as T;
-    return { data, errors: null };
+    try {
+      const data = (await response.json()) as T;
+      return { data, errors: null };
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+      return { data: null, errors: null };
+    }
   }
 
   return handleRequestError(response);

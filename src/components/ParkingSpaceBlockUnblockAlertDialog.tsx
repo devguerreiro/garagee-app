@@ -16,32 +16,47 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import { blockParkingSpace, unblockParkingSpace } from "@/app/actions";
+
 type Props = {
   parkingSpace: ParkingSpaceDetailDTO;
 };
 
-export default function ParkingSpaceCloseAlertDialog({
+export default function ParkingSpaceBlockUnblockAlertDialog({
   parkingSpace,
 }: Readonly<Props>) {
-  function handleAction() {
-    toast.success("Vaga fechada com sucesso!");
+  async function handleAction() {
+    if (parkingSpace.is_blocked) {
+      const response = await unblockParkingSpace(parkingSpace.public_id);
+      if (response.errors === null) {
+        toast.success("Vaga liberada com sucesso!");
+      }
+    } else {
+      const response = await blockParkingSpace(parkingSpace.public_id);
+      if (response.errors === null) {
+        toast.success("Vaga fechada com sucesso!");
+      }
+    }
   }
 
   return (
     <AlertDialog>
       <AlertDialogTrigger className="w-full h-8 px-2 py-1 flex justify-start items-center bg-card shadow-none text-inherit font-normal">
-        Bloquear vaga
+        {parkingSpace.is_blocked ? "Liberar" : "Bloquear"} vaga
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Confirme sua escolha</AlertDialogTitle>
           <AlertDialogDescription className="text-pretty">
-            Você realmente deseja bloquear a possibilidade de futuros
-            empréstimos da vaga &quot;
+            Você realmente deseja{" "}
             <strong className="text-destructive">
-              {parkingSpace.identifier}
-            </strong>
-            &quot;?
+              {parkingSpace.is_blocked ? "liberar" : "bloquear"}
+            </strong>{" "}
+            a possibilidade de futuros empréstimos da vaga{" "}
+            <strong className="text-secondary">
+              &quot;{parkingSpace.identifier}&quot;
+            </strong>{" "}
+            ?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

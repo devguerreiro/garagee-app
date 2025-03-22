@@ -41,6 +41,7 @@ export interface ParkingSpaceDetailDTO {
   identifier: string;
   guidance: string;
   is_covered: boolean;
+  is_blocked: boolean;
   owner: {
     public_id: string;
     name: string;
