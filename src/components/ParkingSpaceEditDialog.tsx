@@ -37,9 +37,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { Button } from "@/components/ui/button";
 
+import { updateParkingSpace } from "@/app/actions";
+import { LoaderCircle } from "lucide-react";
+
 const schema = z.object({
-  identifier: z.string().min(3),
-  guidance: z.string().min(10),
+  identifier: z.string().min(1).max(5),
+  guidance: z.string().min(15).max(100),
   isCovered: z.boolean(),
 });
 
@@ -57,16 +60,21 @@ export default function ParkingSpaceEditDialog({
     defaultValues: {
       identifier: parkingSpace.identifier,
       guidance: parkingSpace.guidance,
-      isCovered: parkingSpace.isCovered,
+      isCovered: parkingSpace.is_covered,
     },
   });
 
   const [open, setOpen] = useState(false);
 
-  function handleSubmit(values: Schema) {
-    console.log({ values });
-    toast.success("Vaga atualizada com sucesso!");
-    setOpen(false);
+  async function handleSubmit(values: Schema) {
+    const response = await updateParkingSpace(parkingSpace.public_id, {
+      ...values,
+      is_covered: values.isCovered,
+    });
+    if (response.errors === null) {
+      toast.success("Vaga atualizada com sucesso!");
+      setOpen(false);
+    }
   }
 
   return (
@@ -148,8 +156,19 @@ export default function ParkingSpaceEditDialog({
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit" className="flex-1">
-                Atualizar
+              <Button
+                type="submit"
+                className="flex-1"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? (
+                  <>
+                    <LoaderCircle className="animate-spin" />
+                    Atualizando...
+                  </>
+                ) : (
+                  "Atualizar"
+                )}
               </Button>
             </div>
           </form>

@@ -51,3 +51,9 @@ export interface ParkingSpaceDetailDTO {
     };
   };
 }
+
+export interface UpdateParkingSpaceDTO {
+  identifier: string;
+  guidance: string;
+  is_covered: boolean;
+}

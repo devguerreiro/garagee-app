@@ -2,12 +2,15 @@
 
 import fetchWrapper from "@/lib/fetch";
 
+import { revalidatePath } from "next/cache";
+
 import {
   CreateUserDTO,
   BuildingListDTO,
   LoginDTO,
   ParkingSpacesDTO,
   ParkingSpaceDetailDTO,
+  UpdateParkingSpaceDTO,
 } from "./dtos";
 
 export async function createUser(data: CreateUserDTO) {
@@ -45,4 +48,19 @@ export async function getParkingSpaceDetail(publicId: string) {
   return await fetchWrapper<ParkingSpaceDetailDTO>(url, {
     method: "GET",
   });
+}
+
+export async function updateParkingSpace(
+  publicId: string,
+  data: UpdateParkingSpaceDTO
+) {
+  const url = `parking-space/${publicId}`;
+  const response = await fetchWrapper<ParkingSpaceDetailDTO>(url, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+  if (response.errors === null) {
+    revalidatePath("/vagas/[publicId]", "page");
+  }
+  return response;
 }
