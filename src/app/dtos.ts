@@ -22,9 +22,25 @@ export interface LoginDTO {
   access_token: string;
 }
 
-export interface ParkingSpacesListDTO {
+export interface ParkingSpacesDTO {
   public_id: string;
   identifier: string;
+  owner: {
+    public_id: string;
+    name: string;
+    apartment: string;
+    building: {
+      public_id: string;
+      name: string;
+    };
+  };
+}
+
+export interface ParkingSpaceDetailDTO {
+  public_id: string;
+  identifier: string;
+  guidance: string;
+  is_covered: boolean;
   owner: {
     public_id: string;
     name: string;

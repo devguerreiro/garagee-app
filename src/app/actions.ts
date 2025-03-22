@@ -6,7 +6,8 @@ import {
   CreateUserDTO,
   BuildingListDTO,
   LoginDTO,
-  ParkingSpacesListDTO,
+  ParkingSpacesDTO,
+  ParkingSpaceDetailDTO,
 } from "./dtos";
 
 export async function createUser(data: CreateUserDTO) {
@@ -34,7 +35,14 @@ export async function signIn(username: string, password: string) {
 }
 
 export async function getParkingSpaces() {
-  return await fetchWrapper<Array<ParkingSpacesListDTO>>("parking-space", {
+  return await fetchWrapper<Array<ParkingSpacesDTO>>("parking-space", {
+    method: "GET",
+  });
+}
+
+export async function getParkingSpaceDetail(publicId: string) {
+  const url = `parking-space/${publicId}`;
+  return await fetchWrapper<ParkingSpaceDetailDTO>(url, {
     method: "GET",
   });
 }

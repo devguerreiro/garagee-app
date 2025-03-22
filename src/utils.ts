@@ -17,6 +17,19 @@ export function getAbbreviationName(name: string): string {
   }
 }
 
+export function getShortName(name: string): string {
+  const words = name.split(" ");
+  const wordsLength = words.length;
+  if (wordsLength === 0) return "";
+  else if (wordsLength === 1) return words[0];
+  else {
+    const firstName = words[0];
+    const lastName = words[words.length - 1];
+    const shortName = `${firstName} ${lastName}`;
+    return shortName;
+  }
+}
+
 export function brazilianDate(date: Date): string {
   return dayjs(date).format("L");
 }

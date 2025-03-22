@@ -9,9 +9,9 @@ import {
 
 import { ParkingSpaceDetailDTO } from "@/app/dtos";
 
-import { getAbbreviationName } from "@/utils";
+import { getAbbreviationName, getShortName } from "@/utils";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 import {
   DropdownMenu,
@@ -57,7 +57,7 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
             <span className="block">Local</span>
           </div>
           <div>
-            <strong>{parkingSpace.building.name}</strong>
+            <strong>{parkingSpace.owner.building.name}</strong>
           </div>
         </div>
         <div className="space-y-0.5">
@@ -75,20 +75,22 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
             <span className="block">Coberta?</span>
           </div>
           <div>
-            <strong>{parkingSpace.isCovered ? "Sim" : "Não"}</strong>
+            <strong>{parkingSpace.is_covered ? "Sim" : "Não"}</strong>
           </div>
         </div>
       </div>
       <hr />
       <div className="flex items-center gap-2">
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>
+          {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
+          <AvatarFallback className="bg-secondary text-white">
             {getAbbreviationName(parkingSpace.owner.name)}
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col gap-0.5 text-xs">
-          <strong>{parkingSpace.owner.name}</strong>
+          <span className="max-w-40 overflow-hidden text-ellipsis text-nowrap font-semibold">
+            {getShortName(parkingSpace.owner.name)}
+          </span>
           <div className="flex items-center gap-1">
             <HouseIcon className="text-primary w-[1em] h-[1em]" />
             <span>{parkingSpace.owner.apartment}</span>

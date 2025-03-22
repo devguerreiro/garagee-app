@@ -2,15 +2,15 @@ import Link from "next/link";
 
 import { BuildingIcon, HouseIcon, ParkingCircleIcon } from "lucide-react";
 
-import { ParkingSpacesListDTO } from "@/app/dtos";
+import { ParkingSpacesDTO } from "@/app/dtos";
 
-import { getAbbreviationName } from "@/utils";
+import { getAbbreviationName, getShortName } from "@/utils";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 type Props = {
   href: string;
-  parkingSpace: ParkingSpacesListDTO;
+  parkingSpace: ParkingSpacesDTO;
 };
 
 export default function ParkingSpaceCard({
@@ -31,9 +31,9 @@ export default function ParkingSpaceCard({
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-0.5 text-xs">
-            <strong className="max-w-40 overflow-hidden text-ellipsis text-nowrap">
-              {parkingSpace.owner.name}
-            </strong>
+            <span className="max-w-40 overflow-hidden text-ellipsis text-nowrap font-semibold">
+              {getShortName(parkingSpace.owner.name)}
+            </span>
             <div className="flex items-center gap-1">
               <HouseIcon className="text-primary w-[1em] h-[1em]" />
               <span>{parkingSpace.owner.apartment}</span>
