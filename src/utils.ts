@@ -38,13 +38,15 @@ export function brazilianDateTime(date: Date): string {
   return dayjs(date).format("L LT");
 }
 
-export function getBookingStatusBadgeVariant(status: BookingStatusDTO) {
+export function getBookingStatusBadgeVariant(
+  status: keyof typeof BookingStatusDTO
+) {
   switch (status) {
-    case BookingStatusDTO.APPROVED:
+    case "APPROVED":
       return "success";
-    case BookingStatusDTO.REFUSED:
+    case "REFUSED":
       return "destructive";
-    case BookingStatusDTO.PENDING:
+    case "PENDING":
       return "warning";
     default:
       return "default";
@@ -53,5 +55,5 @@ export function getBookingStatusBadgeVariant(status: BookingStatusDTO) {
 
 export function createBookingDateTime(date: Date, hour: number) {
   const datetime = dayjs(date).set("hour", hour).set("minute", 0);
-  return brazilianDateTime(datetime.toDate());
+  return datetime.toDate();
 }

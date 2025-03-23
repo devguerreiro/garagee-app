@@ -20,18 +20,26 @@ type Props = {
 export default async function Page({ params }: Readonly<Props>) {
   const { publicId } = await params;
 
-  const booking = await getBookingDetail(publicId);
+  const response = await getBookingDetail(publicId);
+
+  if (!response.data) return;
+
+  const booking = response.data;
+
+  console.log(booking);
 
   return (
     <div className="container py-8 space-y-8">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/reservas">Reservas</BreadcrumbLink>
+            <BreadcrumbLink href="/minhas-reservas">
+              Minhas reservas
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>{booking.parkingSpace.identifier}</BreadcrumbPage>
+            <BreadcrumbPage>{booking.parking_space.identifier}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

@@ -1,0 +1,30 @@
+import { LoaderCircle } from "lucide-react";
+
+import { BookingDTO } from "@/app/dtos";
+
+import Empty from "@/components/Empty";
+
+import BookingCard from "./BookingCard";
+
+type Props = {
+  isPending: boolean;
+  bookings: Array<BookingDTO>;
+};
+
+export default function TabContent({ isPending, bookings }: Readonly<Props>) {
+  if (isPending) {
+    return <LoaderCircle className="mx-auto animate-spin" />;
+  } else if (bookings.length === 0) {
+    return (
+      <div className="text-center space-y-4">
+        <div className="h-32 w-full">
+          <Empty />
+        </div>
+        <p>Nenhuma reserva encontrada</p>
+      </div>
+    );
+  }
+  return bookings.map((booking) => (
+    <BookingCard key={booking.public_id} booking={booking} />
+  ));
+}

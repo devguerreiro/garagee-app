@@ -7,7 +7,7 @@ import { getParkingSpaces } from "@/app/actions";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import TabContent from "./TabContent";
+import TabContent from "./components/TabContent";
 
 export default function Page() {
   const { replace } = useRouter();

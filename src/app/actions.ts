@@ -8,10 +8,12 @@ import {
   CreateUserDTO,
   BuildingListDTO,
   LoginDTO,
-  ParkingSpacesDTO,
+  ParkingSpaceDTO,
   ParkingSpaceDetailDTO,
   ApartmentListDTO,
   TowerListDTO,
+  BookingDTO,
+  BookingDetailDTO,
 } from "./dtos";
 
 export async function createUser(data: CreateUserDTO) {
@@ -57,7 +59,7 @@ export async function getParkingSpaces(params: Record<string, string>) {
     Object.keys(params).length > 0
       ? "parking-space?" + new URLSearchParams(params)
       : "parking-space";
-  return await fetchWrapper<Array<ParkingSpacesDTO>>(url, {
+  return await fetchWrapper<Array<ParkingSpaceDTO>>(url, {
     method: "GET",
   });
 }
@@ -92,7 +94,24 @@ export async function unblockParkingSpace(publicId: string) {
 }
 
 export async function getMyParkingSpace() {
-  return await fetchWrapper<ParkingSpacesDTO>("parking-space/my", {
+  return await fetchWrapper<ParkingSpaceDTO>("parking-space/my", {
+    method: "GET",
+  });
+}
+
+export async function getMyBookings(params: Record<string, string>) {
+  const url =
+    Object.keys(params).length > 0
+      ? "booking/my?" + new URLSearchParams(params)
+      : "booking/my";
+  return await fetchWrapper<Array<BookingDTO>>(url, {
+    method: "GET",
+  });
+}
+
+export async function getBookingDetail(publicId: string) {
+  const url = `booking/${publicId}`;
+  return await fetchWrapper<BookingDetailDTO>(url, {
     method: "GET",
   });
 }

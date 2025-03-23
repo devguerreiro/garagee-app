@@ -1,13 +1,13 @@
 import { LoaderCircle } from "lucide-react";
 
-import { ParkingSpacesDTO } from "@/app/dtos";
+import { ParkingSpaceDTO } from "@/app/dtos";
 
 import ParkingSpaceCard from "@/components/ParkingSpaceCard";
 import Empty from "@/components/Empty";
 
 type Props = {
   isPending: boolean;
-  parkingSpaces: Array<ParkingSpacesDTO>;
+  parkingSpaces: Array<ParkingSpaceDTO>;
 };
 
 export default function TabContent({

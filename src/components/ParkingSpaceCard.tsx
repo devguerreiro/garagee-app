@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { BuildingIcon, HouseIcon, ParkingCircleIcon } from "lucide-react";
 
-import { ParkingSpacesDTO } from "@/app/dtos";
+import { ParkingSpaceDTO } from "@/app/dtos";
 
 import { getAbbreviationName, getShortName } from "@/utils";
 
@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 type Props = {
   href: string;
-  parkingSpace: ParkingSpacesDTO;
+  parkingSpace: ParkingSpaceDTO;
 };
 
 export default function ParkingSpaceCard({

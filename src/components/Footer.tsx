@@ -27,13 +27,13 @@ export default function Footer() {
             <CarIcon />
             <span>Vagas</span>
           </FooterItem>
-          <FooterItem href="/reservas">
+          <FooterItem href="/minhas-reservas">
             <BookUserIcon />
-            <span>Reservas</span>
+            <span>Minhas reservas</span>
           </FooterItem>
           <FooterItem href="/minha-vaga">
             <MapPinHouseIcon />
-            <span>Minha Vaga</span>
+            <span>Minha vaga</span>
           </FooterItem>
         </ul>
       </nav>

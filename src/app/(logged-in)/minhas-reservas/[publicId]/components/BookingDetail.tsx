@@ -7,12 +7,13 @@ import {
   UmbrellaIcon,
 } from "lucide-react";
 
-import { BookingDetailDTO } from "@/app/dtos";
+import { BookingDetailDTO, BookingStatusDTO } from "@/app/dtos";
 
 import {
-  createBookingDateTime,
+  brazilianDateTime,
   getAbbreviationName,
   getBookingStatusBadgeVariant,
+  getShortName,
 } from "@/utils";
 
 import { Badge } from "@/components/ui/badge";
@@ -24,17 +25,17 @@ type Props = {
 };
 
 export default function BookingDetail({ booking }: Readonly<Props>) {
-  const { parkingSpace } = booking;
+  const { parking_space } = booking;
 
   return (
     <div className="p-6 mb-32 bg-card shadow rounded text-sm text-muted-foreground space-y-6">
       <div className="flex justify-between items-center text-xl">
         <div className="flex items-center gap-2 text-primary">
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
-          <h2 className="font-medium">{parkingSpace.identifier}</h2>
+          <h2 className="font-medium">{parking_space.identifier}</h2>
         </div>
         <Badge variant={getBookingStatusBadgeVariant(booking.status)}>
-          {booking.status}
+          {BookingStatusDTO[booking.status]}
         </Badge>
       </div>
       <hr />
@@ -46,9 +47,7 @@ export default function BookingDetail({ booking }: Readonly<Props>) {
             <span className="block">Início</span>
           </div>
           <div>
-            <strong>
-              {createBookingDateTime(booking.from_date, booking.from_hour)}
-            </strong>
+            <strong>{brazilianDateTime(booking.booked_from)}</strong>
           </div>
         </div>
         <div className="space-y-0.5">
@@ -57,9 +56,7 @@ export default function BookingDetail({ booking }: Readonly<Props>) {
             <span className="block">Fim</span>
           </div>
           <div>
-            <strong>
-              {createBookingDateTime(booking.to_date, booking.to_hour)}
-            </strong>
+            <strong>{brazilianDateTime(booking.booked_to)}</strong>
           </div>
         </div>
       </div>
@@ -72,7 +69,7 @@ export default function BookingDetail({ booking }: Readonly<Props>) {
             <span className="block">Local</span>
           </div>
           <div>
-            <strong>{parkingSpace.building.name}</strong>
+            <strong>{parking_space.apartment.tower.building.name}</strong>
           </div>
         </div>
         <div className="space-y-0.5">
@@ -81,7 +78,7 @@ export default function BookingDetail({ booking }: Readonly<Props>) {
             <span className="block">Orientação</span>
           </div>
           <div>
-            <strong>{parkingSpace.guidance}</strong>
+            <strong>{parking_space.guidance}</strong>
           </div>
         </div>
         <div className="space-y-0.5">
@@ -90,23 +87,23 @@ export default function BookingDetail({ booking }: Readonly<Props>) {
             <span className="block">Coberta?</span>
           </div>
           <div>
-            <strong>{parkingSpace.isCovered ? "Sim" : "Não"}</strong>
+            <strong>{parking_space.is_covered ? "Sim" : "Não"}</strong>
           </div>
         </div>
       </div>
       <hr />
-      <div className="flex items-center gap-2 text-primary">
+      <div className="flex items-center gap-2 text-secondary">
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>
-            {getAbbreviationName(parkingSpace.owner.name)}
+            {getAbbreviationName(parking_space.apartment.occupant.name)}
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col gap-0.5 text-xs">
-          <strong>{parkingSpace.owner.name}</strong>
+          <strong>{getShortName(parking_space.apartment.occupant.name)}</strong>
           <div className="flex items-center gap-1">
             <HouseIcon className="text-primary w-[1em] h-[1em]" />
-            <span>{parkingSpace.owner.apartment}</span>
+            <span>{parking_space.apartment.identifier}</span>
           </div>
         </div>
       </div>
