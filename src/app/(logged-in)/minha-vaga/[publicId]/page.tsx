@@ -31,7 +31,7 @@ export default async function Page({ params }: Readonly<Props>) {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/minhas-vagas">Minhas vagas</BreadcrumbLink>
+            <BreadcrumbLink href="/minha-vaga">Minha vaga</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

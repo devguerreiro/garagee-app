@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 
 import { setCookie } from "cookies-next/client";
 
+import { jwtDecode } from "jwt-decode";
+
 import { Loader2 } from "lucide-react";
 
 import { toast } from "sonner";
@@ -28,6 +30,7 @@ import { Input, InputPassword } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { signIn } from "@/app/actions";
+import { TokenDTO } from "@/app/dtos";
 
 const formSchema = z.object({
   username: z.string().min(3).max(30),
@@ -50,10 +53,13 @@ export default function Form() {
   async function handleLogin(values: FormSchema) {
     const response = await signIn(values.username, values.password);
     if (response.data) {
-      setCookie("token", response.data.access_token, {
+      const token = response.data.access_token;
+      const decodedToken = jwtDecode<TokenDTO>(token);
+      setCookie("token", token, {
         secure: true,
         sameSite: "strict",
         path: "/",
+        expires: new Date(decodedToken.exp * 1000),
       });
       redirect(searchParams.get("redirect") ?? "/");
     } else {

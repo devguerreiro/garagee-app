@@ -52,8 +52,12 @@ export async function signIn(username: string, password: string) {
   });
 }
 
-export async function getParkingSpaces() {
-  return await fetchWrapper<Array<ParkingSpacesDTO>>("parking-space", {
+export async function getParkingSpaces(params: Record<string, string>) {
+  const url =
+    Object.keys(params).length > 0
+      ? "parking-space?" + new URLSearchParams(params)
+      : "parking-space";
+  return await fetchWrapper<Array<ParkingSpacesDTO>>(url, {
     method: "GET",
   });
 }
@@ -87,8 +91,8 @@ export async function unblockParkingSpace(publicId: string) {
   return response;
 }
 
-export async function getMyParkingSpaces() {
-  return await fetchWrapper<Array<ParkingSpacesDTO>>("parking-space/my", {
+export async function getMyParkingSpace() {
+  return await fetchWrapper<ParkingSpacesDTO>("parking-space/my", {
     method: "GET",
   });
 }

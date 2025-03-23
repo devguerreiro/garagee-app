@@ -31,9 +31,9 @@ export default function Footer() {
             <BookUserIcon />
             <span>Reservas</span>
           </FooterItem>
-          <FooterItem href="/minhas-vagas">
+          <FooterItem href="/minha-vaga">
             <MapPinHouseIcon />
-            <span>Minhas Vagas</span>
+            <span>Minha Vaga</span>
           </FooterItem>
         </ul>
       </nav>
