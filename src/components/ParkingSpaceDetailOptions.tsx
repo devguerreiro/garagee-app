@@ -15,9 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import ParkingSpaceEditDialog from "./ParkingSpaceEditDialog";
 import ParkingSpaceBlockUnblockAlertDialog from "./ParkingSpaceBlockUnblockAlertDialog";
-import ParkingSpaceDeleteAlertDialog from "./ParkingSpaceDeleteAlertDialog";
 
 type Props = {
   parkingSpace: ParkingSpaceDetailDTO;
@@ -44,9 +42,7 @@ export default function ParkingSpaceDetailOptions({
           <EllipsisVerticalIcon className="text-muted-foreground w-[1em] h-[1em]" />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mr-2">
-          <ParkingSpaceEditDialog parkingSpace={parkingSpace} />
           <ParkingSpaceBlockUnblockAlertDialog parkingSpace={parkingSpace} />
-          <ParkingSpaceDeleteAlertDialog parkingSpace={parkingSpace} />
         </DropdownMenuContent>
       </DropdownMenu>
     )

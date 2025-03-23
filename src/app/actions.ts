@@ -10,8 +10,6 @@ import {
   LoginDTO,
   ParkingSpacesDTO,
   ParkingSpaceDetailDTO,
-  UpdateParkingSpaceDTO,
-  CreateParkingSpaceDTO,
 } from "./dtos";
 
 export async function createUser(data: CreateUserDTO) {
@@ -51,21 +49,6 @@ export async function getParkingSpaceDetail(publicId: string) {
   });
 }
 
-export async function updateParkingSpace(
-  publicId: string,
-  data: UpdateParkingSpaceDTO
-) {
-  const url = `parking-space/${publicId}`;
-  const response = await fetchWrapper<ParkingSpaceDetailDTO>(url, {
-    method: "PATCH",
-    body: JSON.stringify(data),
-  });
-  if (response.errors === null) {
-    revalidatePath("/vagas/[publicId]", "page");
-  }
-  return response;
-}
-
 export async function blockParkingSpace(publicId: string) {
   const url = `parking-space/${publicId}/block`;
   const response = await fetchWrapper<null>(url, {
@@ -88,26 +71,8 @@ export async function unblockParkingSpace(publicId: string) {
   return response;
 }
 
-export async function deleteParkingSpace(publicId: string) {
-  const url = `parking-space/${publicId}`;
-  return await fetchWrapper<null>(url, {
-    method: "DELETE",
-  });
-}
-
 export async function getMyParkingSpaces() {
   return await fetchWrapper<Array<ParkingSpacesDTO>>("parking-space/my", {
     method: "GET",
   });
-}
-
-export async function createParkingSpace(data: CreateParkingSpaceDTO) {
-  const response = await fetchWrapper<ParkingSpaceDetailDTO>("parking-space", {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
-  if (response.errors === null) {
-    revalidatePath("/minhas-vagas", "page");
-  }
-  return response;
 }
