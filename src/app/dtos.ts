@@ -41,11 +41,18 @@ export interface LoginDTO {
 export interface ParkingSpacesDTO {
   public_id: string;
   identifier: string;
-  owner: {
+  apartment: {
     public_id: string;
-    name: string;
-    apartment: string;
-    building: {
+    identifier: string;
+    tower: {
+      public_id: string;
+      identifier: string;
+      building: {
+        public_id: string;
+        name: string;
+      };
+    };
+    occupant: {
       public_id: string;
       name: string;
     };
@@ -58,11 +65,18 @@ export interface ParkingSpaceDetailDTO {
   guidance: string;
   is_covered: boolean;
   is_blocked: boolean;
-  owner: {
+  apartment: {
     public_id: string;
-    name: string;
-    apartment: string;
-    building: {
+    identifier: string;
+    tower: {
+      public_id: string;
+      identifier: string;
+      building: {
+        public_id: string;
+        name: string;
+      };
+    };
+    occupant: {
       public_id: string;
       name: string;
     };

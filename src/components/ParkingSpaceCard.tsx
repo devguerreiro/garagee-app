@@ -27,16 +27,16 @@ export default function ParkingSpaceCard({
           <Avatar>
             {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
             <AvatarFallback className="bg-secondary text-white">
-              {getAbbreviationName(parkingSpace.owner.name)}
+              {getAbbreviationName(parkingSpace.apartment.occupant.name)}
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-0.5 text-xs">
             <span className="max-w-40 overflow-hidden text-ellipsis text-nowrap font-semibold">
-              {getShortName(parkingSpace.owner.name)}
+              {getShortName(parkingSpace.apartment.occupant.name)}
             </span>
             <div className="flex items-center gap-1">
               <HouseIcon className="text-primary w-[1em] h-[1em]" />
-              <span>{parkingSpace.owner.apartment}</span>
+              <span>{parkingSpace.apartment.identifier}</span>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@ export default function ParkingSpaceCard({
         <div className="w-full flex items-center gap-1.5">
           <BuildingIcon className="text-primary w-[1em] h-[1em]" />
           <span className="overflow-hidden text-ellipsis text-nowrap">
-            {parkingSpace.owner.building.name}
+            {parkingSpace.apartment.tower.building.name}
           </span>
         </div>
       </div>

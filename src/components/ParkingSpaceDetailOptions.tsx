@@ -29,8 +29,8 @@ export default function ParkingSpaceDetailOptions({
   useEffect(() => {
     const token = getCookie("token");
     const decodedToken = jwtDecode<TokenDTO>(token ?? "");
-    setIsOwner(parkingSpace.owner.public_id === decodedToken.sub);
-  }, [parkingSpace.owner.public_id]);
+    setIsOwner(parkingSpace.apartment.occupant.public_id === decodedToken.sub);
+  }, [parkingSpace.apartment.occupant]);
 
   return (
     isOwner && (

@@ -36,7 +36,7 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
             <span className="block">Local</span>
           </div>
           <div>
-            <strong>{parkingSpace.owner.building.name}</strong>
+            <strong>{parkingSpace.apartment.tower.building.name}</strong>
           </div>
         </div>
         <div className="space-y-0.5">
@@ -63,16 +63,16 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
         <Avatar>
           {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
           <AvatarFallback className="bg-secondary text-white">
-            {getAbbreviationName(parkingSpace.owner.name)}
+            {getAbbreviationName(parkingSpace.apartment.occupant.name)}
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col gap-0.5 text-xs">
           <span className="max-w-40 overflow-hidden text-ellipsis text-nowrap font-semibold">
-            {getShortName(parkingSpace.owner.name)}
+            {getShortName(parkingSpace.apartment.occupant.name)}
           </span>
           <div className="flex items-center gap-1">
             <HouseIcon className="text-primary w-[1em] h-[1em]" />
-            <span>{parkingSpace.owner.apartment}</span>
+            <span>{parkingSpace.apartment.identifier}</span>
           </div>
         </div>
       </div>
