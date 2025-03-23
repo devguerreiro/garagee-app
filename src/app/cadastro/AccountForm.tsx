@@ -24,6 +24,7 @@ import useRegisterState from "@/states/register";
 
 const formSchema = z
   .object({
+    name: z.string().min(3).max(50),
     username: z.string().min(3).max(20),
     password: z.string().min(8).max(50),
     passwordConfirmation: z.string(),
@@ -45,6 +46,7 @@ export default function AccountForm(props: Readonly<Props>) {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: "",
       username: "",
       password: "",
       passwordConfirmation: "",
@@ -55,8 +57,7 @@ export default function AccountForm(props: Readonly<Props>) {
     if (locationData) {
       const response = await createUser({
         ...locationData,
-        username: values.username,
-        password: values.password,
+        ...values,
       });
       if (response.errors === null) {
         setIsCompleted(true);
@@ -69,7 +70,20 @@ export default function AccountForm(props: Readonly<Props>) {
 
   return (
     <BaseForm {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="required">Nome Completo</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="Digite o seu nome completo" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="username"

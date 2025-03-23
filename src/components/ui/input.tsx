@@ -88,10 +88,11 @@ InputPassword.displayName = "InputPassword";
 
 type InputSearchableOption = { label: string; value: string };
 
-type InputSearchableProps = {
+type InputSearchableProps = Omit<InputProps, "onChange"> & {
   onSearch: (query: string) => Promise<Array<InputSearchableOption>>;
+  onChange: (value: string) => void;
   options: Array<InputSearchableOption>;
-} & InputProps;
+};
 
 const InputSearchable = React.forwardRef<
   HTMLInputElement,
@@ -131,7 +132,7 @@ const InputSearchable = React.forwardRef<
       </PopoverTrigger>
       <PopoverContent
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="p-0 text-sm"
+        className="p-1 text-sm"
       >
         {options.length === 0 ? (
           <div className="px-2 py-4 text-center">
@@ -147,7 +148,6 @@ const InputSearchable = React.forwardRef<
                 value === option.value && "bg-primary text-white"
               )}
               onClick={() => {
-                // @ts-expect-error react hook form accepts string on change
                 if (onChange) onChange(option.value);
                 setInternalValue(option.label);
                 setShowOptions(false);

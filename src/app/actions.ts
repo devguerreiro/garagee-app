@@ -10,6 +10,8 @@ import {
   LoginDTO,
   ParkingSpacesDTO,
   ParkingSpaceDetailDTO,
+  ApartmentListDTO,
+  TowerListDTO,
 } from "./dtos";
 
 export async function createUser(data: CreateUserDTO) {
@@ -22,11 +24,25 @@ export async function createUser(data: CreateUserDTO) {
 export async function getBuildingsByName(name: string) {
   const params = new URLSearchParams({ name });
   return await fetchWrapper<Array<BuildingListDTO>>(
-    "register/buildings?" + params,
+    "register/building?" + params,
     {
       method: "GET",
     }
   );
+}
+
+export async function getTowersByBuilding(buildingPublicId: string) {
+  const url = `register/building/${buildingPublicId}/tower`;
+  return await fetchWrapper<Array<TowerListDTO>>(url, {
+    method: "GET",
+  });
+}
+
+export async function getApartmentsByTower(towerPublicId: string) {
+  const url = `register/tower/${towerPublicId}/apartment`;
+  return await fetchWrapper<Array<ApartmentListDTO>>(url, {
+    method: "GET",
+  });
 }
 
 export async function signIn(username: string, password: string) {

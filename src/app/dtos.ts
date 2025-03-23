@@ -24,6 +24,16 @@ export interface BuildingListDTO {
   cnpj: string;
 }
 
+export interface TowerListDTO {
+  public_id: string;
+  identifier: string;
+}
+
+export interface ApartmentListDTO {
+  public_id: string;
+  identifier: string;
+}
+
 export interface LoginDTO {
   access_token: string;
 }

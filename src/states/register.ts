@@ -1,18 +1,25 @@
 import { create } from "zustand";
 
+type Option = { label: string; value: string };
+type Options = Array<Option>;
+
 type State = {
   locationData: {
-    name: string;
     building: string;
+    tower: string;
     apartment: string;
   } | null;
-  buildingOptions: Array<{ label: string; value: string }>;
+  buildingOptions: Options;
+  towerOptions: Options;
+  apartmentOptions: Options;
   isCompleted: boolean;
 };
 
 type Action = {
   setLocationData: (data: State["locationData"]) => void;
   setBuildingOptions: (data: State["buildingOptions"]) => void;
+  setTowerOptions: (data: State["buildingOptions"]) => void;
+  setApartmentOptions: (data: State["buildingOptions"]) => void;
   setIsCompleted: (data: State["isCompleted"]) => void;
   reset: () => void;
 };
@@ -20,6 +27,8 @@ type Action = {
 const initialState: State = {
   locationData: null,
   buildingOptions: [],
+  towerOptions: [],
+  apartmentOptions: [],
   isCompleted: false,
 };
 
@@ -30,6 +39,12 @@ export default create<State & Action>((set) => ({
   },
   setBuildingOptions: (buildingOptions: State["buildingOptions"]) => {
     set({ buildingOptions });
+  },
+  setTowerOptions: (towerOptions: State["towerOptions"]) => {
+    set({ towerOptions });
+  },
+  setApartmentOptions: (apartmentOptions: State["apartmentOptions"]) => {
+    set({ apartmentOptions });
   },
   setIsCompleted: (isCompleted: State["isCompleted"]) => {
     set({ isCompleted });
