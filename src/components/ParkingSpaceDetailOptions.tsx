@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-import { jwtDecode } from "jwt-decode";
-import { getCookie } from "cookies-next/client";
-
 import { EllipsisVerticalIcon } from "lucide-react";
 
-import { ParkingSpaceDetailDTO, TokenDTO } from "@/app/dtos";
+import { ParkingSpaceDetailDTO } from "@/app/dtos";
+
+import { decodeTokenFromCookie } from "@/utils";
 
 import {
   DropdownMenu,
@@ -27,8 +26,7 @@ export default function ParkingSpaceDetailOptions({
   const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
-    const token = getCookie("token");
-    const decodedToken = jwtDecode<TokenDTO>(token ?? "");
+    const decodedToken = decodeTokenFromCookie();
     setIsOwner(parkingSpace.apartment.occupant.public_id === decodedToken.sub);
   }, [parkingSpace.apartment.occupant]);
 

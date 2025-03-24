@@ -42,7 +42,7 @@ export default async function Page({ params }: Readonly<Props>) {
         </BreadcrumbList>
       </Breadcrumb>
       <ParkingSpaceDetail parkingSpace={parkingSpace} />
-      <BorrowDialog />
+      <BorrowDialog parkingSpace={parkingSpace} />
     </div>
   );
 }

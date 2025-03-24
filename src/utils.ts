@@ -1,6 +1,9 @@
+import { jwtDecode } from "jwt-decode";
+import { getCookie } from "cookies-next/client";
+
 import dayjs from "@/lib/dayjs";
 
-import { BookingStatusDTO } from "./app/dtos";
+import { BookingStatusDTO, TokenDTO } from "./app/dtos";
 
 export function getAbbreviationName(name: string): string {
   const words = name.split(" ");
@@ -56,4 +59,13 @@ export function getBookingStatusBadgeVariant(
 export function createBookingDateTime(date: Date, hour: number) {
   const datetime = dayjs(date).set("hour", hour).set("minute", 0);
   return datetime.toDate();
+}
+
+export function decodeToken(token: string) {
+  return jwtDecode<TokenDTO>(token ?? "");
+}
+
+export function decodeTokenFromCookie() {
+  const token = getCookie("token");
+  return decodeToken(token ?? "");
 }
