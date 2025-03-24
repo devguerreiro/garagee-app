@@ -4,10 +4,15 @@ import { startTransition, useActionState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { getMyBookings } from "@/app/actions";
+import { BookingStatusDTO } from "@/app/dtos";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import TabContent from "./components/TabContent";
+
+const statuses = Object.keys(BookingStatusDTO).map((status) =>
+  status.toLowerCase()
+);
 
 export default function Page() {
   const { replace } = useRouter();
@@ -17,11 +22,8 @@ export default function Page() {
   const [bookings, dispatch, isPending] = useActionState(async () => {
     const status = searchParams.get("status");
     const params = new URLSearchParams();
-    if (
-      status !== null &&
-      ["approved", "pending", "refused"].includes(status)
-    ) {
-      params.set("status", status);
+    if (status !== null && statuses.includes(status.toLowerCase())) {
+      params.set("status", status.toLowerCase());
     }
     const response = await getMyBookings(Object.fromEntries(params.entries()));
     if (response.data) return response.data;
@@ -30,9 +32,10 @@ export default function Page() {
 
   function getTabsDefaultValue() {
     const status = searchParams.get("status");
-    if (status === null) return "all";
-    else if (status === "true") return "covered";
-    return "uncovered";
+    if (status === null || !statuses.includes(status.toLowerCase())) {
+      return "all";
+    }
+    return status.toLowerCase();
   }
 
   useEffect(() => {

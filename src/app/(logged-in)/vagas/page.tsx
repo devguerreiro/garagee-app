@@ -29,9 +29,9 @@ export default function Page() {
 
   function getTabsDefaultValue() {
     const isCovered = searchParams.get("isCovered");
-    if (isCovered === null) return "all";
-    else if (isCovered === "true") return "covered";
-    return "uncovered";
+    if (isCovered === "true") return "covered";
+    else if (isCovered === "false") return "uncovered";
+    return "all";
   }
 
   useEffect(() => {
