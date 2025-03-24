@@ -49,9 +49,11 @@ export interface ParkingSpaceDTO {
 }
 
 export interface ParkingSpaceDetailDTO {
+  public_id: string;
   identifier: string;
   guidance: string;
   is_covered: boolean;
+  is_blocked: boolean;
   apartment: {
     identifier: string;
     tower: {
