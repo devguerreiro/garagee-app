@@ -69,9 +69,10 @@ export interface ParkingSpaceDetailDTO {
 }
 
 export enum BookingStatusDTO {
+  PENDING = "Pendente",
   APPROVED = "Aprovada",
   REFUSED = "Reprovada",
-  PENDING = "Pendente",
+  REVOKED = "Cancelada",
 }
 
 export interface BookingDTO {
@@ -104,8 +105,10 @@ export interface BookingDetailDTO {
         building: { name: true };
       };
       occupant: {
+        public_id: string;
         name: string;
       };
     };
   };
+  claimant_id: string;
 }

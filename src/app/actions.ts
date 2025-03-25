@@ -115,3 +115,36 @@ export async function getBookingDetail(publicId: string) {
     method: "GET",
   });
 }
+
+export async function revokeBooking(publicId: string) {
+  const url = `booking/${publicId}/revoke`;
+  const response = await fetchWrapper<null>(url, {
+    method: "PATCH",
+  });
+  if (response.errors === null) {
+    revalidatePath("/minhas-vagas/[publicId]", "page");
+  }
+  return response;
+}
+
+export async function approveBooking(publicId: string) {
+  const url = `booking/${publicId}/approve`;
+  const response = await fetchWrapper<null>(url, {
+    method: "PATCH",
+  });
+  if (response.errors === null) {
+    revalidatePath("/minhas-vagas/[publicId]", "page");
+  }
+  return response;
+}
+
+export async function refuseBooking(publicId: string) {
+  const url = `booking/${publicId}/refuse`;
+  const response = await fetchWrapper<null>(url, {
+    method: "PATCH",
+  });
+  if (response.errors === null) {
+    revalidatePath("/minhas-vagas/[publicId]", "page");
+  }
+  return response;
+}

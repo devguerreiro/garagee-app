@@ -55,7 +55,7 @@ export default function ParkingSpaceBlockUnblockAlertDialog({
             a possibilidade de futuros empréstimos da vaga{" "}
             <strong className="text-secondary">
               &quot;{parkingSpace.identifier}&quot;
-            </strong>{" "}
+            </strong>
             ?
           </AlertDialogDescription>
         </AlertDialogHeader>

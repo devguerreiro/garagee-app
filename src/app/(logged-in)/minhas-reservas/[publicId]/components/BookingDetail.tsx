@@ -18,7 +18,8 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+
+import BookingDetailActions from "./BookingDetailActions";
 
 type Props = {
   booking: BookingDetailDTO;
@@ -107,9 +108,7 @@ export default function BookingDetail({ booking }: Readonly<Props>) {
           </div>
         </div>
       </div>
-      <Button className="w-full !mt-12" variant="destructive">
-        Cancelar reserva
-      </Button>
+      <BookingDetailActions booking={booking} />
     </div>
   );
 }

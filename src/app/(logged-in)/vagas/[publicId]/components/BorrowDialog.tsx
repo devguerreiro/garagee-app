@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 
-import { decodeTokenFromCookie } from "@/utils";
-
 import { ParkingSpaceDetailDTO } from "@/app/dtos";
+
+import { useCurrentUser } from "@/app/hooks/use-current-user";
 
 import {
   Dialog,
@@ -33,11 +33,13 @@ export default function BorrowDialog({ parkingSpace }: Readonly<Props>) {
 
   const close = () => setOpen(false);
 
-  const isOwner =
-    decodeTokenFromCookie().sub === parkingSpace.apartment.occupant.public_id;
+  const parkingSpaceOwner = parkingSpace.apartment.occupant.public_id;
+
+  const { isCurrentUser: isParkingSpaceOwner } =
+    useCurrentUser(parkingSpaceOwner);
 
   return (
-    !isOwner && (
+    !isParkingSpaceOwner && (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className="w-full">Pedir emprestado</DialogTrigger>
         <DialogContent>

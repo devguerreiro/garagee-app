@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { EllipsisVerticalIcon } from "lucide-react";
 
 import { ParkingSpaceDetailDTO } from "@/app/dtos";
 
-import { decodeTokenFromCookie } from "@/utils";
+import { useCurrentUser } from "@/app/hooks/use-current-user";
 
 import {
   DropdownMenu,
@@ -23,15 +21,13 @@ type Props = {
 export default function ParkingSpaceDetailOptions({
   parkingSpace,
 }: Readonly<Props>) {
-  const [isOwner, setIsOwner] = useState(false);
+  const parkingSpaceOwner = parkingSpace.apartment.occupant.public_id;
 
-  useEffect(() => {
-    const decodedToken = decodeTokenFromCookie();
-    setIsOwner(parkingSpace.apartment.occupant.public_id === decodedToken.sub);
-  }, [parkingSpace.apartment.occupant]);
+  const { isCurrentUser: isParkingSpaceOwner } =
+    useCurrentUser(parkingSpaceOwner);
 
   return (
-    isOwner && (
+    isParkingSpaceOwner && (
       <DropdownMenu>
         <DropdownMenuTrigger
           aria-label="opções"

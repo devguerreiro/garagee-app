@@ -26,8 +26,6 @@ export default async function Page({ params }: Readonly<Props>) {
 
   const booking = response.data;
 
-  console.log(booking);
-
   return (
     <div className="container py-8 space-y-8">
       <Breadcrumb>

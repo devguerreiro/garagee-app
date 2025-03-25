@@ -45,12 +45,14 @@ export function getBookingStatusBadgeVariant(
   status: keyof typeof BookingStatusDTO
 ) {
   switch (status) {
+    case "PENDING":
+      return "warning";
     case "APPROVED":
       return "success";
     case "REFUSED":
       return "destructive";
-    case "PENDING":
-      return "warning";
+    case "REVOKED":
+      return "secondary";
     default:
       return "default";
   }
