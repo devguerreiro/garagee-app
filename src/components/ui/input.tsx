@@ -132,7 +132,7 @@ const InputSearchable = React.forwardRef<
       </PopoverTrigger>
       <PopoverContent
         onOpenAutoFocus={(e) => e.preventDefault()}
-        className="p-1 text-sm"
+        className="p-1 text-sm max-h-40 overflow-y-auto"
       >
         {options.length === 0 ? (
           <div className="px-2 py-4 text-center">
@@ -194,7 +194,7 @@ const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
           </Button>
         </FormControl>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent className="w-auto p-0 max-h-none" align="start">
         <Calendar
           {...props}
           mode="single"

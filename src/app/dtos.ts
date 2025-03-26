@@ -75,6 +75,12 @@ export enum BookingStatusDTO {
   REVOKED = "Cancelada",
 }
 
+export interface CreateBookingDTO {
+  parking_space: string;
+  booked_from: Date;
+  booked_to: Date;
+}
+
 export interface BookingDTO {
   public_id: string;
   status: keyof typeof BookingStatusDTO;

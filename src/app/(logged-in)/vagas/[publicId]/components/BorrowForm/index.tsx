@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -18,15 +20,22 @@ import { DateInput, HourInput } from "@/components/ui/input";
 
 import dayjs from "@/lib/dayjs";
 
+import { createBooking } from "@/app/actions";
+import { ParkingSpaceDetailDTO } from "@/app/dtos";
+
 import formSchema, { FormSchema } from "./schema";
-import { useRef } from "react";
 
 type Props = {
+  parkingSpace: ParkingSpaceDetailDTO;
   onCancel: () => void;
   onSubmit: () => void;
 };
 
-export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
+export default function BorrowForm({
+  parkingSpace,
+  onCancel,
+  onSubmit,
+}: Readonly<Props>) {
   const now = useRef(dayjs());
 
   const form = useForm<FormSchema>({
@@ -42,10 +51,20 @@ export default function BorrowForm({ onCancel, onSubmit }: Readonly<Props>) {
   const fromDate = form.watch("from_date");
   const toDate = form.watch("to_date");
 
-  function handleSubmit(values: FormSchema) {
-    console.log(values);
-    toast.success("Vaga solicitada com sucesso!");
-    onSubmit();
+  async function handleSubmit(values: FormSchema) {
+    const bookedFrom = dayjs(values.from_date).set("hour", values.from_hour);
+    const bookedTo = dayjs(values.to_date).set("hour", values.to_hour);
+    const response = await createBooking({
+      parking_space: parkingSpace.public_id,
+      booked_from: bookedFrom.toDate(),
+      booked_to: bookedTo.toDate(),
+    });
+    if (response.errors === null) {
+      toast.success("Vaga solicitada com sucesso!");
+      onSubmit();
+    } else if (response.errors.includes("parking space not available")) {
+      toast.error("Vaga indisponível!");
+    }
   }
 
   function disableDate(date: Date | undefined) {

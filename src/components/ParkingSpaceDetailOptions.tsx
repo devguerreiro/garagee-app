@@ -4,7 +4,7 @@ import { EllipsisVerticalIcon } from "lucide-react";
 
 import { ParkingSpaceDetailDTO } from "@/app/dtos";
 
-import { useCurrentUser } from "@/app/hooks/use-current-user";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 import {
   DropdownMenu,

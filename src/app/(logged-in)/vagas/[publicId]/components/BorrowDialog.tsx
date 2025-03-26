@@ -6,7 +6,7 @@ import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 
 import { ParkingSpaceDetailDTO } from "@/app/dtos";
 
-import { useCurrentUser } from "@/app/hooks/use-current-user";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 import {
   Dialog,
@@ -57,7 +57,11 @@ export default function BorrowDialog({ parkingSpace }: Readonly<Props>) {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <BorrowForm onCancel={close} onSubmit={close} />
+              <BorrowForm
+                parkingSpace={parkingSpace}
+                onCancel={close}
+                onSubmit={close}
+              />
             </CardContent>
           </Card>
         </DialogContent>

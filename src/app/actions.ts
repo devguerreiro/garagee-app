@@ -14,6 +14,7 @@ import {
   TowerListDTO,
   BookingDTO,
   BookingDetailDTO,
+  CreateBookingDTO,
 } from "./dtos";
 
 export async function createUser(data: CreateUserDTO) {
@@ -96,6 +97,13 @@ export async function unblockParkingSpace(publicId: string) {
 export async function getMyParkingSpace() {
   return await fetchWrapper<ParkingSpaceDTO>("parking-space/my", {
     method: "GET",
+  });
+}
+
+export async function createBooking(data: CreateBookingDTO) {
+  return await fetchWrapper<null>("booking", {
+    method: "POST",
+    body: JSON.stringify(data),
   });
 }
 
