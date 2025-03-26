@@ -142,7 +142,6 @@ const InputSearchable = React.forwardRef<
           options.map((option) => (
             <button
               key={option.value}
-              value={option.value}
               className={cn(
                 "w-full flex justify-between items-center p-2 rounded",
                 value === option.value && "bg-primary text-white"
@@ -172,8 +171,10 @@ type DateInputProps = {
 } & CalendarProps;
 
 const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <FormControl>
           <Button
@@ -199,7 +200,10 @@ const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
           {...props}
           mode="single"
           selected={value}
-          onSelect={onChange}
+          onSelect={(e) => {
+            if (onChange) onChange(e);
+            setIsOpen(false);
+          }}
         />
       </PopoverContent>
     </Popover>
