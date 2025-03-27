@@ -118,3 +118,8 @@ export interface BookingDetailDTO {
   };
   claimant_id: string;
 }
+
+export interface BookingByParkingSpaceDTO {
+  booked_from: Date;
+  booked_to: Date;
+}

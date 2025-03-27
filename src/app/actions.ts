@@ -15,6 +15,7 @@ import {
   BookingDTO,
   BookingDetailDTO,
   CreateBookingDTO,
+  BookingByParkingSpaceDTO,
 } from "./dtos";
 
 export async function createUser(data: CreateUserDTO) {
@@ -92,6 +93,13 @@ export async function unblockParkingSpace(publicId: string) {
     revalidatePath("/vagas/[publicId]", "page");
   }
   return response;
+}
+
+export async function getBookingsByParkingSpace(parkingSpacePublicId: string) {
+  const url = `parking-space/${parkingSpacePublicId}/bookings`;
+  return await fetchWrapper<Array<BookingByParkingSpaceDTO>>(url, {
+    method: "GET",
+  });
 }
 
 export async function getMyParkingSpace() {

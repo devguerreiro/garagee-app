@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,8 +20,8 @@ import { DateInput, HourInput } from "@/components/ui/input";
 
 import dayjs from "@/lib/dayjs";
 
-import { createBooking } from "@/app/actions";
-import { ParkingSpaceDetailDTO } from "@/app/dtos";
+import { createBooking, getBookingsByParkingSpace } from "@/app/actions";
+import { ParkingSpaceDetailDTO, BookingByParkingSpaceDTO } from "@/app/dtos";
 
 import formSchema, { FormSchema } from "./schema";
 
@@ -48,6 +48,8 @@ export default function BorrowForm({
     },
   });
 
+  const [bookings, setBookings] = useState<Array<BookingByParkingSpaceDTO>>([]);
+
   const fromDate = form.watch("from_date");
   const toDate = form.watch("to_date");
 
@@ -69,7 +71,22 @@ export default function BorrowForm({
 
   function disableDate(date: Date | undefined) {
     if (date !== undefined) {
-      return dayjs(date).isBefore(now.current, "date");
+      const _date = dayjs(date);
+      const isPast = _date.isBefore(now.current, "date");
+      const isUnavailable = bookings.some((booking) => {
+        const bookedFrom = dayjs(booking.booked_from);
+        const bookedTo = dayjs(booking.booked_to);
+
+        const isInRange =
+          _date.isAfter(bookedFrom, "hour") && _date.isBefore(bookedTo, "hour");
+
+        return (
+          isInRange ||
+          (_date.isSame(bookedFrom) && bookedFrom.hour() === 0) ||
+          (_date.isSame(bookedTo) && bookedTo.hour() === 23)
+        );
+      });
+      return isPast || isUnavailable;
     }
     return false;
   }
@@ -91,6 +108,14 @@ export default function BorrowForm({
     }
     return true;
   }
+
+  useEffect(() => {
+    getBookingsByParkingSpace(parkingSpace.public_id).then((response) => {
+      if (response.errors === null) {
+        setBookings(response.data ?? []);
+      }
+    });
+  }, []);
 
   return (
     <Form {...form}>
