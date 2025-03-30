@@ -66,6 +66,7 @@ export interface ParkingSpaceDetailDTO {
       name: string;
     };
   };
+  bookings: Record<string, Array<number>>;
 }
 
 export enum BookingStatusDTO {
@@ -117,9 +118,4 @@ export interface BookingDetailDTO {
     };
   };
   claimant_id: string;
-}
-
-export interface BookingByParkingSpaceDTO {
-  booked_from: Date;
-  booked_to: Date;
 }
