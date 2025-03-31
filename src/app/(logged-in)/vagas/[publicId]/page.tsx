@@ -1,5 +1,7 @@
 import { getParkingSpaceDetail } from "@/app/actions";
 
+import dayjs from "@/lib/dayjs";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,7 +24,7 @@ type Props = {
 export default async function Page({ params }: Readonly<Props>) {
   const { publicId } = await params;
 
-  const response = await getParkingSpaceDetail(publicId);
+  const response = await getParkingSpaceDetail(publicId, dayjs().utcOffset());
 
   if (!response.data) return;
 

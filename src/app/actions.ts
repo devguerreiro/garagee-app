@@ -65,8 +65,11 @@ export async function getParkingSpaces(params: Record<string, string>) {
   });
 }
 
-export async function getParkingSpaceDetail(publicId: string) {
-  const url = `parking-space/${publicId}`;
+export async function getParkingSpaceDetail(
+  publicId: string,
+  timezoneOffset: number
+) {
+  const url = `parking-space/${publicId}?timezoneOffset=${timezoneOffset}`;
   return await fetchWrapper<ParkingSpaceDetailDTO>(url, {
     method: "GET",
   });

@@ -85,10 +85,10 @@ export default function BorrowForm({
 
   function showFromHour(hour: number) {
     if (fromDate !== undefined) {
-      if (dayjs(fromDate).isSame(now.current, "date")) {
-        return hour > now.current.get("hour");
-      } else if (parkingSpace.bookings[brazilianDate(fromDate)] !== undefined) {
+      if (parkingSpace.bookings[brazilianDate(fromDate)] !== undefined) {
         return !parkingSpace.bookings[brazilianDate(fromDate)].includes(hour);
+      } else if (dayjs(fromDate).isSame(now.current, "date")) {
+        return hour > now.current.get("hour");
       }
     }
     return true;
@@ -96,10 +96,10 @@ export default function BorrowForm({
 
   function showToHour(hour: number) {
     if (toDate !== undefined) {
-      if (dayjs(toDate).isSame(now.current, "date")) {
-        return hour > now.current.get("hour") + 1;
-      } else if (parkingSpace.bookings[brazilianDate(toDate)] !== undefined) {
+      if (parkingSpace.bookings[brazilianDate(toDate)] !== undefined) {
         return !parkingSpace.bookings[brazilianDate(toDate)].includes(hour);
+      } else if (dayjs(toDate).isSame(now.current, "date")) {
+        return hour > now.current.get("hour") + 1;
       }
     }
     return true;
