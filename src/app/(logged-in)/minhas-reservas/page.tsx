@@ -42,6 +42,19 @@ export default function Page() {
     startTransition(dispatch);
   }, [searchParams]);
 
+  useEffect(() => {
+    const activeTab = document.querySelector(
+      "button[role=tab][data-state=active]"
+    );
+    if (activeTab) {
+      activeTab.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
+  }, []);
+
   return (
     <div className="px-4 py-8 space-y-4">
       <h1 className="text-lg font-semibold">Reservas</h1>
