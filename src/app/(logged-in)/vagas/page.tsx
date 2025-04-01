@@ -25,7 +25,7 @@ export default function Page() {
     );
     if (response.data) return response.data;
     return [];
-  }, []);
+  }, null);
 
   function getTabsDefaultValue() {
     const isCovered = searchParams.get("isCovered");

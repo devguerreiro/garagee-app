@@ -28,7 +28,7 @@ export default function Page() {
     const response = await getMyBookings(Object.fromEntries(params.entries()));
     if (response.data) return response.data;
     return [];
-  }, []);
+  }, null);
 
   function getTabsDefaultValue() {
     const status = searchParams.get("status");
@@ -80,6 +80,14 @@ export default function Page() {
           >
             Recusadas
           </TabsTrigger>
+          <TabsTrigger
+            value="revoked"
+            onClick={() => {
+              replace("/minhas-reservas?status=revoked");
+            }}
+          >
+            Canceladas
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="all" className="space-y-6">
           <TabContent isPending={isPending} bookings={bookings} />
@@ -91,6 +99,9 @@ export default function Page() {
           <TabContent isPending={isPending} bookings={bookings} />
         </TabsContent>
         <TabsContent value="refused" className="space-y-6">
+          <TabContent isPending={isPending} bookings={bookings} />
+        </TabsContent>
+        <TabsContent value="revoked" className="space-y-6">
           <TabContent isPending={isPending} bookings={bookings} />
         </TabsContent>
       </Tabs>

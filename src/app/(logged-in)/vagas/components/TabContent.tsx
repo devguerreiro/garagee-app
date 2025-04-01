@@ -7,14 +7,14 @@ import Empty from "@/components/Empty";
 
 type Props = {
   isPending: boolean;
-  parkingSpaces: Array<ParkingSpaceDTO>;
+  parkingSpaces: Array<ParkingSpaceDTO> | null;
 };
 
 export default function TabContent({
   isPending,
   parkingSpaces,
 }: Readonly<Props>) {
-  if (isPending) {
+  if (isPending || parkingSpaces === null) {
     return <LoaderCircle className="mx-auto animate-spin" />;
   } else if (parkingSpaces.length === 0) {
     return (

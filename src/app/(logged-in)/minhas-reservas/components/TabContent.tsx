@@ -8,11 +8,11 @@ import BookingCard from "./BookingCard";
 
 type Props = {
   isPending: boolean;
-  bookings: Array<BookingDTO>;
+  bookings: Array<BookingDTO> | null;
 };
 
 export default function TabContent({ isPending, bookings }: Readonly<Props>) {
-  if (isPending) {
+  if (isPending || bookings === null) {
     return <LoaderCircle className="mx-auto animate-spin" />;
   } else if (bookings.length === 0) {
     return (
