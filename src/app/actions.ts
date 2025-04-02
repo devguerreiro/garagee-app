@@ -17,6 +17,8 @@ import {
   CreateBookingDTO,
   MyParkingSpaceDTO,
 } from "./dtos";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function createUser(data: CreateUserDTO) {
   return await fetchWrapper<null>("register", {
@@ -54,6 +56,11 @@ export async function signIn(username: string, password: string) {
     method: "POST",
     body: JSON.stringify({ username, password }),
   });
+}
+
+export async function signOut() {
+  (await cookies()).delete("token");
+  redirect("/login");
 }
 
 export async function getParkingSpaces(params: Record<string, string>) {
