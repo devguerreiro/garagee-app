@@ -31,9 +31,7 @@ export default async function Page({ params }: Readonly<Props>) {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/minhas-reservas">
-              Minhas reservas
-            </BreadcrumbLink>
+            <BreadcrumbLink href="/reservas">Reservas</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

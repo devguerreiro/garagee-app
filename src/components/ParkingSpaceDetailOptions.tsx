@@ -2,7 +2,7 @@
 
 import { EllipsisVerticalIcon } from "lucide-react";
 
-import { ParkingSpaceDetailDTO } from "@/app/dtos";
+import { MyParkingSpaceDTO, ParkingSpaceDetailDTO } from "@/app/dtos";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 
@@ -15,7 +15,7 @@ import {
 import ParkingSpaceBlockUnblockAlertDialog from "./ParkingSpaceBlockUnblockAlertDialog";
 
 type Props = {
-  parkingSpace: ParkingSpaceDetailDTO;
+  parkingSpace: ParkingSpaceDetailDTO | MyParkingSpaceDTO;
 };
 
 export default function ParkingSpaceDetailOptions({

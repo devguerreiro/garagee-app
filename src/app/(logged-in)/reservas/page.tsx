@@ -64,7 +64,7 @@ export default function Page() {
           <TabsTrigger
             value="all"
             onClick={() => {
-              replace("/minhas-reservas");
+              replace("/reservas");
             }}
           >
             Todas
@@ -72,7 +72,7 @@ export default function Page() {
           <TabsTrigger
             value="approved"
             onClick={() => {
-              replace("/minhas-reservas?status=approved");
+              replace("/reservas?status=approved");
             }}
           >
             Aprovadas
@@ -80,7 +80,7 @@ export default function Page() {
           <TabsTrigger
             value="pending"
             onClick={() => {
-              replace("/minhas-reservas?status=pending");
+              replace("/reservas?status=pending");
             }}
           >
             Pendentes
@@ -88,7 +88,7 @@ export default function Page() {
           <TabsTrigger
             value="refused"
             onClick={() => {
-              replace("/minhas-reservas?status=refused");
+              replace("/reservas?status=refused");
             }}
           >
             Recusadas
@@ -96,7 +96,7 @@ export default function Page() {
           <TabsTrigger
             value="revoked"
             onClick={() => {
-              replace("/minhas-reservas?status=revoked");
+              replace("/reservas?status=revoked");
             }}
           >
             Canceladas

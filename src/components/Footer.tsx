@@ -5,7 +5,12 @@ import { PropsWithChildren } from "react";
 import { usePathname } from "next/navigation";
 import Link, { LinkProps } from "next/link";
 
-import { BookUserIcon, CarIcon, MapPinHouseIcon } from "lucide-react";
+import {
+  BookUserIcon,
+  CarIcon,
+  CircleUserIcon,
+  MapPinHouseIcon,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -41,13 +46,17 @@ export default function Footer() {
             <CarIcon />
             <span>Vagas</span>
           </FooterItem>
-          <FooterItem href="/minhas-reservas">
+          <FooterItem href="/reservas">
             <BookUserIcon />
-            <span>Minhas reservas</span>
+            <span>Reservas</span>
           </FooterItem>
-          <FooterItem href="/minha-vaga">
+          <FooterItem href="/garagem">
             <MapPinHouseIcon />
-            <span>Minha vaga</span>
+            <span>Garagem</span>
+          </FooterItem>
+          <FooterItem href="/perfil">
+            <CircleUserIcon />
+            <span>Perfil</span>
           </FooterItem>
         </ul>
       </nav>

@@ -69,6 +69,26 @@ export interface ParkingSpaceDetailDTO {
   bookings: Record<string, Array<number>>;
 }
 
+export interface MyParkingSpaceDTO {
+  public_id: string;
+  identifier: string;
+  guidance: string;
+  is_covered: boolean;
+  is_blocked: boolean;
+  apartment: {
+    identifier: string;
+    tower: {
+      building: {
+        name: string;
+      };
+    };
+    occupant: {
+      public_id: string;
+      name: string;
+    };
+  };
+}
+
 export enum BookingStatusDTO {
   PENDING = "Pendente",
   APPROVED = "Aprovada",

@@ -6,7 +6,7 @@ import {
   UmbrellaIcon,
 } from "lucide-react";
 
-import { ParkingSpaceDetailDTO } from "@/app/dtos";
+import { MyParkingSpaceDTO, ParkingSpaceDetailDTO } from "@/app/dtos";
 
 import { getAbbreviationName, getShortName } from "@/utils";
 
@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import ParkingSpaceDetailOptions from "./ParkingSpaceDetailOptions";
 
 type Props = {
-  parkingSpace: ParkingSpaceDetailDTO;
+  parkingSpace: ParkingSpaceDetailDTO | MyParkingSpaceDTO;
 };
 
 export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {

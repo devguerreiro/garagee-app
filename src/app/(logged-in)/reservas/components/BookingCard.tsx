@@ -21,7 +21,7 @@ export default function BookingCard({ booking }: Readonly<Props>) {
 
   return (
     <Link
-      href={`/minhas-reservas/${booking.public_id}`}
+      href={`/reservas/${booking.public_id}`}
       className="px-6 py-4 bg-card rounded-lg shadow flex gap-2 relative"
     >
       <Badge

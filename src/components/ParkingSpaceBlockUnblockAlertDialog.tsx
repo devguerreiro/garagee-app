@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 
-import { ParkingSpaceDetailDTO } from "@/app/dtos";
+import { MyParkingSpaceDTO, ParkingSpaceDetailDTO } from "@/app/dtos";
 
 import {
   AlertDialog,
@@ -19,7 +19,7 @@ import {
 import { blockParkingSpace, unblockParkingSpace } from "@/app/actions";
 
 type Props = {
-  parkingSpace: ParkingSpaceDetailDTO;
+  parkingSpace: ParkingSpaceDetailDTO | MyParkingSpaceDTO;
 };
 
 export default function ParkingSpaceBlockUnblockAlertDialog({
