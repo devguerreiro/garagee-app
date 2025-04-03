@@ -139,3 +139,14 @@ export interface BookingDetailDTO {
   };
   claimant_id: string;
 }
+
+export interface UserProfileDTO {
+  public_id: string;
+  name: string;
+  apartment: {
+    identifier: true;
+    tower: {
+      building: { name: true };
+    };
+  };
+}

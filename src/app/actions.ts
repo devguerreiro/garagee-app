@@ -16,6 +16,7 @@ import {
   BookingDetailDTO,
   CreateBookingDTO,
   MyParkingSpaceDTO,
+  UserProfileDTO,
 } from "./dtos";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -166,4 +167,10 @@ export async function refuseBooking(publicId: string) {
     revalidatePath("/minhas-vagas/[publicId]", "page");
   }
   return response;
+}
+
+export async function getUserProfile() {
+  return await fetchWrapper<UserProfileDTO>("user/profile", {
+    method: "GET",
+  });
 }
