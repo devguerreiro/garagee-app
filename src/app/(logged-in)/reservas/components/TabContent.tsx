@@ -1,8 +1,7 @@
-import { LoaderCircle } from "lucide-react";
-
 import { BookingDTO } from "@/app/dtos";
 
 import Empty from "@/components/Empty";
+import AppLoading from "@/components/Loading";
 
 import BookingCard from "./BookingCard";
 
@@ -13,7 +12,7 @@ type Props = {
 
 export default function TabContent({ isPending, bookings }: Readonly<Props>) {
   if (isPending || bookings === null) {
-    return <LoaderCircle className="mx-auto animate-spin" />;
+    return <AppLoading />;
   } else if (bookings.length === 0) {
     return (
       <div className="text-center space-y-4">

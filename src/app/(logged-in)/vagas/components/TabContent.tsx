@@ -1,9 +1,8 @@
-import { LoaderCircle } from "lucide-react";
-
 import { ParkingSpaceDTO } from "@/app/dtos";
 
 import ParkingSpaceCard from "@/components/ParkingSpaceCard";
 import Empty from "@/components/Empty";
+import AppLoading from "@/components/Loading";
 
 type Props = {
   isPending: boolean;
@@ -15,7 +14,7 @@ export default function TabContent({
   parkingSpaces,
 }: Readonly<Props>) {
   if (isPending || parkingSpaces === null) {
-    return <LoaderCircle className="mx-auto animate-spin" />;
+    return <AppLoading />;
   } else if (parkingSpaces.length === 0) {
     return (
       <div className="text-center space-y-4">
