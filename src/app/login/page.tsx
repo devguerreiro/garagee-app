@@ -1,13 +1,19 @@
+import Image from "next/image";
+
 import Form from "./Form";
 
 export default function Page() {
   return (
     <div className="h-screen w-screen flex justify-center items-center">
       <div className="container p-8 bg-card shadow rounded space-y-4">
-        <div className="space-y-1">
-          <h1 className="text-2xl text-secondary text-center font-bold uppercase">
-            Garag_<strong className="text-primary">ee</strong>
-          </h1>
+        <div className="space-y-4">
+          <Image
+            src="/logo.png"
+            alt="logo"
+            width={150}
+            height={84}
+            className="mx-auto"
+          />
           <p className="text-sm text-muted-foreground">
             Informe seu login para acessar a plataforma
           </p>
