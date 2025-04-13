@@ -176,16 +176,11 @@ export async function getUserProfile() {
   });
 }
 
-export async function getParkingSpaceBookings(
-  parkingSpacePublicId: string,
-  params: Record<string, string>
-) {
+export async function getParkingSpaceBookings(params: Record<string, string>) {
   const url =
     Object.keys(params).length > 0
-      ? `parking-space/${parkingSpacePublicId}/bookings?` +
-        new URLSearchParams(params)
-      : `parking-space/${parkingSpacePublicId}/bookings`;
-  console.log(url);
+      ? `parking-space/bookings/my?` + new URLSearchParams(params)
+      : `parking-space/bookings/my`;
   return await fetchWrapper<Array<ParkingSpaceBookingsDTO>>(url, {
     method: "GET",
   });

@@ -12,7 +12,7 @@ export default async function Page() {
   const user = response.data;
 
   return (
-    <div className="px-4 py-8 space-y-4 ">
+    <div className="container py-8 space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-semibold">Sua conta</h1>
       </div>

@@ -15,11 +15,13 @@ export default async function Page(props: Readonly<Props>) {
 
   if (!response.data) return;
 
+  const parkingSpaces = response.data;
+
   return (
-    <div className="px-4 py-8 space-y-4">
+    <div className="container py-8 space-y-4">
       <h1 className="text-lg font-semibold">Vagas disponíveis para você</h1>
       <hr />
-      <Feed isCovered={isCovered} parkingSpaces={response.data} />
+      <Feed isCovered={isCovered} parkingSpaces={parkingSpaces} />
     </div>
   );
 }

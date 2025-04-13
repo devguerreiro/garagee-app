@@ -15,11 +15,13 @@ export default async function Page(props: Readonly<Props>) {
 
   if (!response.data) return response.data;
 
+  const bookings = response.data;
+
   return (
-    <div className="px-4 py-8 space-y-4">
+    <div className="container py-8 space-y-4">
       <h1 className="text-lg font-semibold">Reservas feitas por você</h1>
       <hr />
-      <Feed status={status} bookings={response.data} />
+      <Feed status={status} bookings={bookings} />
     </div>
   );
 }
