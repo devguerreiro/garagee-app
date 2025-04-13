@@ -5,7 +5,7 @@ import Form from "./Form";
 export default function Page() {
   return (
     <div className="h-screen w-screen flex justify-center items-center">
-      <div className="container p-8 bg-card shadow rounded space-y-4">
+      <div className="container p-8 bg-card shadow rounded-lg space-y-4">
         <div className="space-y-4">
           <Image
             src="/logo.png"

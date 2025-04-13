@@ -16,7 +16,7 @@ type Props = {
   booking: BookingDTO;
 };
 
-export default function BookingCard({ booking }: Readonly<Props>) {
+export default function FeedTabCard({ booking }: Readonly<Props>) {
   const { parking_space } = booking;
 
   return (

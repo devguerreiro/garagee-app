@@ -1,8 +1,10 @@
 "use server";
 
-import fetchWrapper from "@/lib/fetch";
-
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+
+import fetchWrapper from "@/lib/fetch";
 
 import {
   CreateUserDTO,
@@ -17,9 +19,8 @@ import {
   CreateBookingDTO,
   MyParkingSpaceDTO,
   UserProfileDTO,
+  ParkingSpaceBookingsDTO,
 } from "./dtos";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function createUser(data: CreateUserDTO) {
   return await fetchWrapper<null>("register", {
@@ -171,6 +172,21 @@ export async function refuseBooking(publicId: string) {
 
 export async function getUserProfile() {
   return await fetchWrapper<UserProfileDTO>("user/profile", {
+    method: "GET",
+  });
+}
+
+export async function getParkingSpaceBookings(
+  parkingSpacePublicId: string,
+  params: Record<string, string>
+) {
+  const url =
+    Object.keys(params).length > 0
+      ? `parking-space/${parkingSpacePublicId}/bookings?` +
+        new URLSearchParams(params)
+      : `parking-space/${parkingSpacePublicId}/bookings`;
+  console.log(url);
+  return await fetchWrapper<Array<ParkingSpaceBookingsDTO>>(url, {
     method: "GET",
   });
 }

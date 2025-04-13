@@ -38,9 +38,7 @@ export interface ParkingSpaceDTO {
   apartment: {
     identifier: string;
     tower: {
-      building: {
-        name: string;
-      };
+      identifier: string;
     };
     occupant: {
       name: string;
@@ -57,9 +55,7 @@ export interface ParkingSpaceDetailDTO {
   apartment: {
     identifier: string;
     tower: {
-      building: {
-        name: string;
-      };
+      identifier: string;
     };
     occupant: {
       public_id: string;
@@ -75,18 +71,6 @@ export interface MyParkingSpaceDTO {
   guidance: string;
   is_covered: boolean;
   is_blocked: boolean;
-  apartment: {
-    identifier: string;
-    tower: {
-      building: {
-        name: string;
-      };
-    };
-    occupant: {
-      public_id: string;
-      name: string;
-    };
-  };
 }
 
 export enum BookingStatusDTO {
@@ -144,9 +128,26 @@ export interface UserProfileDTO {
   public_id: string;
   name: string;
   apartment: {
-    identifier: true;
+    identifier: string;
     tower: {
-      building: { name: true };
+      identifier: string;
+      building: { name: string };
+    };
+  };
+}
+
+export interface ParkingSpaceBookingsDTO {
+  public_id: string;
+  status: BookingStatusDTO;
+  booked_from: Date;
+  booked_to: Date;
+  claimant: {
+    name: string;
+    apartment: {
+      identifier: string;
+      tower: {
+        identifier: string;
+      };
     };
   };
 }

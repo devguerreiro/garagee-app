@@ -29,7 +29,7 @@ export default function BookingDetail({ booking }: Readonly<Props>) {
   const { parking_space } = booking;
 
   return (
-    <div className="p-6 mb-32 bg-card shadow rounded text-sm text-muted-foreground space-y-6">
+    <div className="p-8 mb-32 bg-card shadow rounded-lg text-sm text-muted-foreground space-y-6">
       <div className="flex justify-between items-center text-xl">
         <div className="flex items-center gap-2 text-primary">
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
@@ -103,7 +103,7 @@ export default function BookingDetail({ booking }: Readonly<Props>) {
         <div className="flex flex-col gap-0.5 text-xs">
           <strong>{getShortName(parking_space.apartment.occupant.name)}</strong>
           <div className="flex items-center gap-1">
-            <HouseIcon className="text-primary w-[1em] h-[1em]" />
+            <HouseIcon className="text-secondary w-[1em] h-[1em]" />
             <span>{parking_space.apartment.identifier}</span>
           </div>
         </div>

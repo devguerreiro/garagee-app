@@ -2,7 +2,7 @@
 
 import { EllipsisVerticalIcon } from "lucide-react";
 
-import { MyParkingSpaceDTO, ParkingSpaceDetailDTO } from "@/app/dtos";
+import { ParkingSpaceDetailDTO } from "@/app/dtos";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 
@@ -12,15 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import ParkingSpaceBlockUnblockAlertDialog from "./ParkingSpaceBlockUnblockAlertDialog";
+import ParkingSpaceBlockUnblockAlertDialog from "./BlockUnblockAlertDialog";
 
 type Props = {
-  parkingSpace: ParkingSpaceDetailDTO | MyParkingSpaceDTO;
+  parkingSpace: ParkingSpaceDetailDTO;
 };
 
-export default function ParkingSpaceDetailOptions({
-  parkingSpace,
-}: Readonly<Props>) {
+export default function Options({ parkingSpace }: Readonly<Props>) {
   const parkingSpaceOwner = parkingSpace.apartment.occupant.public_id;
 
   const { isCurrentUser: isParkingSpaceOwner } =

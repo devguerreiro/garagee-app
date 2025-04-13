@@ -1,84 +1,25 @@
-"use client";
-
-import { startTransition, useActionState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-
 import { getParkingSpaces } from "@/app/actions";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Feed from "./components/Feed";
 
-import TabContent from "./components/TabContent";
+type Props = {
+  searchParams: Promise<{ isCovered: string | undefined }>;
+};
 
-export default function Page() {
-  const { replace } = useRouter();
+export default async function Page(props: Readonly<Props>) {
+  const searchParams = await props.searchParams;
 
-  const searchParams = useSearchParams();
+  const isCovered = searchParams.isCovered;
 
-  const [parkingSpaces, dispatch, isPending] = useActionState(async () => {
-    const isCovered = searchParams.get("isCovered");
-    const params = new URLSearchParams();
-    if (isCovered !== null && ["true", "false"].includes(isCovered)) {
-      params.set("isCovered", isCovered);
-    }
-    const response = await getParkingSpaces(
-      Object.fromEntries(params.entries())
-    );
-    if (response.data) return response.data;
-    return [];
-  }, null);
+  const response = await getParkingSpaces(isCovered ? { isCovered } : {});
 
-  function getTabsDefaultValue() {
-    const isCovered = searchParams.get("isCovered");
-    if (isCovered === "true") return "covered";
-    else if (isCovered === "false") return "uncovered";
-    return "all";
-  }
-
-  useEffect(() => {
-    startTransition(dispatch);
-  }, [searchParams]);
+  if (!response.data) return;
 
   return (
     <div className="px-4 py-8 space-y-4">
-      <h1 className="text-lg font-semibold">Vagas</h1>
+      <h1 className="text-lg font-semibold">Vagas disponíveis para você</h1>
       <hr />
-      <Tabs defaultValue={getTabsDefaultValue()} className="space-y-8">
-        <TabsList>
-          <TabsTrigger
-            value="all"
-            onClick={() => {
-              replace("/vagas");
-            }}
-          >
-            Todas
-          </TabsTrigger>
-          <TabsTrigger
-            value="covered"
-            onClick={() => {
-              replace("/vagas?isCovered=true");
-            }}
-          >
-            Cobertas
-          </TabsTrigger>
-          <TabsTrigger
-            value="uncovered"
-            onClick={() => {
-              replace("/vagas?isCovered=false");
-            }}
-          >
-            Descobertas
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="all" className="space-y-6">
-          <TabContent isPending={isPending} parkingSpaces={parkingSpaces} />
-        </TabsContent>
-        <TabsContent value="covered" className="space-y-6">
-          <TabContent isPending={isPending} parkingSpaces={parkingSpaces} />
-        </TabsContent>
-        <TabsContent value="uncovered" className="space-y-6">
-          <TabContent isPending={isPending} parkingSpaces={parkingSpaces} />
-        </TabsContent>
-      </Tabs>
+      <Feed isCovered={isCovered} parkingSpaces={response.data} />
     </div>
   );
 }

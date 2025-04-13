@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { BuildingIcon, HouseIcon, ParkingCircleIcon } from "lucide-react";
+import { HouseIcon, ParkingCircleIcon } from "lucide-react";
 
 import { ParkingSpaceDTO } from "@/app/dtos";
 
@@ -13,10 +13,7 @@ type Props = {
   parkingSpace: ParkingSpaceDTO;
 };
 
-export default function ParkingSpaceCard({
-  href,
-  parkingSpace,
-}: Readonly<Props>) {
+export default function FeedTabCard({ href, parkingSpace }: Readonly<Props>) {
   return (
     <Link
       href={href}
@@ -35,23 +32,14 @@ export default function ParkingSpaceCard({
               {getShortName(parkingSpace.apartment.occupant.name)}
             </span>
             <div className="flex items-center gap-1">
-              <HouseIcon className="text-primary w-[1em] h-[1em]" />
+              <HouseIcon className="text-secondary w-[1em] h-[1em]" />
               <span>{parkingSpace.apartment.identifier}</span>
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center text-secondary">
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
           <span className="font-medium">{parkingSpace.identifier}</span>
-        </div>
-      </div>
-      <hr />
-      <div className="text-sm flex justify-between items-center">
-        <div className="w-full flex items-center gap-1.5">
-          <BuildingIcon className="text-primary w-[1em] h-[1em]" />
-          <span className="overflow-hidden text-ellipsis text-nowrap">
-            {parkingSpace.apartment.tower.building.name}
-          </span>
         </div>
       </div>
     </Link>

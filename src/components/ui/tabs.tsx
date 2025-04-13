@@ -10,16 +10,31 @@ const Tabs = TabsPrimitive.Root;
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.List
-    ref={ref}
-    className={cn(
-      "w-full inline-flex h-12 items-center justify-start overflow-x-auto rounded-lg bg-card p-2 text-muted-foreground ashamed-scroll",
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  React.useEffect(() => {
+    const activeTab = document.querySelector(
+      "button[role=tab][data-state=active]"
+    );
+    if (activeTab) {
+      activeTab.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }
+  }, []);
+
+  return (
+    <TabsPrimitive.List
+      ref={ref}
+      className={cn(
+        "w-full inline-flex h-12 items-center justify-start overflow-x-auto rounded-lg bg-card p-2 text-muted-foreground ashamed-scroll",
+        className
+      )}
+      {...props}
+    />
+  );
+});
 TabsList.displayName = TabsPrimitive.List.displayName;
 
 const TabsTrigger = React.forwardRef<

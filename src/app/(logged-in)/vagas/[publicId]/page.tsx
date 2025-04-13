@@ -11,8 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import ParkingSpaceDetail from "@/components/ParkingSpaceDetail";
-
+import ParkingSpaceDetail from "./components/ParkingSpaceDetail";
 import BorrowDialog from "./components/BorrowDialog";
 
 type Props = {

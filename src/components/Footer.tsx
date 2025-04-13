@@ -54,9 +54,9 @@ export default function Footer() {
             <MapPinHouseIcon />
             <span>Garagem</span>
           </FooterItem>
-          <FooterItem href="/perfil">
+          <FooterItem href="/conta">
             <CircleUserIcon />
-            <span>Perfil</span>
+            <span>Conta</span>
           </FooterItem>
         </ul>
       </nav>

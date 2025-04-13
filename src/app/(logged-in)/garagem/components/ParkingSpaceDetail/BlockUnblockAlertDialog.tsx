@@ -22,7 +22,7 @@ type Props = {
   parkingSpace: ParkingSpaceDetailDTO | MyParkingSpaceDTO;
 };
 
-export default function ParkingSpaceBlockUnblockAlertDialog({
+export default function BlockUnblockAlertDialog({
   parkingSpace,
 }: Readonly<Props>) {
   async function handleAction() {
