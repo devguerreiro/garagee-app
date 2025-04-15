@@ -39,7 +39,7 @@ function NavbarItem({
 
 export default function Navbar() {
   return (
-    <div className="w-full h-16 bg-card sticky bottom-0 left-0 text-xs xl:h-20">
+    <div className="w-full h-20 bg-card sticky bottom-0 left-0 text-xs">
       <nav className="h-full container">
         <ul className="h-full flex items-center xl:justify-center xl:gap-10">
           <NavbarItem href="/vagas">
