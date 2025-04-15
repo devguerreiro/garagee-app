@@ -38,9 +38,13 @@ export default function BorrowDialog({ parkingSpace }: Readonly<Props>) {
   const { isCurrentUser: isParkingSpaceOwner } =
     useCurrentUser(parkingSpaceOwner);
 
-  return (
+  const shouldRender =
     isParkingSpaceOwner !== null &&
-    !isParkingSpaceOwner && (
+    !isParkingSpaceOwner &&
+    !parkingSpace.is_blocked;
+
+  return (
+    shouldRender && (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger className="w-full">Pedir emprestado</DialogTrigger>
         <DialogContent>

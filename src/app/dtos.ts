@@ -35,6 +35,7 @@ export interface LoginDTO {
 export interface ParkingSpaceDTO {
   public_id: string;
   identifier: string;
+  is_blocked: boolean;
   apartment: {
     identifier: string;
     tower: {

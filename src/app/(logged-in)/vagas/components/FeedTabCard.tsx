@@ -7,6 +7,7 @@ import { ParkingSpaceDTO } from "@/app/dtos";
 import { getAbbreviationName, getShortName } from "@/utils";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 type Props = {
   href: string;
@@ -40,9 +41,19 @@ export default function FeedTabCard({ href, parkingSpace }: Readonly<Props>) {
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center gap-1 text-lg">
+        <div
+          className={cn(
+            "flex flex-col justify-center items-center gap-1 text-lg",
+            parkingSpace.is_blocked ? "text-destructive" : "text-success"
+          )}
+        >
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
-          <span className="font-semibold">{parkingSpace.identifier}</span>
+          <div className="flex flex-col items-center">
+            <span className="font-semibold">{parkingSpace.identifier}</span>
+            <span className="text-xs">
+              {parkingSpace.is_blocked ? "Fechada" : "Aberta"}
+            </span>
+          </div>
         </div>
       </div>
     </Link>
