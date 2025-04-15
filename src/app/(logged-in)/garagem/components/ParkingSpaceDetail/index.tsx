@@ -12,14 +12,14 @@ export default function ParkingSpaceDetail({ parkingSpace }: Readonly<Props>) {
   return (
     <div className="p-8 bg-card shadow rounded-lg space-y-6">
       <div className="text-xl flex justify-between items-center">
-        <div className="flex items-center gap-2 text-primary">
+        <div className="flex items-center gap-2 text-foreground">
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
-          <h2 className="font-medium">{parkingSpace.identifier}</h2>
+          <h2 className="font-semibold">{parkingSpace.identifier}</h2>
         </div>
         <ParkingSpaceDetailOptions parkingSpace={parkingSpace} />
       </div>
       <hr />
-      <div className="text-muted-foreground space-y-6">
+      <div className="space-y-6">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <RadarIcon className="text-secondary w-[1em] h-[1em]" />

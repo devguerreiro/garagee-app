@@ -40,7 +40,7 @@ export default async function Page(props: Readonly<Props>) {
         </BreadcrumbList>
       </Breadcrumb>
       <div className="space-y-4">
-        <h1 className="text-lg font-semibold">
+        <h1 className="text-lg font-semibold text-foreground">
           Solicitações de reservas recebidas
         </h1>
         <hr />

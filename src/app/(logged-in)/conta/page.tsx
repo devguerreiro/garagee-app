@@ -14,10 +14,10 @@ export default async function Page() {
   return (
     <div className="container py-8 space-y-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-lg font-semibold">Sua conta</h1>
+        <h1 className="text-lg font-semibold text-foreground">Sua conta</h1>
       </div>
       <hr />
-      <div className="bg-card rounded-lg shadow p-8 space-y-6 text-muted-foreground">
+      <div className="bg-card rounded-lg shadow p-8 space-y-6">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <UserIcon className="text-secondary w-[1em] h-[1em]" />
@@ -40,7 +40,7 @@ export default async function Page() {
             <span className="text-sm">Apartamento/Unidade</span>
           </div>
           <span className="font-medium">
-            {user.apartment.identifier} - {user.apartment.tower.identifier}
+            {user.apartment.identifier} | {user.apartment.tower.identifier}
           </span>
         </div>
       </div>

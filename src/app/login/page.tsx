@@ -5,7 +5,7 @@ import Form from "./Form";
 export default function Page() {
   return (
     <div className="h-screen w-screen flex justify-center items-center">
-      <div className="container p-8 bg-card shadow rounded-lg space-y-4">
+      <div className="container p-8 bg-card shadow rounded-lg space-y-4 md:max-w-md">
         <div className="space-y-4">
           <Image
             src="/logo.png"
@@ -14,7 +14,7 @@ export default function Page() {
             height={84}
             className="mx-auto"
           />
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-center">
             Informe seu login para acessar a plataforma
           </p>
         </div>

@@ -23,7 +23,7 @@ export default function Options({ parkingSpace }: Readonly<Props>) {
         aria-label="opções"
         className="focus-visible:outline-primary"
       >
-        <EllipsisVerticalIcon className="text-muted-foreground w-[1em] h-[1em]" />
+        <EllipsisVerticalIcon className="w-[1em] h-[1em]" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-2">
         <ParkingSpaceBlockUnblockAlertDialog parkingSpace={parkingSpace} />

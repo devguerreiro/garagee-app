@@ -23,14 +23,14 @@ export default function OccupantInfo({ parkingSpace }: Readonly<Props>) {
   return (
     isParkingSpaceOwner !== null &&
     !isParkingSpaceOwner && (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <Avatar>
           {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
-          <AvatarFallback className="bg-secondary text-white">
+          <AvatarFallback className="bg-slate-600 text-white">
             {getAbbreviationName(parkingSpace.apartment.occupant.name)}
           </AvatarFallback>
         </Avatar>
-        <div className="flex flex-col gap-0.5 text-xs">
+        <div className="flex flex-col gap-1 text-sm">
           <span className="max-w-40 overflow-hidden text-ellipsis text-nowrap font-semibold">
             {getShortName(parkingSpace.apartment.occupant.name)}
           </span>

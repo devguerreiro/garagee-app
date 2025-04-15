@@ -95,7 +95,7 @@ export interface BookingDTO {
     identifier: true;
     apartment: {
       tower: {
-        building: { name: true };
+        identifier: true;
       };
     };
   };
@@ -113,7 +113,7 @@ export interface BookingDetailDTO {
     apartment: {
       identifier: true;
       tower: {
-        building: { name: true };
+        identifier: true;
       };
       occupant: {
         public_id: string;
@@ -138,7 +138,7 @@ export interface UserProfileDTO {
 
 export interface ParkingSpaceBookingsDTO {
   public_id: string;
-  status: BookingStatusDTO;
+  status: keyof typeof BookingStatusDTO;
   booked_from: Date;
   booked_to: Date;
   claimant: {

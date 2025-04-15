@@ -48,10 +48,9 @@ export default function BookingRevokeAlertDialog({ booking }: Readonly<Props>) {
         <AlertDialogHeader>
           <AlertDialogTitle>Confirme sua escolha</AlertDialogTitle>
           <AlertDialogDescription className="text-pretty">
-            Você realmente deseja{" "}
-            <strong className="text-destructive">cancelar</strong> a reserva
-            para empréstimo da vaga{" "}
-            <strong className="text-secondary">
+            Você realmente deseja <strong>cancelar</strong> a reserva para
+            empréstimo da vaga{" "}
+            <strong className="text-foreground">
               &quot;{booking.parking_space.identifier}&quot;
             </strong>
             ?

@@ -14,7 +14,7 @@ import {
 
 import { cn } from "@/lib/utils";
 
-function FooterItem({
+function NavbarItem({
   children,
   ...props
 }: Readonly<PropsWithChildren & LinkProps>) {
@@ -23,7 +23,7 @@ function FooterItem({
   return (
     <li
       className={cn(
-        "flex-1",
+        "flex-1 xl:flex-initial xl:w-16",
         pathname.includes(props.href.toString()) && "text-primary font-bold"
       )}
     >
@@ -37,29 +37,29 @@ function FooterItem({
   );
 }
 
-export default function Footer() {
+export default function Navbar() {
   return (
-    <footer className="w-full h-16 bg-card text-muted-foreground sticky bottom-0 left-0 text-xs">
-      <nav className="h-full">
-        <ul className="h-full flex items-center">
-          <FooterItem href="/vagas">
+    <div className="w-full h-16 bg-card sticky bottom-0 left-0 text-xs xl:h-20">
+      <nav className="h-full container">
+        <ul className="h-full flex items-center xl:justify-center xl:gap-10">
+          <NavbarItem href="/vagas">
             <CarIcon />
             <span>Vagas</span>
-          </FooterItem>
-          <FooterItem href="/reservas">
+          </NavbarItem>
+          <NavbarItem href="/reservas">
             <BookUserIcon />
             <span>Reservas</span>
-          </FooterItem>
-          <FooterItem href="/garagem">
+          </NavbarItem>
+          <NavbarItem href="/garagem">
             <MapPinHouseIcon />
             <span>Garagem</span>
-          </FooterItem>
-          <FooterItem href="/conta">
+          </NavbarItem>
+          <NavbarItem href="/conta">
             <CircleUserIcon />
             <span>Conta</span>
-          </FooterItem>
+          </NavbarItem>
         </ul>
       </nav>
-    </footer>
+    </div>
   );
 }

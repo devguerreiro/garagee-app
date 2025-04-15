@@ -48,8 +48,7 @@ export default function BookingRefuseAlertDialog({ booking }: Readonly<Props>) {
         <AlertDialogHeader>
           <AlertDialogTitle>Confirme sua escolha</AlertDialogTitle>
           <AlertDialogDescription className="text-pretty">
-            Você realmente deseja{" "}
-            <strong className="text-destructive">recusar</strong> a reserva para
+            Você realmente deseja <strong>recusar</strong> a reserva para
             empréstimo da sua vaga?
           </AlertDialogDescription>
         </AlertDialogHeader>

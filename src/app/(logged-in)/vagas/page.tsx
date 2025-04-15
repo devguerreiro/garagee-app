@@ -19,7 +19,9 @@ export default async function Page(props: Readonly<Props>) {
 
   return (
     <div className="container py-8 space-y-4">
-      <h1 className="text-lg font-semibold">Vagas disponíveis para você</h1>
+      <h1 className="text-lg font-semibold text-foreground">
+        Vagas disponíveis para você
+      </h1>
       <hr />
       <Feed isCovered={isCovered} parkingSpaces={parkingSpaces} />
     </div>

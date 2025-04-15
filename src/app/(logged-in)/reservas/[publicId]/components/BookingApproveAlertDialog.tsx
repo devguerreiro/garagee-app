@@ -48,8 +48,7 @@ export default function BookingApproveAlertDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Confirme sua escolha</AlertDialogTitle>
           <AlertDialogDescription className="text-pretty">
-            Você realmente deseja{" "}
-            <strong className="text-destructive">aprovar</strong> a reserva para
+            Você realmente deseja <strong>aprovar</strong> a reserva para
             empréstimo da sua vaga?
           </AlertDialogDescription>
         </AlertDialogHeader>

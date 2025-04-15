@@ -12,10 +12,12 @@ export default function FinalStep() {
   if (isCompleted) {
     return (
       <div className="flex flex-col gap-2">
-        <h2 className="text-lg text-primary font-semibold">
+        <span className="text-lg text-primary font-semibold">
           Cadastro concluído com sucesso!
-        </h2>
-        <p className="text-sm">Acesse a plataforma clicando no botão abaixo</p>
+        </span>
+        <span className="text-sm">
+          Acesse a plataforma clicando no botão abaixo
+        </span>
         <Button asChild>
           <Link className="w-full mt-4 " href="/login">
             Acessar plataforma
@@ -26,12 +28,12 @@ export default function FinalStep() {
   }
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-lg text-destructive font-semibold">
+      <span className="text-lg text-destructive font-semibold">
         Não foi possível concluir o seu cadastro
-      </h2>
-      <p className="text-sm">
+      </span>
+      <span className="text-sm">
         Ocorreu um erro inesperado. Por favor, tente novamente mais tarde
-      </p>
+      </span>
     </div>
   );
 }

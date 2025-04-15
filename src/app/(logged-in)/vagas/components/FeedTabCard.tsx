@@ -17,29 +17,32 @@ export default function FeedTabCard({ href, parkingSpace }: Readonly<Props>) {
   return (
     <Link
       href={href}
-      className="block px-6 py-4 bg-card rounded-lg shadow space-y-4"
+      className="block px-6 py-8 bg-card rounded-lg shadow space-y-4"
     >
       <div className="flex justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Avatar>
             {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
-            <AvatarFallback className="bg-secondary text-white">
+            <AvatarFallback className="bg-slate-600 text-white">
               {getAbbreviationName(parkingSpace.apartment.occupant.name)}
             </AvatarFallback>
           </Avatar>
-          <div className="flex flex-col gap-0.5 text-xs">
+          <div className="flex flex-col gap-1 text-sm">
             <span className="max-w-40 overflow-hidden text-ellipsis text-nowrap font-semibold">
               {getShortName(parkingSpace.apartment.occupant.name)}
             </span>
             <div className="flex items-center gap-1">
-              <HouseIcon className="text-secondary w-[1em] h-[1em]" />
-              <span>{parkingSpace.apartment.identifier}</span>
+              <HouseIcon className="w-[1em] h-[1em] text-secondary" />
+              <span>
+                {parkingSpace.apartment.identifier} |{" "}
+                {parkingSpace.apartment.tower.identifier}
+              </span>
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center text-secondary">
+        <div className="flex flex-col justify-center items-center gap-1 text-lg">
           <ParkingCircleIcon className="w-[1em] h-[1em]" />
-          <span className="font-medium">{parkingSpace.identifier}</span>
+          <span className="font-semibold">{parkingSpace.identifier}</span>
         </div>
       </div>
     </Link>

@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 import { DynamicIcon, IconName } from "lucide-react/dynamic";
 
+import { cn } from "@/lib/utils";
+
 import Slide from "@/components/animations/Slide";
 
 export type Step = {
@@ -15,13 +17,14 @@ export type Step = {
 };
 
 type Props = Readonly<{
+  className: string;
   steps: Array<Step>;
   renderStep?: (step: React.ReactElement) => React.ReactElement;
   FinalStep?: React.ComponentType;
 }>;
 
 const StepProgressBar = React.forwardRef<HTMLDivElement, Props>(
-  ({ steps, renderStep, FinalStep }, ref) => {
+  ({ className, steps, renderStep, FinalStep }, ref) => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const [animationDirection, setAnimationDirection] = useState<
@@ -92,7 +95,7 @@ const StepProgressBar = React.forwardRef<HTMLDivElement, Props>(
     }
 
     return (
-      <div className="w-full flex flex-col gap-8">
+      <div className={cn("w-full flex flex-col gap-8", className)}>
         <div ref={ref} className="w-full flex items-center relative">
           <div className="w-full h-2 bg-gradient-to-r from-primary to-secondary" />
           <div

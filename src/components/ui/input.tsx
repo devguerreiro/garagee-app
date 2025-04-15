@@ -180,7 +180,7 @@ const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
           <Button
             variant={"outline"}
             className={cn(
-              "w-full font-normal justify-between gap-4 bg-card",
+              "w-full font-normal justify-between gap-4 border-border bg-inherit hover:bg-inherit text-inherit",
               !value && "text-muted-foreground"
             )}
           >
@@ -191,7 +191,7 @@ const DateInput = ({ value, onChange, ...props }: DateInputProps) => {
                 Selecione uma data
               </span>
             )}
-            <CalendarIcon className="h-4 w-4 opacity-50" />
+            <CalendarIcon className="h-4 w-4" />
           </Button>
         </FormControl>
       </PopoverTrigger>

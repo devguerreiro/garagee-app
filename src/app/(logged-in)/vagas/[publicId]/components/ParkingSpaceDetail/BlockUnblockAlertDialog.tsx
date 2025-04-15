@@ -49,11 +49,9 @@ export default function BlockUnblockAlertDialog({
           <AlertDialogTitle>Confirme sua escolha</AlertDialogTitle>
           <AlertDialogDescription className="text-pretty">
             Você realmente deseja{" "}
-            <strong className="text-destructive">
-              {parkingSpace.is_blocked ? "liberar" : "bloquear"}
-            </strong>{" "}
+            <strong>{parkingSpace.is_blocked ? "liberar" : "bloquear"}</strong>{" "}
             a possibilidade de futuros empréstimos da vaga{" "}
-            <strong className="text-secondary">
+            <strong className="text-foreground">
               &quot;{parkingSpace.identifier}&quot;
             </strong>
             ?
