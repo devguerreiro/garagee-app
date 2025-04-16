@@ -152,3 +152,9 @@ export interface ParkingSpaceBookingsDTO {
     };
   };
 }
+
+export interface RequestErrorDTO {
+  message: string;
+  error: string;
+  statusCode: number;
+}

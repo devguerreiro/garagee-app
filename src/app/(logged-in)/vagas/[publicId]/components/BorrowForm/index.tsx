@@ -59,16 +59,20 @@ export default function BorrowForm({
       values.from_hour
     );
     const bookedTo = createBookingDateTime(values.to_date, values.to_hour);
-    const response = await createBooking({
+    const data = await createBooking({
       parking_space: parkingSpace.public_id,
       booked_from: bookedFrom,
       booked_to: bookedTo,
     });
-    if (response.errors === null) {
+    if (data === null) {
       toast.success("Vaga solicitada com sucesso!");
       onSubmit();
-    } else if (response.errors.includes("parking space not available")) {
+    } else if (data?.message.includes("parking space not available")) {
       toast.error("Vaga indisponível!");
+    } else if (data?.message.includes("from must not be in past")) {
+      toast.error("Período de início não pode ser no passado!");
+    } else if (data?.message.includes("to must not be in past")) {
+      toast.error("Período de fim não pode ser no passado!");
     }
   }
 
@@ -78,7 +82,7 @@ export default function BorrowForm({
       const isUnavailable =
         parkingSpace.bookings[brazilianDate(date)] !== undefined &&
         parkingSpace.bookings[brazilianDate(date)].length === 24;
-      return isPast || isUnavailable;
+      return !isPast || isUnavailable;
     }
     return false;
   }
@@ -119,7 +123,7 @@ export default function BorrowForm({
                   value={field.value}
                   onChange={field.onChange}
                   disabled={disableDate}
-                  fromDate={now.current.toDate()}
+                  // fromDate={now.current.toDate()}
                 />
                 <FormMessage />
               </FormItem>
@@ -153,7 +157,7 @@ export default function BorrowForm({
                   value={field.value}
                   onChange={field.onChange}
                   disabled={disableDate}
-                  fromDate={now.current.toDate()}
+                  // fromDate={now.current.toDate()}
                 />
                 <FormMessage />
               </FormItem>

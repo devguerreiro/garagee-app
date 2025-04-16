@@ -1,19 +1,20 @@
 import Link from "next/link";
 
-import { getMyParkingSpace } from "@/app/actions";
-
 import { cn } from "@/lib/utils";
+import fetchWrapper from "@/lib/fetch";
 
 import { buttonVariants } from "@/components/ui/button";
+
+import { MyParkingSpaceDTO } from "@/app/dtos";
 
 import ParkingSpaceDetail from "./components/ParkingSpaceDetail";
 
 export default async function Page() {
-  const response = await getMyParkingSpace();
+  const parkingSpace = await fetchWrapper<MyParkingSpaceDTO>(
+    "parking-space/my"
+  );
 
-  if (!response.data) return;
-
-  const parkingSpace = response.data;
+  if (!parkingSpace) return;
 
   return (
     <div className="container py-8 space-y-4">

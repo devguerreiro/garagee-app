@@ -1,5 +1,3 @@
-import { getParkingSpaceDetail } from "@/app/actions";
-
 import dayjs from "@/lib/dayjs";
 
 import {
@@ -10,6 +8,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+
+import fetchWrapper from "@/lib/fetch";
+
+import { ParkingSpaceDetailDTO } from "@/app/dtos";
 
 import ParkingSpaceDetail from "./components/ParkingSpaceDetail";
 import BorrowDialog from "./components/BorrowDialog";
@@ -23,11 +25,13 @@ type Props = {
 export default async function Page({ params }: Readonly<Props>) {
   const { publicId } = await params;
 
-  const response = await getParkingSpaceDetail(publicId, dayjs().utcOffset());
+  const timezoneOffset = dayjs().utcOffset();
 
-  if (!response.data) return;
+  const url = `parking-space/${publicId}?timezoneOffset=${timezoneOffset}`;
 
-  const parkingSpace = response.data;
+  const parkingSpace = await fetchWrapper<ParkingSpaceDetailDTO>(url);
+
+  if (!parkingSpace) return;
 
   return (
     <div className="container py-8 space-y-8">

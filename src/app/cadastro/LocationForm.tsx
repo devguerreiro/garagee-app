@@ -15,14 +15,6 @@ import {
 } from "@/components/ui/form";
 import { InputSearchable } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-import useRegisterState from "@/states/register";
-
-import {
-  getApartmentsByTower,
-  getBuildingsByName,
-  getTowersByBuilding,
-} from "@/app/actions";
 import {
   Select,
   SelectContent,
@@ -30,6 +22,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import useRegisterState from "@/states/register";
+
+import { ApartmentListDTO, BuildingListDTO, TowerListDTO } from "@/app/dtos";
+
+import useFetch from "@/hooks/use-fetch";
 
 const formSchema = z.object({
   building: z.string().uuid("Selecione um condomínio/prédio"),
@@ -55,6 +53,8 @@ export default function LocationForm(props: Readonly<Props>) {
     setApartmentOptions,
   } = useRegisterState();
 
+  const { fetchData } = useFetch();
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: locationData ?? {
@@ -69,13 +69,15 @@ export default function LocationForm(props: Readonly<Props>) {
     props.onNextStep();
   }
 
-  async function onSearchBuilding(query: string) {
+  async function onSearchBuilding(name: string) {
     let options: Array<{ label: string; value: string }> = [];
     form.resetField("building");
-    if (query.length >= 3) {
-      const response = await getBuildingsByName(query);
-      if (!response.errors && response.data) {
-        options = response.data.map((building) => ({
+    if (name.length >= 3) {
+      const data = await fetchData<Array<BuildingListDTO>>(
+        "api/building?" + new URLSearchParams({ name })
+      );
+      if (data) {
+        options = data.map((building) => ({
           label: building.name,
           value: building.public_id,
         }));
@@ -90,10 +92,12 @@ export default function LocationForm(props: Readonly<Props>) {
   }
 
   async function onBuildingChange(building: string) {
-    const response = await getTowersByBuilding(building);
-    if (response.data) {
+    const data = await fetchData<Array<TowerListDTO>>(
+      "api/tower?" + new URLSearchParams({ building })
+    );
+    if (data) {
       setTowerOptions(
-        response.data.map((tower) => ({
+        data.map((tower) => ({
           label: tower.identifier,
           value: tower.public_id,
         }))
@@ -104,10 +108,12 @@ export default function LocationForm(props: Readonly<Props>) {
   }
 
   async function onTowerChange(tower: string) {
-    const response = await getApartmentsByTower(tower);
-    if (response.data) {
+    const data = await fetchData<Array<ApartmentListDTO>>(
+      "api/apartment?" + new URLSearchParams({ tower })
+    );
+    if (data) {
       setApartmentOptions(
-        response.data.map((apartment) => ({
+        data.map((apartment) => ({
           label: apartment.identifier,
           value: apartment.public_id,
         }))

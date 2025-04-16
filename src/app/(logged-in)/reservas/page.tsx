@@ -1,4 +1,6 @@
-import { getMyBookings } from "@/app/actions";
+import fetchWrapper from "@/lib/fetch";
+
+import { BookingDTO } from "@/app/dtos";
 
 import Feed from "./components/Feed";
 
@@ -11,11 +13,11 @@ export default async function Page(props: Readonly<Props>) {
 
   const status = searchParams.status;
 
-  const response = await getMyBookings(status ? { status } : {});
+  const bookings = await fetchWrapper<Array<BookingDTO>>(
+    status ? `booking/my?status=${status}` : "booking/my"
+  );
 
-  if (!response.data) return response.data;
-
-  const bookings = response.data;
+  if (!bookings) return;
 
   return (
     <div className="container py-8 space-y-4">

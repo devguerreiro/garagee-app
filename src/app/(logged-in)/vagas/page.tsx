@@ -1,4 +1,6 @@
-import { getParkingSpaces } from "@/app/actions";
+import fetchWrapper from "@/lib/fetch";
+
+import { ParkingSpaceDTO } from "@/app/dtos";
 
 import Feed from "./components/Feed";
 
@@ -11,11 +13,11 @@ export default async function Page(props: Readonly<Props>) {
 
   const isCovered = searchParams.isCovered;
 
-  const response = await getParkingSpaces(isCovered ? { isCovered } : {});
+  const parkingSpaces = await fetchWrapper<Array<ParkingSpaceDTO>>(
+    isCovered ? `parking-space?isCovered=${isCovered}` : "parking-space"
+  );
 
-  if (!response.data) return;
-
-  const parkingSpaces = response.data;
+  if (!parkingSpaces) return;
 
   return (
     <div className="container py-8 space-y-4">

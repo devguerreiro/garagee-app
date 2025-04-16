@@ -1,5 +1,3 @@
-import { getBookingDetail } from "@/app/actions";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,6 +6,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+
+import fetchWrapper from "@/lib/fetch";
+
+import { BookingDetailDTO } from "@/app/dtos";
 
 import BookingDetail from "./components/BookingDetail";
 
@@ -20,11 +22,9 @@ type Props = {
 export default async function Page({ params }: Readonly<Props>) {
   const { publicId } = await params;
 
-  const response = await getBookingDetail(publicId);
+  const booking = await fetchWrapper<BookingDetailDTO>(`booking/${publicId}`);
 
-  if (!response.data) return;
-
-  const booking = response.data;
+  if (!booking) return;
 
   return (
     <div className="container py-8 space-y-8">

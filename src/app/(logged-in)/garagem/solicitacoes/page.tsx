@@ -1,5 +1,3 @@
-import { getParkingSpaceBookings } from "@/app/actions";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,6 +6,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+
+import fetchWrapper from "@/lib/fetch";
+
+import { ParkingSpaceBookingsDTO } from "@/app/dtos";
 
 import Feed from "./components/Feed";
 
@@ -20,11 +22,13 @@ export default async function Page(props: Readonly<Props>) {
 
   const status = searchParams.status;
 
-  const response = await getParkingSpaceBookings(status ? { status } : {});
+  const bookings = await fetchWrapper<Array<ParkingSpaceBookingsDTO>>(
+    status
+      ? `parking-space/bookings/my?status=${status}`
+      : "parking-space/bookings/my"
+  );
 
-  if (!response.data) return response.data;
-
-  const bookings = response.data;
+  if (!bookings) return;
 
   return (
     <div className="container py-8 space-y-8">

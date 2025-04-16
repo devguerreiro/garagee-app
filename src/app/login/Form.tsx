@@ -50,9 +50,9 @@ export default function Form() {
   });
 
   async function handleLogin(values: FormSchema) {
-    const response = await signIn(values.username, values.password);
-    if (response.data) {
-      const token = response.data.access_token;
+    const data = await signIn(values.username, values.password);
+    if (data) {
+      const token = data.access_token;
       const decodedToken = decodeToken(token);
       setCookie("token", token, {
         secure: true,

@@ -25,7 +25,7 @@ export default function Options({ parkingSpace }: Readonly<Props>) {
     useCurrentUser(parkingSpaceOwner);
 
   return (
-    !isParkingSpaceOwner && (
+    isParkingSpaceOwner && (
       <DropdownMenu>
         <DropdownMenuTrigger
           aria-label="opções"

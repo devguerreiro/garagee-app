@@ -55,11 +55,11 @@ export default function AccountForm(props: Readonly<Props>) {
 
   async function handleSubmit(values: FormSchema) {
     if (locationData) {
-      const response = await createUser({
+      const data = await createUser({
         ...locationData,
         ...values,
       });
-      if (response.errors === null) {
+      if (data === null) {
         setIsCompleted(true);
       } else {
         setIsCompleted(false);

@@ -1,15 +1,16 @@
 import { BuildingIcon, HomeIcon, LogOutIcon, UserIcon } from "lucide-react";
 
-import { getUserProfile, signOut } from "@/app/actions";
+import { signOut } from "@/app/actions";
+import { UserProfileDTO } from "@/app/dtos";
 
 import { Button } from "@/components/ui/button";
 
+import fetchWrapper from "@/lib/fetch";
+
 export default async function Page() {
-  const response = await getUserProfile();
+  const user = await fetchWrapper<UserProfileDTO>("user/profile");
 
-  if (!response.data) return;
-
-  const user = response.data;
+  if (!user) return;
 
   return (
     <div className="container py-8 space-y-4">
