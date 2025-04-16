@@ -22,9 +22,11 @@ type Props = {
 export default async function Page({ params }: Readonly<Props>) {
   const { publicId } = await params;
 
-  const booking = await fetchWrapper<BookingDetailDTO>(`booking/${publicId}`);
+  const response = await fetchWrapper<BookingDetailDTO>(`booking/${publicId}`);
 
-  if (!booking) return;
+  if (!response.data) return;
+
+  const booking = response.data;
 
   return (
     <div className="container py-8 space-y-8">

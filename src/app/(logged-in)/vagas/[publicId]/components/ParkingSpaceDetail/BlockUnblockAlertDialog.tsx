@@ -27,13 +27,13 @@ export default function BlockUnblockAlertDialog({
 }: Readonly<Props>) {
   async function handleAction() {
     if (parkingSpace.is_blocked) {
-      const data = await unblockParkingSpace(parkingSpace.public_id);
-      if (data === null) {
+      const response = await unblockParkingSpace(parkingSpace.public_id);
+      if (response.error === null) {
         toast.success("Vaga liberada com sucesso!");
       }
     } else {
-      const data = await blockParkingSpace(parkingSpace.public_id);
-      if (data === null) {
+      const response = await blockParkingSpace(parkingSpace.public_id);
+      if (response.error === null) {
         toast.success("Vaga fechada com sucesso!");
       }
     }

@@ -4,12 +4,19 @@ import { cookies } from "next/headers";
 
 import { API_BASE_URL } from "@/env";
 
-import { RequestErrorDTO } from "@/app/dtos";
+type ResponseDTO<T> = {
+  data: T | null;
+  error: {
+    message: string;
+    error: string;
+    statusCode: number;
+  } | null;
+};
 
 export default async function fetchWrapper<T>(
   url: string,
   options?: RequestInit
-) {
+): Promise<ResponseDTO<T>> {
   const headers = new Headers(options ? options.headers : undefined);
 
   const contentType = headers.get("Content-Type");
@@ -31,7 +38,15 @@ export default async function fetchWrapper<T>(
     ...options,
     headers,
   });
+
   if (response.status !== 204) {
-    return (await response.json()) as T | RequestErrorDTO;
+    const data = await response.json();
+    if (response.ok) {
+      return { data, error: null };
+    } else {
+      return { data: null, error: data };
+    }
   }
+
+  return { data: null, error: null };
 }

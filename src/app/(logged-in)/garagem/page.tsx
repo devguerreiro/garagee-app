@@ -10,11 +10,11 @@ import { MyParkingSpaceDTO } from "@/app/dtos";
 import ParkingSpaceDetail from "./components/ParkingSpaceDetail";
 
 export default async function Page() {
-  const parkingSpace = await fetchWrapper<MyParkingSpaceDTO>(
-    "parking-space/my"
-  );
+  const response = await fetchWrapper<MyParkingSpaceDTO>("parking-space/my");
 
-  if (!parkingSpace) return;
+  if (!response.data) return;
+
+  const parkingSpace = response.data;
 
   return (
     <div className="container py-8 space-y-4">

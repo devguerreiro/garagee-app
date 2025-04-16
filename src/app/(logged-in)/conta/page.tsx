@@ -8,9 +8,11 @@ import { Button } from "@/components/ui/button";
 import fetchWrapper from "@/lib/fetch";
 
 export default async function Page() {
-  const user = await fetchWrapper<UserProfileDTO>("user/profile");
+  const response = await fetchWrapper<UserProfileDTO>("user/profile");
 
-  if (!user) return;
+  if (!response.data) return;
+
+  const user = response.data;
 
   return (
     <div className="container py-8 space-y-4">

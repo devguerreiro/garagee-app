@@ -59,20 +59,23 @@ export default function BorrowForm({
       values.from_hour
     );
     const bookedTo = createBookingDateTime(values.to_date, values.to_hour);
-    const data = await createBooking({
+    const response = await createBooking({
       parking_space: parkingSpace.public_id,
       booked_from: bookedFrom,
       booked_to: bookedTo,
     });
-    if (data === null) {
+    if (response.error === null) {
       toast.success("Vaga solicitada com sucesso!");
       onSubmit();
-    } else if (data?.message.includes("parking space not available")) {
-      toast.error("Vaga indisponível!");
-    } else if (data?.message.includes("from must not be in past")) {
-      toast.error("Período de início não pode ser no passado!");
-    } else if (data?.message.includes("to must not be in past")) {
-      toast.error("Período de fim não pode ser no passado!");
+    } else {
+      const error = response.error;
+      if (error.message.includes("parking space not available")) {
+        toast.error("Vaga indisponível!");
+      } else if (error.message.includes("from must not be in past")) {
+        toast.error("Período de início não pode ser no passado!");
+      } else if (error.message.includes("to must not be in past")) {
+        toast.error("Período de fim não pode ser no passado!");
+      }
     }
   }
 

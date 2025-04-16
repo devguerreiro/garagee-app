@@ -26,8 +26,8 @@ type Props = {
 
 export default function BookingRevokeAlertDialog({ booking }: Readonly<Props>) {
   async function handleAction() {
-    const data = await revokeBooking(booking.public_id);
-    if (data === null) {
+    const response = await revokeBooking(booking.public_id);
+    if (response.error === null) {
       toast.success("Reserva cancelada com sucesso!");
     }
   }

@@ -29,8 +29,8 @@ export default function BookingApproveAlertDialog({
   booking,
 }: Readonly<Props>) {
   async function handleAction() {
-    const data = await approveBooking(booking.public_id);
-    if (data === null) {
+    const response = await approveBooking(booking.public_id);
+    if (response.error === null) {
       toast.success("Reserva aprovada com sucesso!");
     }
   }

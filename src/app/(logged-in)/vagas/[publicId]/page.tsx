@@ -29,9 +29,11 @@ export default async function Page({ params }: Readonly<Props>) {
 
   const url = `parking-space/${publicId}?timezoneOffset=${timezoneOffset}`;
 
-  const parkingSpace = await fetchWrapper<ParkingSpaceDetailDTO>(url);
+  const response = await fetchWrapper<ParkingSpaceDetailDTO>(url);
 
-  if (!parkingSpace) return;
+  if (!response.data) return;
+
+  const parkingSpace = response.data;
 
   return (
     <div className="container py-8 space-y-8">

@@ -13,11 +13,13 @@ export default async function Page(props: Readonly<Props>) {
 
   const isCovered = searchParams.isCovered;
 
-  const parkingSpaces = await fetchWrapper<Array<ParkingSpaceDTO>>(
+  const response = await fetchWrapper<Array<ParkingSpaceDTO>>(
     isCovered ? `parking-space?isCovered=${isCovered}` : "parking-space"
   );
 
-  if (!parkingSpaces) return;
+  if (!response.data) return;
+
+  const parkingSpaces = response.data;
 
   return (
     <div className="container py-8 space-y-4">

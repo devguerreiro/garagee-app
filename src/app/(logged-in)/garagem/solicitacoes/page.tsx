@@ -22,13 +22,15 @@ export default async function Page(props: Readonly<Props>) {
 
   const status = searchParams.status;
 
-  const bookings = await fetchWrapper<Array<ParkingSpaceBookingsDTO>>(
+  const response = await fetchWrapper<Array<ParkingSpaceBookingsDTO>>(
     status
       ? `parking-space/bookings/my?status=${status}`
       : "parking-space/bookings/my"
   );
 
-  if (!bookings) return;
+  if (!response.data) return;
+
+  const bookings = response.data;
 
   return (
     <div className="container py-8 space-y-8">

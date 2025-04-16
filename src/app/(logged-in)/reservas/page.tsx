@@ -13,11 +13,13 @@ export default async function Page(props: Readonly<Props>) {
 
   const status = searchParams.status;
 
-  const bookings = await fetchWrapper<Array<BookingDTO>>(
+  const response = await fetchWrapper<Array<BookingDTO>>(
     status ? `booking/my?status=${status}` : "booking/my"
   );
 
-  if (!bookings) return;
+  if (!response.data) return;
+
+  const bookings = response.data;
 
   return (
     <div className="container py-8 space-y-4">
