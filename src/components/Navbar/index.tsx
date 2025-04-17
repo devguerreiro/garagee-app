@@ -5,8 +5,9 @@ import {
   MapPinHouseIcon,
 } from "lucide-react";
 
-import NavbarItem from "./NavbarItem";
 import fetchWrapper from "@/lib/fetch";
+
+import NavbarItem from "./NavbarItem";
 
 export default async function Navbar() {
   const response = await fetchWrapper<number>(
@@ -16,7 +17,7 @@ export default async function Navbar() {
   function getPendingReceivedQuantity() {
     if (response.data) {
       if (response.data > 99) return "99+";
-      return response.data;
+      return response.data.toString();
     }
     return "-";
   }
@@ -24,7 +25,7 @@ export default async function Navbar() {
   return (
     <div className="w-full h-20 bg-card sticky bottom-0 left-0 text-xs">
       <nav className="h-full container">
-        <ul className="h-full flex items-center xl:justify-center xl:gap-10">
+        <ul className="h-full flex items-center justify-center gap-10">
           <NavbarItem href="/vagas">
             <CarIcon />
             <span>Vagas</span>
@@ -33,15 +34,13 @@ export default async function Navbar() {
             <BookUserIcon />
             <span>Reservas</span>
           </NavbarItem>
-          <div className="relative">
-            <NavbarItem href="/garagem">
-              <MapPinHouseIcon />
-              <span>Garagem</span>
-            </NavbarItem>
+          <NavbarItem href="/garagem">
+            <MapPinHouseIcon />
+            <span>Garagem</span>
             <span className="absolute -top-2 -right-2 bg-primary text-white font-bold text-[8px] px-2 rounded-full">
               {getPendingReceivedQuantity()}
             </span>
-          </div>
+          </NavbarItem>
           <NavbarItem href="/conta">
             <CircleUserIcon />
             <span>Conta</span>

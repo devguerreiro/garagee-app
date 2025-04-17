@@ -233,12 +233,18 @@ const HourInput = ({ value, onChange, disabled, showHour }: HourInputProps) => {
         </SelectTrigger>
       </FormControl>
       <SelectContent>
-        {availableHours.map((hour) => (
-          <SelectItem
-            key={hour}
-            value={hour.toString()}
-          >{`${hour}:00`}</SelectItem>
-        ))}
+        {availableHours.length === 0 ? (
+          <span className="text-sm text-center px-2">
+            Nenhum horário disponível
+          </span>
+        ) : (
+          availableHours.map((hour) => (
+            <SelectItem
+              key={hour}
+              value={hour.toString()}
+            >{`${hour}:00`}</SelectItem>
+          ))
+        )}
       </SelectContent>
     </Select>
   );

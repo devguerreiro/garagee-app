@@ -16,7 +16,7 @@ export default function NavbarItem({
   return (
     <li
       className={cn(
-        "flex-1 xl:flex-initial xl:w-16",
+        "relative w-16",
         pathname.includes(props.href.toString()) && "text-primary font-bold"
       )}
     >

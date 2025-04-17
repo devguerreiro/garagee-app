@@ -85,31 +85,39 @@ export default function BorrowForm({
       const isUnavailable =
         parkingSpace.bookings[brazilianDate(date)] !== undefined &&
         parkingSpace.bookings[brazilianDate(date)].length === 24;
-      return !isPast || isUnavailable;
+      return isPast || isUnavailable;
     }
     return false;
   }
 
   function showFromHour(hour: number) {
+    const show: Array<boolean> = [];
+
     if (fromDate !== undefined) {
+      if (dayjs(fromDate).isSame(now.current, "date")) {
+        show.push(hour > now.current.get("hour"));
+      }
       if (parkingSpace.bookings[brazilianDate(fromDate)] !== undefined) {
-        return !parkingSpace.bookings[brazilianDate(fromDate)].includes(hour);
-      } else if (dayjs(fromDate).isSame(now.current, "date")) {
-        return hour > now.current.get("hour");
+        show.push(
+          !parkingSpace.bookings[brazilianDate(fromDate)].includes(hour)
+        );
       }
     }
-    return true;
+    return show.every((s) => s);
   }
 
   function showToHour(hour: number) {
+    const show: Array<boolean> = [];
+
     if (toDate !== undefined) {
+      if (dayjs(toDate).isSame(now.current, "date")) {
+        show.push(hour > now.current.get("hour") + 1);
+      }
       if (parkingSpace.bookings[brazilianDate(toDate)] !== undefined) {
-        return !parkingSpace.bookings[brazilianDate(toDate)].includes(hour);
-      } else if (dayjs(toDate).isSame(now.current, "date")) {
-        return hour > now.current.get("hour") + 1;
+        show.push(!parkingSpace.bookings[brazilianDate(toDate)].includes(hour));
       }
     }
-    return true;
+    return show.every((s) => s);
   }
 
   return (
@@ -126,7 +134,7 @@ export default function BorrowForm({
                   value={field.value}
                   onChange={field.onChange}
                   disabled={disableDate}
-                  // fromDate={now.current.toDate()}
+                  fromDate={now.current.toDate()}
                 />
                 <FormMessage />
               </FormItem>
@@ -160,7 +168,7 @@ export default function BorrowForm({
                   value={field.value}
                   onChange={field.onChange}
                   disabled={disableDate}
-                  // fromDate={now.current.toDate()}
+                  fromDate={now.current.toDate()}
                 />
                 <FormMessage />
               </FormItem>
