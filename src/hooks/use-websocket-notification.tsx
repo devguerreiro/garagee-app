@@ -11,11 +11,13 @@ import { decodeTokenFromCookie } from "@/utils";
 type Props = {
   eventName: string;
   message: string;
+  callback?: () => void;
 };
 
 export default function useWebSocketNotification({
   eventName,
   message,
+  callback,
 }: Readonly<Props>) {
   useEffect(() => {
     const socket = getSocket();
@@ -26,6 +28,7 @@ export default function useWebSocketNotification({
       if (room) {
         socket.on(eventName, () => {
           toast.info(message);
+          if (callback) callback();
         });
       }
     });
