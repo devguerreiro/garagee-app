@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { MapPinHouseIcon } from "lucide-react";
 
 import fetchWrapper from "@/lib/fetch";
 
-import useNotificationState from "@/states/notification";
+import useWebSocketNotification from "@/hooks/use-websocket-notification";
 
 import NavbarItem from "./NavbarItem";
 
 export default function NavbarItemGarage() {
-  const { pendingBookingsQuantity, setPendingBookingsQuantity } =
-    useNotificationState();
+  const [pendingBookingsQuantity, setPendingBookingsQuantity] = useState<
+    number | null
+  >(null);
 
   function getPendingReceivedQuantity() {
     if (pendingBookingsQuantity) {
@@ -31,6 +32,16 @@ export default function NavbarItemGarage() {
       }
     );
   }, []);
+
+  useWebSocketNotification({
+    eventName: "new booking",
+    message: "Você recebeu uma nova solicitação de reserva",
+    callback: () =>
+      setPendingBookingsQuantity((old) => {
+        if (old) return old + 1;
+        return 0;
+      }),
+  });
 
   return (
     <NavbarItem href="/garagem">

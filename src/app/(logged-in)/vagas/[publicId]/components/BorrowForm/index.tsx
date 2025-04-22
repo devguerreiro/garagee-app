@@ -191,11 +191,18 @@ export default function BorrowForm({
             )}
           />
         </div>
-        <div className="!mt-12 flex justify-between">
-          <Button type="button" variant="ghost" onClick={onCancel}>
+        <div className="!mt-12 flex gap-4">
+          <Button
+            type="button"
+            variant="link"
+            onClick={onCancel}
+            className="flex-1 text-inherit hover:no-underline"
+          >
             Cancelar
           </Button>
-          <Button type="submit">Solicitar</Button>
+          <Button type="submit" className="flex-1">
+            Solicitar
+          </Button>
         </div>
       </form>
     </Form>
