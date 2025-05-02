@@ -26,7 +26,7 @@ export default function Page() {
         },
       ]}
       renderStep={(step) => (
-        <div className="container p-8 bg-card shadow rounded-lg space-y-4">
+        <div className="container p-8 bg-card shadow rounded-lg space-y-4 overflow-hidden">
           <p className="text-sm">
             Preencha as informacoes abaixo para ter acesso a plataforma
           </p>

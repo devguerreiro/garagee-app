@@ -1,3 +1,12 @@
+export type ResponseDTO<T> = {
+  data: T | null;
+  error: {
+    message: string;
+    error: string;
+    statusCode: number;
+  } | null;
+};
+
 export interface TokenDTO {
   sub: string;
   iat: number;

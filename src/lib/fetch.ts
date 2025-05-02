@@ -4,14 +4,7 @@ import { cookies } from "next/headers";
 
 import { API_BASE_URL } from "@/env";
 
-type ResponseDTO<T> = {
-  data: T | null;
-  error: {
-    message: string;
-    error: string;
-    statusCode: number;
-  } | null;
-};
+import { ResponseDTO } from "@/app/dtos";
 
 export default async function fetchWrapper<T>(
   url: string,

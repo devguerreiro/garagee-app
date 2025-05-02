@@ -74,7 +74,7 @@ export default function LocationForm(props: Readonly<Props>) {
     form.resetField("building");
     if (name.length >= 3) {
       const data = await fetchData<Array<BuildingListDTO>>(
-        "api/building?" + new URLSearchParams({ name })
+        "building?" + new URLSearchParams({ name })
       );
       if (data) {
         options = data.map((building) => ({
@@ -93,7 +93,7 @@ export default function LocationForm(props: Readonly<Props>) {
 
   async function onBuildingChange(building: string) {
     const data = await fetchData<Array<TowerListDTO>>(
-      "api/tower?" + new URLSearchParams({ building })
+      "tower?" + new URLSearchParams({ building })
     );
     if (data) {
       setTowerOptions(
@@ -109,7 +109,7 @@ export default function LocationForm(props: Readonly<Props>) {
 
   async function onTowerChange(tower: string) {
     const data = await fetchData<Array<ApartmentListDTO>>(
-      "api/apartment?" + new URLSearchParams({ tower })
+      "apartment?" + new URLSearchParams({ tower })
     );
     if (data) {
       setApartmentOptions(
